@@ -19,6 +19,7 @@ HEADERS += \
     expectedworks.h \
     mainwindow.h \
     smallwindows.h \
+    sqlconn.h \
     todayworks.h
 
 FORMS += \
@@ -33,3 +34,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 TARGET = EasyGTD
 RC_ICONS = Projectico.ico
+QT+=sql

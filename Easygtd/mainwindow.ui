@@ -60,18 +60,47 @@
        <property name="spacing">
         <number>0</number>
        </property>
-       <item row="9" column="0">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+       <item row="0" column="0">
+        <widget class="QToolButton" name="todayButton">
+         <property name="styleSheet">
+          <string notr="true">QToolButton{   
+	border-top: 3px outset transparent;         /* 上边框设置*/
+	border-bottom: 7px outset transparent;
+	border-right: 3px outset transparent;
+	border-left: 3px outset transparent;
+    min-width: 150px;
+    min-height: 40px;
+	background-color: rgb(245, 245, 245);
+}
+
+/* 鼠标悬停 */
+QToolButton:hover{
+	background-color: rgb(235, 235, 235);
+}
+
+/* 点击和按下 */
+QToolButton:pressed,QToolButton:checked{
+	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	background-color: rgb(235, 235, 235);	
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>294</height>
-          </size>
+         <property name="text">
+          <string>今日任务</string>
          </property>
-        </spacer>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QToolButton" name="expectsButton">
@@ -103,48 +132,6 @@ QPushButton:default {
          </property>
          <property name="text">
           <string>预定任务</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-         <attribute name="buttonGroup">
-          <string notr="true">buttonGroup</string>
-         </attribute>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QToolButton" name="toolButton_5">
-         <property name="styleSheet">
-          <string notr="true">QToolButton{   
-	border-top: 3px outset transparent;         /* 上边框设置*/
-	border-bottom: 7px outset transparent;
-	border-right: 3px outset transparent;
-	border-left: 3px outset transparent;
-    min-width: 150px;
-    min-height: 40px;
-	background-color: rgb(245, 245, 245);
-}
-
-/* 鼠标悬停 */
-QToolButton:hover{
-	background-color: rgb(235, 235, 235);
-}
-
-/* 点击和按下 */
-QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
-	background-color: rgb(235, 235, 235);	
-}
-
-QPushButton:default {
-    border-color: navy; /* make the default button prominent */
-}</string>
-         </property>
-         <property name="text">
-          <string>昨日任务</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -199,8 +186,8 @@ QPushButton:default {
          </attribute>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QToolButton" name="toolButton_4">
+       <item row="7" column="0">
+        <widget class="QToolButton" name="toolButton_5">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -228,7 +215,7 @@ QPushButton:default {
 }</string>
          </property>
          <property name="text">
-          <string>已完成</string>
+          <string>昨日任务</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -283,8 +270,21 @@ QPushButton:default {
          </attribute>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QToolButton" name="todayButton">
+       <item row="9" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>294</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="10" column="0">
+        <widget class="QToolButton" name="toolButton_4">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -312,7 +312,7 @@ QPushButton:default {
 }</string>
          </property>
          <property name="text">
-          <string>今日任务</string>
+          <string>截止日期分布</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
