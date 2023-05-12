@@ -54,11 +54,69 @@ void SqliteOperator::CreatTable()
     sqlQuery.prepare(createSql);
     if(!sqlQuery.exec())//执行sql语句
     {
-        qDebug() << "Error: Fail to create table. " << sqlQuery.lastError();
+        qDebug() << "Error: Fail to create today table. " << sqlQuery.lastError();
     }
     else
     {
-        qDebug() << "Table created!";
+        qDebug() << "today table created!";
+    }
+    createSql = QString("create table yesterdaywork (\
+                        id integer primary key AUTOINCREMENT,\
+                        creatdate date not null,\
+                        content text not null,\
+                        complete integer not null)");
+    sqlQuery.prepare(createSql);
+    if(!sqlQuery.exec())//执行sql语句
+    {
+        qDebug() << "Error: Fail to create yesterday table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "yesterday table created!";
+    }
+    createSql = QString("create table expectedwork (\
+                        id integer primary key AUTOINCREMENT,\
+                        creatdate date not null,\
+                        content text not null,\
+                        complete integer not null)");
+    sqlQuery.prepare(createSql);
+    if(!sqlQuery.exec())//执行sql语句
+    {
+        qDebug() << "Error: Fail to create expected table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "expected table created!";
+    }
+    createSql = QString("create table longtermwork (\
+                        id integer primary key AUTOINCREMENT,\
+                        startdate date not null,\
+                        enddate date not null,\
+                        content text not null,\
+                        complete integer not null)");
+    sqlQuery.prepare(createSql);
+    if(!sqlQuery.exec())//执行sql语句
+    {
+        qDebug() << "Error: Fail to create longterm table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "longterm table created!";
+    }
+    createSql = QString("create table extendedmwork (\
+                        id integer primary key AUTOINCREMENT,\
+                        startdate date not null,\
+                        enddate date not null,\
+                        content text not null,\
+                        complete integer not null)");
+    sqlQuery.prepare(createSql);
+    if(!sqlQuery.exec())//执行sql语句
+    {
+        qDebug() << "Error: Fail to create extended table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "extended table created!";
     }
 }
 
