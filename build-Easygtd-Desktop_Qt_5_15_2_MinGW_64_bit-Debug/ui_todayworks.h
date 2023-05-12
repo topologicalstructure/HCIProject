@@ -28,7 +28,7 @@ public:
         Todayworks->resize(962, 597);
         label = new QLabel(Todayworks);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(20, 10, 141, 61));
+        label->setGeometry(QRect(20, 10, 131, 61));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);

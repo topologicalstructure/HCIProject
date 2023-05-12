@@ -145,7 +145,7 @@ QPushButton:default {
         </widget>
        </item>
        <item row="8" column="0">
-        <widget class="QToolButton" name="toolButton_6">
+        <widget class="QToolButton" name="extendButton">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -187,7 +187,7 @@ QPushButton:default {
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QToolButton" name="toolButton_5">
+        <widget class="QToolButton" name="yestButton">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -229,7 +229,7 @@ QPushButton:default {
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QToolButton" name="toolButton_3">
+        <widget class="QToolButton" name="longtermButton">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -284,7 +284,7 @@ QPushButton:default {
         </spacer>
        </item>
        <item row="10" column="0">
-        <widget class="QToolButton" name="toolButton_4">
+        <widget class="QToolButton" name="ddlButton">
          <property name="styleSheet">
           <string notr="true">QToolButton{   
 	border-top: 3px outset transparent;         /* 上边框设置*/
@@ -347,7 +347,6 @@ QPushButton:default {
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
