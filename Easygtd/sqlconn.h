@@ -15,8 +15,25 @@ public:
     void AddToday(QString content);//添加今日任务的函数，参数为具体内容
     void FinishToday(int id,int finish);//完成或取消完成该id的今日任务
     void ChangeToday(int id,QString content);//修改今日任务的信息
+    void DeleteToday(int id);//删除今日任务
+    void GetToday(int id,QString& content,int& finish);//获取今日任务
     void FinishYester(int id,int finish);//完成或取消完成该id的昨日任务
     void ChangeYester(int id,QString content);//修改昨日任务的信息
+    void DeleteYester(int id);//删除昨日任务
+    void GetYesterday(int id,QString& content,int& finish);//获取昨日任务
+    void AddExpected(QString date,QString content);//添加预定任务
+    void ChangeExpected(int id,QString date,QString content);//修改预定任务
+    void DeleteExpected(int id);//删除预定任务
+    void GetExpected(int id,QString& date,QString& content,int& finish);//获取预定任务
+    void AddLongterm(QString sdate,QString edate,QString content);//添加长期任务
+    void FinishLongterm(int id,int finish);//完成或取消完成该id的长期任务
+    void ChangeLongterm(int id,QString sdate,QString edate,QString content);//修改长期任务
+    void DeleteLongterm(int id);//删除长期任务
+    void GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取长期任务
+    void FinishExtended(int id,int finish);//完成或取消完成该id的延期任务
+    void DeleteExtended(int id);//删除延期任务
+    void GetExtended(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取延期任务
+    int GetDeadline(QString date);//查询某一日期的截止任务数量
 
 private:
     void CreatTable();
@@ -198,6 +215,21 @@ void SqliteOperator::ChangeToday(int id,QString content)
     }
 }
 
+void SqliteOperator::DeleteToday(int id)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("delete from todaywork where id=?");
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "delete data success!";
+    }
+}
+
 void SqliteOperator::FinishYester(int id,int finish)
 {
     QSqlQuery sqlQuery;
@@ -228,4 +260,234 @@ void SqliteOperator::ChangeYester(int id,QString content)
     {
         qDebug() << "change data success!";
     }
+}
+
+void SqliteOperator::DeleteYester(int id)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("delete from yesterdaywork where id=?");
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "delete data success!";
+    }
+}
+
+void SqliteOperator::AddExpected(QString date,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("insert into expectedwork values(null,?,?,0)");
+    sqlQuery.addBindValue(date);
+    sqlQuery.addBindValue(content);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "add data success!";
+    }
+}
+
+void SqliteOperator::ChangeExpected(int id,QString date,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update expectedwork set creatdate=?,content=? where id=?");
+    sqlQuery.addBindValue(date);
+    sqlQuery.addBindValue(content);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
+
+void SqliteOperator::DeleteExpected(int id)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("delete from expectedwork where id=?");
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "delete data success!";
+    }
+}
+
+void SqliteOperator::AddLongterm(QString sdate,QString edate,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("insert into longtermwork values(null,?,?,?,0)");
+    sqlQuery.addBindValue(sdate);
+    sqlQuery.addBindValue(edate);
+    sqlQuery.addBindValue(content);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "add data success!";
+    }
+}
+
+void SqliteOperator::FinishLongterm(int id,int finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update longtermwork set complete=? where id=?");
+    sqlQuery.addBindValue(finish);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
+
+void SqliteOperator::ChangeLongterm(int id,QString sdate,QString edate,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update longtermwork set startdate=?,enddate=?,content=? where id=?");
+    sqlQuery.addBindValue(sdate);
+    sqlQuery.addBindValue(edate);
+    sqlQuery.addBindValue(content);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
+
+void SqliteOperator::DeleteLongterm(int id)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("delete from longtermwork where id=?");
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "delete data success!";
+    }
+}
+
+void SqliteOperator::FinishExtended(int id,int finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update extendedmwork set complete=? where id=?");
+    sqlQuery.addBindValue(finish);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
+
+void SqliteOperator::DeleteExtended(int id)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("delete from extendedwork where id=?");
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "delete data success!";
+    }
+}
+
+int SqliteOperator::GetDeadline(QString date)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from longtermwork where enddate=?");
+    sqlQuery.addBindValue(date);
+    sqlQuery.exec();
+    sqlQuery.next();
+    return sqlQuery.value(0).toInt();
+}
+
+void SqliteOperator::GetToday(int id,QString& content,int& finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select * from todaywork where id=?");
+    sqlQuery.addBindValue(id);
+    sqlQuery.exec();
+    sqlQuery.next();
+    content=sqlQuery.value(2).toString();
+    finish=sqlQuery.value(3).toInt();
+}
+
+void SqliteOperator::GetYesterday(int id,QString& content,int& finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select * from yesterdaywork where id=?");
+    sqlQuery.addBindValue(id);
+    sqlQuery.exec();
+    sqlQuery.next();
+    content=sqlQuery.value(2).toString();
+    finish=sqlQuery.value(3).toInt();
+}
+
+void SqliteOperator::GetExpected(int id,QString& date,QString& content,int& finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select * from expectedwork where id=?");
+    sqlQuery.addBindValue(id);
+    sqlQuery.exec();
+    sqlQuery.next();
+    date=sqlQuery.value(1).toString();
+    content=sqlQuery.value(2).toString();
+    finish=sqlQuery.value(3).toInt();
+}
+
+ void SqliteOperator::GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select * from longtermwork where id=?");
+    sqlQuery.addBindValue(id);
+    sqlQuery.exec();
+    sqlQuery.next();
+    sdate=sqlQuery.value(1).toString();
+    edate=sqlQuery.value(2).toString();
+    content=sqlQuery.value(3).toString();
+    finish=sqlQuery.value(4).toInt();
+}
+
+void SqliteOperator::GetExtended(int id,QString& sdate,QString& edate,QString& content,int& finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select * from extendedwork where id=?");
+    sqlQuery.addBindValue(id);
+    sqlQuery.exec();
+    sqlQuery.next();
+    sdate=sqlQuery.value(1).toString();
+    edate=sqlQuery.value(2).toString();
+    content=sqlQuery.value(3).toString();
+    finish=sqlQuery.value(4).toInt();
 }
