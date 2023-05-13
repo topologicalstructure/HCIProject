@@ -11,7 +11,12 @@ public:
     QSqlDatabase database;
     SqliteOperator();
     ~SqliteOperator();
-    void AddToday(QString date,QString content);//添加今日任务的函数，两个参数分别为添加日期和具体内容，日期应当按照"xxxx-xx-xx"的形式
+    void UpdateTable();//用来更新表的内容
+    void AddToday(QString content);//添加今日任务的函数，参数为具体内容
+    void FinishToday(int id,int finish);//完成或取消完成该id的今日任务
+    void ChangeToday(int id,QString content);//修改今日任务的信息
+    void FinishYester(int id,int finish);//完成或取消完成该id的昨日任务
+    void ChangeYester(int id,QString content);//修改昨日任务的信息
 
 private:
     void CreatTable();
@@ -40,6 +45,32 @@ SqliteOperator::SqliteOperator()
 SqliteOperator::~SqliteOperator()
 {
     database.close();
+}
+
+void SqliteOperator::UpdateTable()
+{
+    QSqlQuery sqlQuery;
+    //首先将所有昨天添加但未完成的任务复制到yesterdaywork表中
+    sqlQuery.prepare("insert into yesterdaywork(creatdate,content,complete) select creatdate,content,complete from todaywork where todaywork.creatdate=date('now','-1 day') and todaywork.complete=0");
+    sqlQuery.exec();
+    sqlQuery.prepare("insert into yesterdaywork(creatdate,content,complete) select creatdate,content,complete from expectedwork where expectedwork.creatdate=date('now','-1 day')");
+    sqlQuery.exec();
+    //再将所有非今天的数据从todaywork表中删除
+    sqlQuery.prepare("delete from todaywork where creatdate<date('now')");
+    sqlQuery.exec();
+    //删除yesterday中的多余数据
+    sqlQuery.prepare("delete from yesterdaywork where creatdate<date('now','-1 day')");
+    sqlQuery.exec();
+    //再将所有预约到今天的任务移动到todaywork表中
+    sqlQuery.prepare("insert into todaywork(creatdate,content,complete) select creatdate,content,complete from expectedwork where expectedwork.creatdate=date('now')");
+    sqlQuery.exec();
+    sqlQuery.prepare("delete from expectedwork where creatdate<=date('now')");
+    sqlQuery.exec();
+    //处理延期的长期任务
+    sqlQuery.prepare("insert into extendedwork(startdate,enddate,content,complete) select startdate,enddate,content,complete from longtermwork where longtermwork.enddate<date('now') and longtermwork.complete=0");
+    sqlQuery.exec();
+    sqlQuery.prepare("delete from longtermwork where enddate<date('now')");
+    sqlQuery.exec();
 }
 
 void SqliteOperator::CreatTable()
@@ -103,7 +134,7 @@ void SqliteOperator::CreatTable()
     {
         qDebug() << "longterm table created!";
     }
-    createSql = QString("create table extendedmwork (\
+    createSql = QString("create table extendedwork (\
                         id integer primary key AUTOINCREMENT,\
                         startdate date not null,\
                         enddate date not null,\
@@ -120,11 +151,10 @@ void SqliteOperator::CreatTable()
     }
 }
 
-void SqliteOperator::AddToday(QString date,QString content)
+void SqliteOperator::AddToday(QString content)
 {
     QSqlQuery sqlQuery;
-    sqlQuery.prepare("insert into todaywork values(null,?,?,0)");
-    sqlQuery.addBindValue(date);
+    sqlQuery.prepare("insert into todaywork values(null,date('now'),?,0)");
     sqlQuery.addBindValue(content);
     if(!sqlQuery.exec())
     {
@@ -136,7 +166,66 @@ void SqliteOperator::AddToday(QString date,QString content)
     }
 }
 
+void SqliteOperator::FinishToday(int id,int finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update todaywork set complete=? where id=?");
+    sqlQuery.addBindValue(finish);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
 
+void SqliteOperator::ChangeToday(int id,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update todaywork set content=? where id=?");
+    sqlQuery.addBindValue(content);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
 
+void SqliteOperator::FinishYester(int id,int finish)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update yesterdaywork set complete=? where id=?");
+    sqlQuery.addBindValue(finish);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
 
-
+void SqliteOperator::ChangeYester(int id,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update testerdaywork set content=? where id=?");
+    sqlQuery.addBindValue(content);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
+    }
+}
