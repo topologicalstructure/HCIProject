@@ -1,0 +1,17 @@
+debug/deadlinedistri.o
+debug/expectedworks.o
+debug/extendedworks.o
+debug/longtermworks.o
+debug/main.o
+debug/mainwindow.o
+debug/smallwindows.o
+debug/todayworks.o
+debug/yesterdayworks.o
+debug/moc_deadlinedistri.o
+debug/moc_expectedworks.o
+debug/moc_extendedworks.o
+debug/moc_longtermworks.o
+debug/moc_mainwindow.o
+debug/moc_smallwindows.o
+debug/moc_todayworks.o
+debug/moc_yesterdayworks.o

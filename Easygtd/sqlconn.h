@@ -16,24 +16,29 @@ public:
     void FinishToday(int id,int finish);//完成或取消完成该id的今日任务
     void ChangeToday(int id,QString content);//修改今日任务的信息
     void DeleteToday(int id);//删除今日任务
+    int* GetTodayList(int* n);//获取今日任务列表，n为项数，用完以后需要释放
     void GetToday(int id,QString& content,int& finish);//获取今日任务
     void FinishYester(int id,int finish);//完成或取消完成该id的昨日任务
     void ChangeYester(int id,QString content);//修改昨日任务的信息
     void DeleteYester(int id);//删除昨日任务
+    int* GetYesterList(int* n);//获取昨日任务列表
     void GetYesterday(int id,QString& content,int& finish);//获取昨日任务
     void AddExpected(QString date,QString content);//添加预定任务
     void ChangeExpected(int id,QString date,QString content);//修改预定任务
     void DeleteExpected(int id);//删除预定任务
+    int* GetExpectedList(int* n);//获取预定任务列表
     void GetExpected(int id,QString& date,QString& content,int& finish);//获取预定任务
     void AddLongterm(QString sdate,QString edate,QString content);//添加长期任务
     void FinishLongterm(int id,int finish);//完成或取消完成该id的长期任务
     void ChangeLongterm(int id,QString sdate,QString edate,QString content);//修改长期任务
     void DeleteLongterm(int id);//删除长期任务
+    int* GetLongtermList(int* );//获取长期任务列表
     void GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取长期任务
     void FinishExtended(int id,int finish);//完成或取消完成该id的延期任务
     void DeleteExtended(int id);//删除延期任务
+    int* GetExtendedList(int* n);//获取延期任务列表
     void GetExtended(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取延期任务
-    int GetDeadline(QString date);//查询某一日期的截止任务数量
+    int GetDeadline(QString date);//查询某一日期的截止任务数量，"xxxx-xx-xx"
 
 private:
     void CreatTable();
@@ -427,9 +432,27 @@ int SqliteOperator::GetDeadline(QString date)
     QSqlQuery sqlQuery;
     sqlQuery.prepare("select count(*) from longtermwork where enddate=?");
     sqlQuery.addBindValue(date);
-    sqlQuery.exec();
+    sqlQuery.exec();    
     sqlQuery.next();
     return sqlQuery.value(0).toInt();
+}
+
+int* SqliteOperator::GetTodayList(int* n)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from todaywork");
+    sqlQuery.exec();
+    sqlQuery.next();
+    int* list;
+    *n=sqlQuery.value(0).toInt();
+    list=new int[*n];
+    sqlQuery.prepare("select id from todaywork");
+    sqlQuery.exec();
+    int i=0;
+    while(sqlQuery.next()){
+        list[i++]=sqlQuery.value(0).toInt();
+    }
+    return list;
 }
 
 void SqliteOperator::GetToday(int id,QString& content,int& finish)
@@ -443,6 +466,24 @@ void SqliteOperator::GetToday(int id,QString& content,int& finish)
     finish=sqlQuery.value(3).toInt();
 }
 
+int* SqliteOperator::GetYesterList(int* n)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from yesterdaywork");
+    sqlQuery.exec();
+    sqlQuery.next();
+    *n=sqlQuery.value(0).toInt();
+    int* list;
+    list=new int[*n];
+    sqlQuery.prepare("select id from yesterdaywork");
+    sqlQuery.exec();
+    int i=0;
+    while(sqlQuery.next()){
+        list[i++]=sqlQuery.value(0).toInt();
+    }
+    return list;
+}
+
 void SqliteOperator::GetYesterday(int id,QString& content,int& finish)
 {
     QSqlQuery sqlQuery;
@@ -452,6 +493,24 @@ void SqliteOperator::GetYesterday(int id,QString& content,int& finish)
     sqlQuery.next();
     content=sqlQuery.value(2).toString();
     finish=sqlQuery.value(3).toInt();
+}
+
+int* SqliteOperator::GetExpectedList(int* n)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from expectedwork");
+    sqlQuery.exec();
+    sqlQuery.next();
+    *n=sqlQuery.value(0).toInt();
+    int* list;
+    list=new int[*n];
+    sqlQuery.prepare("select id from expectedwork");
+    sqlQuery.exec();
+    int i=0;
+    while(sqlQuery.next()){
+        list[i++]=sqlQuery.value(0).toInt();
+    }
+    return list;
 }
 
 void SqliteOperator::GetExpected(int id,QString& date,QString& content,int& finish)
@@ -466,6 +525,24 @@ void SqliteOperator::GetExpected(int id,QString& date,QString& content,int& fini
     finish=sqlQuery.value(3).toInt();
 }
 
+int* SqliteOperator::GetLongtermList(int* n)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from longtermwork");
+    sqlQuery.exec();
+    sqlQuery.next();
+    *n=sqlQuery.value(0).toInt();
+    int* list;
+    list=new int[*n];
+    sqlQuery.prepare("select id from longtermwork");
+    sqlQuery.exec();
+    int i=0;
+    while(sqlQuery.next()){
+        list[i++]=sqlQuery.value(0).toInt();
+    }
+    return list;
+}
+
  void SqliteOperator::GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish)
 {
     QSqlQuery sqlQuery;
@@ -477,6 +554,24 @@ void SqliteOperator::GetExpected(int id,QString& date,QString& content,int& fini
     edate=sqlQuery.value(2).toString();
     content=sqlQuery.value(3).toString();
     finish=sqlQuery.value(4).toInt();
+}
+
+int* SqliteOperator::GetExtendedList(int* n)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("select count(*) from extendedwork");
+    sqlQuery.exec();
+    sqlQuery.next();
+    *n=sqlQuery.value(0).toInt();
+    int* list;
+    list=new int[*n];
+    sqlQuery.prepare("select id from extendedwork");
+    sqlQuery.exec();
+    int i=0;
+    while(sqlQuery.next()){
+        list[i++]=sqlQuery.value(0).toInt();
+    }
+    return list;
 }
 
 void SqliteOperator::GetExtended(int id,QString& sdate,QString& edate,QString& content,int& finish)
