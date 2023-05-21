@@ -31,7 +31,25 @@
     <string>我的一天</string>
    </property>
   </widget>
+  <widget class="create_widget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>550</y>
+     <width>951</width>
+     <height>51</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>create_widget</class>
+   <extends>QWidget</extends>
+   <header>create_widget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

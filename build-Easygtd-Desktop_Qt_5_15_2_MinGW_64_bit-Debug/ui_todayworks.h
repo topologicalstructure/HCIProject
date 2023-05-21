@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
+#include "create_widget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -20,6 +21,7 @@ class Ui_Todayworks
 {
 public:
     QLabel *label;
+    create_widget *widget;
 
     void setupUi(QWidget *Todayworks)
     {
@@ -32,6 +34,9 @@ public:
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        widget = new create_widget(Todayworks);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(0, 550, 951, 51));
 
         retranslateUi(Todayworks);
 

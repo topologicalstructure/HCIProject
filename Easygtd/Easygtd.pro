@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    create_widget.cpp \
     deadlinedistri.cpp \
     expectedworks.cpp \
     extendedworks.cpp \
@@ -16,10 +17,12 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     smallwindows.cpp \
+    sqlconn.cpp \
     todayworks.cpp \
     yesterdayworks.cpp
 
 HEADERS += \
+    create_widget.h \
     deadlinedistri.h \
     expectedworks.h \
     extendedworks.h \
@@ -31,6 +34,7 @@ HEADERS += \
     yesterdayworks.h
 
 FORMS += \
+    create_widget.ui \
     deadlinedistri.ui \
     expectedworks.ui \
     extendedworks.ui \
