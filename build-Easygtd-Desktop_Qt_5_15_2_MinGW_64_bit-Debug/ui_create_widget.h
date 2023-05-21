@@ -32,7 +32,7 @@ public:
     {
         if (create_widget->objectName().isEmpty())
             create_widget->setObjectName(QString::fromUtf8("create_widget"));
-        create_widget->resize(894, 36);
+        create_widget->resize(889, 46);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -51,6 +51,7 @@ public:
         sizePolicy1.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
         lineEdit->setSizePolicy(sizePolicy1);
         QFont font;
+        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221 Light"));
         font.setPointSize(10);
         lineEdit->setFont(font);
         lineEdit->setMouseTracking(false);
@@ -63,7 +64,14 @@ public:
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
         sizePolicy.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
         comboBox->setSizePolicy(sizePolicy);
-        comboBox->setFont(font);
+        QFont font1;
+        font1.setPointSize(10);
+        comboBox->setFont(font1);
+        comboBox->setStyleSheet(QString::fromUtf8("QComboBox QAbstractItemView::item{\n"
+"	height:40px;\n"
+"}\n"
+""));
+        comboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         horizontalLayout->addWidget(comboBox);
 
@@ -74,7 +82,7 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(dateEdit->sizePolicy().hasHeightForWidth());
         dateEdit->setSizePolicy(sizePolicy2);
-        dateEdit->setFont(font);
+        dateEdit->setFont(font1);
         dateEdit->setMouseTracking(false);
         dateEdit->setTabletTracking(false);
         dateEdit->setAcceptDrops(false);
@@ -87,7 +95,7 @@ public:
         dateEdit_2->setObjectName(QString::fromUtf8("dateEdit_2"));
         sizePolicy2.setHeightForWidth(dateEdit_2->sizePolicy().hasHeightForWidth());
         dateEdit_2->setSizePolicy(sizePolicy2);
-        dateEdit_2->setFont(font);
+        dateEdit_2->setFont(font1);
         dateEdit_2->setCalendarPopup(true);
 
         horizontalLayout->addWidget(dateEdit_2);

@@ -12,26 +12,55 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "create_widget.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_ExpectedWorks
 {
 public:
+    QVBoxLayout *verticalLayout;
     QLabel *label;
+    QWidget *widget_2;
+    create_widget *widget;
 
     void setupUi(QWidget *ExpectedWorks)
     {
         if (ExpectedWorks->objectName().isEmpty())
             ExpectedWorks->setObjectName(QString::fromUtf8("ExpectedWorks"));
         ExpectedWorks->resize(962, 597);
+        verticalLayout = new QVBoxLayout(ExpectedWorks);
+        verticalLayout->setSpacing(0);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, -1, 0, 0);
         label = new QLabel(ExpectedWorks);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 10, 141, 61));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+
+        verticalLayout->addWidget(label);
+
+        widget_2 = new QWidget(ExpectedWorks);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+
+        verticalLayout->addWidget(widget_2);
+
+        widget = new create_widget(ExpectedWorks);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
+        widget->setMinimumSize(QSize(0, 40));
+
+        verticalLayout->addWidget(widget);
+
 
         retranslateUi(ExpectedWorks);
 

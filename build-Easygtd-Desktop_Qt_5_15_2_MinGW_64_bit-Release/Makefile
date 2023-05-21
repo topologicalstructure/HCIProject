@@ -248,6 +248,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/qt_config.prf \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/toolchain.prf \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/default_pre.prf \
@@ -277,7 +278,6 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Sql.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/qtmain.prl \
-		.qmake.stash \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\Easygtd\Easygtd.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/spec_pre.prf:
@@ -458,6 +458,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/qt_config.prf:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/toolchain.prf:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/default_pre.prf:
@@ -487,7 +488,6 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Sql.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/qtmain.prl:
-.qmake.stash:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Easygtd\Easygtd.pro -spec win32-g++ "CONFIG+=qtquickcompiler"

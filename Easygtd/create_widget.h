@@ -3,12 +3,15 @@
 
 #include <QWidget>
 #include <QKeyEvent>
+#include <QStandardItem>
+#include <QApplication>
 #include "sqlconn.h"
 
 namespace Ui {
 class create_widget;
 }
 
+//该类为自定义的任务添加控件
 class create_widget : public QWidget
 {
     Q_OBJECT
