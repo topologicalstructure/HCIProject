@@ -22,6 +22,7 @@ SOURCES += \
     yesterdayworks.cpp
 
 HEADERS += \
+    CalendarWidget.h \
     create_widget.h \
     deadlinedistri.h \
     expectedworks.h \
