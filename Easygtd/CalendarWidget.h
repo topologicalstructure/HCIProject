@@ -15,7 +15,7 @@
 #define L_MAX 255  //最大L值
 #define MAX_DDL 30  //假设一天最多有30个任务
 
-SqliteOperator oper;
+SqliteOperator* oper;
 
 class CalendarWidget : public QCalendarWidget
 {
@@ -23,7 +23,7 @@ public:
     CalendarWidget(QWidget *parent = nullptr): QCalendarWidget(parent)
     {
         connect(this, &QCalendarWidget::currentPageChanged, this, &CalendarWidget::onPageChanged);//换页动作关联
-
+        oper=new SqliteOperator;
         //下面使用selectedDate()方法获取当前选中的日期，并使用daysInMonth()方法获取当前月份的天数。接下来，使用一个循环遍历这些日期，并使用qDebug()输出日期信息。
         QDate currentDate = selectedDate();
         int daysInMonth = currentDate.daysInMonth();
@@ -44,7 +44,7 @@ public:
             //下面是修改指定日期方格背景色部分的代码
             QTextCharFormat format;// 设置背景色为指定颜色，根据某天任务数量的多少确定
             int lightness=0;//设定颜色的亮度数值
-            int taskcount=oper.GetDeadline(date.toString(Qt::ISODate));//存储ddl数量
+            int taskcount=oper->GetDeadline(date.toString(Qt::ISODate));//存储ddl数量
             if(taskcount>=MAX_DDL)
             {
                 taskcount=MAX_DDL;

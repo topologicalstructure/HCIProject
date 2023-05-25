@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->buttonGroup->addButton(ui->ddlButton,5);
     ui->buttonGroup->button(0)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(0);
-    connect(ui->buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), ui->stackedWidget, &QStackedWidget::setCurrentIndex);
+    //connect(ui->buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), ui->stackedWidget, &QStackedWidget::setCurrentIndex);
+    connect(ui->buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(Change(int)));
     setWindowTitle("EasyGTD");
 }
 
@@ -46,4 +47,12 @@ void MainWindow::on_becomesmaller_clicked()
     smwin->show();
 }
 
-
+void MainWindow::Change(int id)
+{
+    if(id==5){
+        delete deadline;
+        deadline=new deadlinedistri;
+        ui->stackedWidget->insertWidget(5, deadline);
+    }
+    ui->stackedWidget->setCurrentIndex(id);
+}

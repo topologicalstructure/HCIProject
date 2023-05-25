@@ -55,7 +55,7 @@ private slots:
     void on_becomebig_clicked();
 
 public slots:
-    void slotCountMessage();
+    void slotCountMessage();       //定时触发的槽函数
 };
 
 

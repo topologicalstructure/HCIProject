@@ -22,3 +22,4 @@ deadlinedistri::~deadlinedistri()
 {
     delete ui;
 }
+

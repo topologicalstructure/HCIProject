@@ -36,6 +36,7 @@ private:
 
 private slots:
     void on_becomesmaller_clicked();
+    void Change(int id);
 };
 
 
