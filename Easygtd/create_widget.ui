@@ -48,12 +48,19 @@
      </property>
      <property name="font">
       <font>
-       <family>微软雅黑 Light</family>
+       <family>微软雅黑</family>
        <pointsize>10</pointsize>
       </font>
      </property>
      <property name="mouseTracking">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    border: 0px; 
+    padding: 1px 10px 1px 3px;
+    color: #000000;
+}</string>
      </property>
     </widget>
    </item>
@@ -67,12 +74,16 @@
      </property>
      <property name="font">
       <font>
+       <family>微软雅黑</family>
        <pointsize>10</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QComboBox QAbstractItemView::item{
-	height:40px;
+      <string notr="true">
+QComboBox {
+    border: 0px; 
+    padding: 1px 10px 1px 3px;
+    color: #000000;
 }
 </string>
      </property>
@@ -93,6 +104,9 @@
    </item>
    <item>
     <widget class="QDateEdit" name="dateEdit">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
@@ -101,6 +115,7 @@
      </property>
      <property name="font">
       <font>
+       <family>微软雅黑</family>
        <pointsize>10</pointsize>
       </font>
      </property>
@@ -113,6 +128,22 @@
      <property name="acceptDrops">
       <bool>false</bool>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QDateEdit {
+    border: 0px; 
+    padding: 1px 10px 1px 3px;
+    color: #000000;
+}</string>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+     <property name="keyboardTracking">
+      <bool>true</bool>
+     </property>
      <property name="minimumDateTime">
       <datetime>
        <hour>0</hour>
@@ -120,7 +151,7 @@
        <second>0</second>
        <year>2023</year>
        <month>5</month>
-       <day>21</day>
+       <day>20</day>
       </datetime>
      </property>
      <property name="displayFormat">
@@ -141,8 +172,16 @@
      </property>
      <property name="font">
       <font>
+       <family>微软雅黑</family>
        <pointsize>10</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QDateEdit {
+    border: 0px; 
+    padding: 1px 10px 1px 3px;
+    color: #000000;
+}</string>
      </property>
      <property name="displayFormat">
       <string>yyyy-MM-dd</string>

@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -31,6 +32,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *CloseButton;
     QSpacerItem *verticalSpacer;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -74,6 +76,10 @@ public:
 
         gridLayout->addItem(verticalSpacer, 1, 2, 1, 1);
 
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(380, 0, 211, 31));
+        label->setFont(font);
         smallwindows->setCentralWidget(centralwidget);
         menubar = new QMenuBar(smallwindows);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -93,6 +99,7 @@ public:
         smallwindows->setWindowTitle(QCoreApplication::translate("smallwindows", "MainWindow", nullptr));
         becomebig->setText(QCoreApplication::translate("smallwindows", "\345\217\230\345\244\247", nullptr));
         CloseButton->setText(QCoreApplication::translate("smallwindows", "\345\205\263\351\227\255", nullptr));
+        label->setText(QCoreApplication::translate("smallwindows", "TextLabel", nullptr));
     } // retranslateUi
 
 };

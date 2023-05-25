@@ -5,6 +5,17 @@
 #include <QMouseEvent>
 #include <QScreen>
 #include <QPropertyAnimation>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonValue>
+#include <QJsonParseError>
+#include <QJsonObject>
+#include <QDebug>
+#include <QtCore>
+#include <QTimer>
 
 namespace Ui {
 class smallwindows;
@@ -24,6 +35,10 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);  //鼠标释放事件
     virtual void enterEvent(QEvent *event);              //鼠标移入事件
     virtual void leaveEvent(QEvent *event);              //鼠标移出事件
+    QNetworkAccessManager manager;
+    QNetworkRequest request;
+    QUrl url = QUrl("https://api.seniverse.com/v3/weather/now.json?key=S9YW3zZRzKHPxy-67&location=ip&language=zh-Hans&unit=c");
+    void GetWeather(QNetworkReply *reply);
 
 
 private:
@@ -39,6 +54,9 @@ private slots:
     void on_CloseButton_clicked();
     void on_becomebig_clicked();
 
+public slots:
+    void slotCountMessage();
 };
+
 
 #endif // SMALLWINDOWS_H

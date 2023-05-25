@@ -51,10 +51,15 @@ public:
         sizePolicy1.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
         lineEdit->setSizePolicy(sizePolicy1);
         QFont font;
-        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221 Light"));
+        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font.setPointSize(10);
         lineEdit->setFont(font);
         lineEdit->setMouseTracking(false);
+        lineEdit->setStyleSheet(QString::fromUtf8("QLineEdit {\n"
+"    border: 0px; \n"
+"    padding: 1px 10px 1px 3px;\n"
+"    color: #000000;\n"
+"}"));
 
         horizontalLayout->addWidget(lineEdit);
 
@@ -64,11 +69,12 @@ public:
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
         sizePolicy.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
         comboBox->setSizePolicy(sizePolicy);
-        QFont font1;
-        font1.setPointSize(10);
-        comboBox->setFont(font1);
-        comboBox->setStyleSheet(QString::fromUtf8("QComboBox QAbstractItemView::item{\n"
-"	height:40px;\n"
+        comboBox->setFont(font);
+        comboBox->setStyleSheet(QString::fromUtf8("\n"
+"QComboBox {\n"
+"    border: 0px; \n"
+"    padding: 1px 10px 1px 3px;\n"
+"    color: #000000;\n"
 "}\n"
 ""));
         comboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
@@ -77,16 +83,25 @@ public:
 
         dateEdit = new QDateEdit(create_widget);
         dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        dateEdit->setEnabled(true);
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(dateEdit->sizePolicy().hasHeightForWidth());
         dateEdit->setSizePolicy(sizePolicy2);
-        dateEdit->setFont(font1);
+        dateEdit->setFont(font);
         dateEdit->setMouseTracking(false);
         dateEdit->setTabletTracking(false);
         dateEdit->setAcceptDrops(false);
-        dateEdit->setMinimumDateTime(QDateTime(QDate(2023, 5, 21), QTime(0, 0, 0)));
+        dateEdit->setStyleSheet(QString::fromUtf8("QDateEdit {\n"
+"    border: 0px; \n"
+"    padding: 1px 10px 1px 3px;\n"
+"    color: #000000;\n"
+"}"));
+        dateEdit->setFrame(true);
+        dateEdit->setReadOnly(false);
+        dateEdit->setKeyboardTracking(true);
+        dateEdit->setMinimumDateTime(QDateTime(QDate(2023, 5, 20), QTime(0, 0, 0)));
         dateEdit->setCalendarPopup(true);
 
         horizontalLayout->addWidget(dateEdit);
@@ -95,7 +110,12 @@ public:
         dateEdit_2->setObjectName(QString::fromUtf8("dateEdit_2"));
         sizePolicy2.setHeightForWidth(dateEdit_2->sizePolicy().hasHeightForWidth());
         dateEdit_2->setSizePolicy(sizePolicy2);
-        dateEdit_2->setFont(font1);
+        dateEdit_2->setFont(font);
+        dateEdit_2->setStyleSheet(QString::fromUtf8("QDateEdit {\n"
+"    border: 0px; \n"
+"    padding: 1px 10px 1px 3px;\n"
+"    color: #000000;\n"
+"}"));
         dateEdit_2->setCalendarPopup(true);
 
         horizontalLayout->addWidget(dateEdit_2);

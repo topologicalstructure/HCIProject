@@ -9,6 +9,13 @@ smallwindows::smallwindows(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     screen_width=QGuiApplication::primaryScreen()->geometry().width();
     ui->setupUi(this);
+    //QNetworkRequest request(url);
+    request.setUrl(url);
+    connect(&manager,&QNetworkAccessManager::finished,this,&smallwindows::GetWeather);
+    manager.get(request);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(slotCountMessage()));
+    timer->start(60000);
 }
 
 smallwindows::~smallwindows()
@@ -119,4 +126,32 @@ void smallwindows::on_becomebig_clicked()
     MainWindow* bigwin=new MainWindow();
     this->hide();
     bigwin->show();
+}
+
+void smallwindows::GetWeather(QNetworkReply *reply)
+{
+    QByteArray array = reply->readAll();
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(array,&error);
+    if(error.error !=QJsonParseError::NoError)
+    {
+        qDebug("json error");
+        return ;
+    }
+    QJsonObject obj = doc.object();
+    int code =obj["results"].toArray()[0].toObject()["now"].toObject()["code"].toInt();
+    QString temperature =obj["results"].toArray()[0].toObject()["now"].toObject()["temperature"].toString();
+    QString city =obj["results"].toArray()[0].toObject()["location"].toObject()["name"].toString();
+    QString text =obj["results"].toArray()[0].toObject()["now"].toObject()["text"].toString();
+    /*
+     * 更新天气信息
+    */
+    QString str=city+":"+text+","+temperature+"℃";
+    ui->label->setText(str);
+    //qDebug()<<city+":"+text+","+temperature+"℃";
+}
+
+void smallwindows::slotCountMessage()
+{
+    manager.get(request);
 }

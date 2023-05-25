@@ -276,6 +276,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Widgets.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Gui.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Sql.prl \
+		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Network.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/lib/qtmain.prl \
 		../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf
@@ -486,6 +487,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../18763/software/Qt/5.15.2/mingw81_64/mk
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Widgets.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Gui.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Sql.prl:
+../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Network.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/lib/qtmain.prl:
 ../../../18763/software/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf:
