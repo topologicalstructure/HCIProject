@@ -12,8 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
+#include "CalendarWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -21,8 +23,9 @@ class Ui_deadlinedistri
 {
 public:
     QLabel *label;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
+    QTextBrowser *textBrowser;
+    CalendarWidget *MyCalendar;
+    QListWidget *listWidget;
 
     void setupUi(QWidget *deadlinedistri)
     {
@@ -35,12 +38,15 @@ public:
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
-        verticalLayoutWidget = new QWidget(deadlinedistri);
-        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(100, 80, 761, 461));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        textBrowser = new QTextBrowser(deadlinedistri);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        textBrowser->setGeometry(QRect(310, 520, 641, 51));
+        MyCalendar = new CalendarWidget(deadlinedistri);
+        MyCalendar->setObjectName(QString::fromUtf8("MyCalendar"));
+        MyCalendar->setGeometry(QRect(310, 80, 641, 431));
+        listWidget = new QListWidget(deadlinedistri);
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setGeometry(QRect(20, 80, 256, 491));
 
         retranslateUi(deadlinedistri);
 

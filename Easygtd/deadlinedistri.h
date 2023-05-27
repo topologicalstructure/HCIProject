@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::deadlinedistri *ui;
+
+private slots:
+    void onselectionChanged();
 };
 
 #endif // DEADLINEDISTRI_H

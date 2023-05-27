@@ -498,7 +498,29 @@ int* SqliteOperator::GetLongtermList(int* n)
     }
     return list;
 }
+int* SqliteOperator::GetLongtermList_by_edate(int* n, const QDate& edate)
+{
+    QSqlQuery sqlQuery;
+    QString enddate=edate.toString(Qt::ISODate);
+    sqlQuery.prepare("SELECT COUNT(*) FROM longtermwork WHERE enddate = ?");
+    sqlQuery.addBindValue(enddate);
+    sqlQuery.exec();
+    sqlQuery.next();
+    *n = sqlQuery.value(0).toInt();
 
+    int* list = new int[*n];
+
+    sqlQuery.prepare("SELECT id FROM longtermwork WHERE enddate = ?");
+    sqlQuery.addBindValue(enddate);
+    sqlQuery.exec();
+
+    int i = 0;
+    while (sqlQuery.next()) {
+        list[i++] = sqlQuery.value(0).toInt();
+    }
+
+    return list;
+}
 void SqliteOperator::GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish)
 {
     QSqlQuery sqlQuery;

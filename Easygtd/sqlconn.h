@@ -3,6 +3,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QString>
+#include <QDate>
 using namespace std;
 
 class SqliteOperator//该类用来对数据库进行各种操作
@@ -33,6 +34,7 @@ public:
     void ChangeLongterm(int id,QString sdate,QString edate,QString content);//修改长期任务
     void DeleteLongterm(int id);//删除长期任务
     int* GetLongtermList(int* );//获取长期任务列表
+    int* GetLongtermList_by_edate(int* n, const QDate& edate);
     void GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取长期任务
     void FinishExtended(int id,int finish);//完成或取消完成该id的延期任务
     void DeleteExtended(int id);//删除延期任务
