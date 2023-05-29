@@ -8,6 +8,7 @@ release/mainwindow.o
 release/smallwindows.o
 release/sqlconn.o
 release/todayworks.o
+release/weather.o
 release/yesterdayworks.o
 release/moc_create_widget.o
 release/moc_deadlinedistri.o
@@ -17,4 +18,5 @@ release/moc_longtermworks.o
 release/moc_mainwindow.o
 release/moc_smallwindows.o
 release/moc_todayworks.o
+release/moc_weather.o
 release/moc_yesterdayworks.o

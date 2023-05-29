@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QTextBrowser>
@@ -22,31 +23,59 @@ QT_BEGIN_NAMESPACE
 class Ui_deadlinedistri
 {
 public:
+    QGridLayout *gridLayout;
     QLabel *label;
-    QTextBrowser *textBrowser;
-    CalendarWidget *MyCalendar;
     QListWidget *listWidget;
+    CalendarWidget *MyCalendar;
+    QTextBrowser *textBrowser;
 
     void setupUi(QWidget *deadlinedistri)
     {
         if (deadlinedistri->objectName().isEmpty())
             deadlinedistri->setObjectName(QString::fromUtf8("deadlinedistri"));
         deadlinedistri->resize(962, 597);
+        gridLayout = new QGridLayout(deadlinedistri);
+        gridLayout->setSpacing(0);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(deadlinedistri);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(20, 20, 191, 61));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
-        textBrowser = new QTextBrowser(deadlinedistri);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(310, 520, 641, 51));
-        MyCalendar = new CalendarWidget(deadlinedistri);
-        MyCalendar->setObjectName(QString::fromUtf8("MyCalendar"));
-        MyCalendar->setGeometry(QRect(310, 80, 641, 431));
+
+        gridLayout->addWidget(label, 0, 0, 1, 2);
+
         listWidget = new QListWidget(deadlinedistri);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
-        listWidget->setGeometry(QRect(20, 80, 256, 491));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(listWidget, 1, 0, 2, 1);
+
+        MyCalendar = new CalendarWidget(deadlinedistri);
+        MyCalendar->setObjectName(QString::fromUtf8("MyCalendar"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(MyCalendar->sizePolicy().hasHeightForWidth());
+        MyCalendar->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(MyCalendar, 1, 1, 1, 1);
+
+        textBrowser = new QTextBrowser(deadlinedistri);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy2);
+
+        gridLayout->addWidget(textBrowser, 2, 1, 1, 1);
+
 
         retranslateUi(deadlinedistri);
 

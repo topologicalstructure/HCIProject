@@ -60,6 +60,11 @@ public:
 
         sidebar = new QWidget(centralwidget);
         sidebar->setObjectName(QString::fromUtf8("sidebar"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(sidebar->sizePolicy().hasHeightForWidth());
+        sidebar->setSizePolicy(sizePolicy);
         sidebar->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "	background-color: rgb(245, 245, 245);  /* \350\256\276\347\275\256\350\203\214\346\231\257\350\211\262\344\270\272\347\201\260\350\211\262 */\n"
 "}"));
@@ -72,6 +77,11 @@ public:
         buttonGroup->setObjectName(QString::fromUtf8("buttonGroup"));
         buttonGroup->addButton(todayButton);
         todayButton->setObjectName(QString::fromUtf8("todayButton"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(todayButton->sizePolicy().hasHeightForWidth());
+        todayButton->setSizePolicy(sizePolicy1);
         todayButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -104,6 +114,8 @@ public:
         expectsButton = new QToolButton(sidebar);
         buttonGroup->addButton(expectsButton);
         expectsButton->setObjectName(QString::fromUtf8("expectsButton"));
+        sizePolicy1.setHeightForWidth(expectsButton->sizePolicy().hasHeightForWidth());
+        expectsButton->setSizePolicy(sizePolicy1);
         expectsButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -136,6 +148,8 @@ public:
         extendButton = new QToolButton(sidebar);
         buttonGroup->addButton(extendButton);
         extendButton->setObjectName(QString::fromUtf8("extendButton"));
+        sizePolicy1.setHeightForWidth(extendButton->sizePolicy().hasHeightForWidth());
+        extendButton->setSizePolicy(sizePolicy1);
         extendButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -168,6 +182,8 @@ public:
         yestButton = new QToolButton(sidebar);
         buttonGroup->addButton(yestButton);
         yestButton->setObjectName(QString::fromUtf8("yestButton"));
+        sizePolicy1.setHeightForWidth(yestButton->sizePolicy().hasHeightForWidth());
+        yestButton->setSizePolicy(sizePolicy1);
         yestButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -200,6 +216,8 @@ public:
         longtermButton = new QToolButton(sidebar);
         buttonGroup->addButton(longtermButton);
         longtermButton->setObjectName(QString::fromUtf8("longtermButton"));
+        sizePolicy1.setHeightForWidth(longtermButton->sizePolicy().hasHeightForWidth());
+        longtermButton->setSizePolicy(sizePolicy1);
         longtermButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -236,6 +254,8 @@ public:
         ddlButton = new QToolButton(sidebar);
         buttonGroup->addButton(ddlButton);
         ddlButton->setObjectName(QString::fromUtf8("ddlButton"));
+        sizePolicy1.setHeightForWidth(ddlButton->sizePolicy().hasHeightForWidth());
+        ddlButton->setSizePolicy(sizePolicy1);
         ddlButton->setStyleSheet(QString::fromUtf8("QToolButton{   \n"
 "	border-top: 3px outset transparent;         /* \344\270\212\350\276\271\346\241\206\350\256\276\347\275\256*/\n"
 "	border-bottom: 7px outset transparent;\n"
@@ -270,13 +290,18 @@ public:
 
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy2);
 
         gridLayout_2->addWidget(stackedWidget, 0, 1, 2, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1214, 26));
+        menubar->setGeometry(QRect(0, 0, 1214, 17));
         MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);

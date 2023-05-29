@@ -139,15 +139,19 @@ void smallwindows::GetWeather(QNetworkReply *reply)
         return ;
     }
     QJsonObject obj = doc.object();
-    int code =obj["results"].toArray()[0].toObject()["now"].toObject()["code"].toInt();
+    QString code =obj["results"].toArray()[0].toObject()["now"].toObject()["code"].toString();
     QString temperature =obj["results"].toArray()[0].toObject()["now"].toObject()["temperature"].toString();
     QString city =obj["results"].toArray()[0].toObject()["location"].toObject()["name"].toString();
     QString text =obj["results"].toArray()[0].toObject()["now"].toObject()["text"].toString();
     /*
      * 更新天气信息
     */
-    QString str=city+":"+text+","+temperature+"℃";
-    ui->label->setText(str);
+    //QString str=city+":"+text+","+temperature+"℃";
+    ui->widget->code=code;
+    ui->widget->tempe=temperature;
+    ui->widget->wea=text;
+    ui->widget->Update();
+    //ui->label->setText(str);
     //qDebug()<<city+":"+text+","+temperature+"℃";
 }
 

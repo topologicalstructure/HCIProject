@@ -19,6 +19,7 @@ SOURCES += \
     smallwindows.cpp \
     sqlconn.cpp \
     todayworks.cpp \
+    weather.cpp \
     yesterdayworks.cpp
 
 HEADERS += \
@@ -32,6 +33,7 @@ HEADERS += \
     smallwindows.h \
     sqlconn.h \
     todayworks.h \
+    weather.h \
     yesterdayworks.h
 
 FORMS += \
@@ -43,6 +45,7 @@ FORMS += \
     mainwindow.ui \
     smallwindows.ui \
     todayworks.ui \
+    weather.ui \
     yesterdayworks.ui
 
 # Default rules for deployment.
