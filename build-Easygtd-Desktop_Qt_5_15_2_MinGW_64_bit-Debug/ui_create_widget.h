@@ -11,10 +11,10 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -24,7 +24,7 @@ class Ui_create_widget
 public:
     QHBoxLayout *horizontalLayout;
     QLineEdit *lineEdit;
-    QComboBox *comboBox;
+    QPushButton *pushButton;
     QDateEdit *dateEdit;
     QDateEdit *dateEdit_2;
 
@@ -58,44 +58,39 @@ public:
         lineEdit->setStyleSheet(QString::fromUtf8("QLineEdit {\n"
 "    border-style: outset;\n"
 "   /* border-width: 1px; */\n"
-"    border-top-width: 1px;\n"
-"    border-right-width:0px;\n"
-"    border-bottom-width:1px;\n"
-"    border-left-width:1px;\n"
-"    border-color: rgb(150, 150, 150);\n"
+"    border-top:1px solid rgb(150, 150, 150);\n"
+"    border-bottom:1px solid rgb(150, 150, 150);\n"
+"    border-left:1px solid rgb(150, 150, 150);\n"
+"    border-right:0px solid rgb(150, 150, 150);\n"
 "    /*padding: 1px 10px 1px 3px;\n"
 "    color: rgb(0, 0, 0);*/\n"
 "}"));
 
         horizontalLayout->addWidget(lineEdit);
 
-        comboBox = new QComboBox(create_widget);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
+        pushButton = new QPushButton(create_widget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Expanding);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
-        comboBox->setSizePolicy(sizePolicy2);
-        comboBox->setMinimumSize(QSize(70, 0));
-        comboBox->setFont(font);
-        comboBox->setStyleSheet(QString::fromUtf8("\n"
-"QComboBox {\n"
-"    border-style: outset;\n"
+        sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy2);
+        pushButton->setMinimumSize(QSize(50, 0));
+        pushButton->setMaximumSize(QSize(50, 16777215));
+        pushButton->setFont(font);
+        pushButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "   /* border-width: 1px; */\n"
-"    border-top-width: 1px;\n"
-"    border-right-width:0px;\n"
-"    border-bottom-width:1px;\n"
-"    border-left-width:0px;\n"
-"    border-color: rgb(150, 150, 150);\n"
-"    /*padding: 1px 10px 1px 3px;\n"
-"    color: #000000;*/\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border-top:1px solid rgb(150, 150, 150);\n"
+"    border-bottom:1px solid rgb(150, 150, 150);\n"
+"    border-left:0px solid rgb(150, 150, 150);\n"
+"    border-right:0px solid rgb(150, 150, 150);\n"
 "}\n"
-""));
-        comboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+"QPushButton:hover{\n"
+"    background-color: rgb(240, 240, 240)\n"
+"}"));
 
-        horizontalLayout->addWidget(comboBox);
+        horizontalLayout->addWidget(pushButton);
 
         dateEdit = new QDateEdit(create_widget);
         dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
@@ -112,11 +107,10 @@ public:
         dateEdit->setStyleSheet(QString::fromUtf8("QDateEdit {\n"
 "    border-style: outset;\n"
 "   /* border-width: 1px; */\n"
-"    border-top-width: 1px;\n"
-"    border-right-width:0px;\n"
-"    border-bottom-width:1px;\n"
-"    border-left-width:0px;\n"
-"    border-color: rgb(150, 150, 150);\n"
+"    border-top:1px solid rgb(150, 150, 150);\n"
+"    border-bottom:1px solid rgb(150, 150, 150);\n"
+"    border-left:0px solid rgb(150, 150, 150);\n"
+"    border-right:0px solid rgb(150, 150, 150);\n"
 "    /*padding: 1px 10px 1px 3px;\n"
 "    color: #000000;*/\n"
 "}"));
@@ -136,11 +130,10 @@ public:
         dateEdit_2->setStyleSheet(QString::fromUtf8("QDateEdit {\n"
 "    border-style: outset;\n"
 "   /* border-width: 1px; */\n"
-"    border-top-width: 1px;\n"
-"    border-right-width:1px;\n"
-"    border-bottom-width:1px;\n"
-"    border-left-width:0px;\n"
-"    border-color: rgb(150, 150, 150);\n"
+"    border-top:1px solid rgb(150, 150, 150);\n"
+"    border-bottom:1px solid rgb(150, 150, 150);\n"
+"    border-left:0px solid rgb(150, 150, 150);\n"
+"    border-right:1px solid rgb(150, 150, 150);\n"
 "    /*padding: 1px 10px 1px 3px;\n"
 "    color: #000000;*/\n"
 "}"));
@@ -157,9 +150,7 @@ public:
     void retranslateUi(QWidget *create_widget)
     {
         create_widget->setWindowTitle(QCoreApplication::translate("create_widget", "Form", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("create_widget", "\345\215\225\346\227\245 ", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("create_widget", "\351\225\277\346\234\237 ", nullptr));
-
+        pushButton->setText(QCoreApplication::translate("create_widget", "\345\215\225\346\227\245", nullptr));
         dateEdit->setDisplayFormat(QCoreApplication::translate("create_widget", "yyyy-MM-dd", nullptr));
         dateEdit_2->setDisplayFormat(QCoreApplication::translate("create_widget", "yyyy-MM-dd", nullptr));
     } // retranslateUi

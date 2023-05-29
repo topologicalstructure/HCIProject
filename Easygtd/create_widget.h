@@ -25,7 +25,7 @@ private:
     virtual void keyPressEvent(QKeyEvent *event);
 
 private slots:
-    void on_comboBox_currentIndexChanged(int index);
+    void on_pushButton_clicked();
     void DateChanged();
     void DateChanged2();
 };

@@ -59,11 +59,10 @@
       <string notr="true">QLineEdit {
     border-style: outset;
    /* border-width: 1px; */
-    border-top-width: 1px;
-    border-right-width:0px;
-    border-bottom-width:1px;
-    border-left-width:1px;
-    border-color: rgb(150, 150, 150);
+    border-top:1px solid rgb(150, 150, 150);
+    border-bottom:1px solid rgb(150, 150, 150);
+    border-left:1px solid rgb(150, 150, 150);
+    border-right:0px solid rgb(150, 150, 150);
     /*padding: 1px 10px 1px 3px;
     color: rgb(0, 0, 0);*/
 }</string>
@@ -71,17 +70,23 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QPushButton" name="pushButton">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
+      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="minimumSize">
       <size>
-       <width>70</width>
+       <width>50</width>
        <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>50</width>
+       <height>16777215</height>
       </size>
      </property>
      <property name="font">
@@ -91,33 +96,21 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-QComboBox {
-    border-style: outset;
+      <string notr="true">QPushButton {
    /* border-width: 1px; */
-    border-top-width: 1px;
-    border-right-width:0px;
-    border-bottom-width:1px;
-    border-left-width:0px;
-    border-color: rgb(150, 150, 150);
-    /*padding: 1px 10px 1px 3px;
-    color: #000000;*/
+    background-color: rgb(255, 255, 255);
+    border-top:1px solid rgb(150, 150, 150);
+    border-bottom:1px solid rgb(150, 150, 150);
+    border-left:0px solid rgb(150, 150, 150);
+    border-right:0px solid rgb(150, 150, 150);
 }
-</string>
+QPushButton:hover{
+    background-color: rgb(240, 240, 240)
+}</string>
      </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QComboBox::AdjustToContents</enum>
+     <property name="text">
+      <string>单日</string>
      </property>
-     <item>
-      <property name="text">
-       <string>单日 </string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>长期 </string>
-      </property>
-     </item>
     </widget>
    </item>
    <item>
@@ -150,11 +143,10 @@ QComboBox {
       <string notr="true">QDateEdit {
     border-style: outset;
    /* border-width: 1px; */
-    border-top-width: 1px;
-    border-right-width:0px;
-    border-bottom-width:1px;
-    border-left-width:0px;
-    border-color: rgb(150, 150, 150);
+    border-top:1px solid rgb(150, 150, 150);
+    border-bottom:1px solid rgb(150, 150, 150);
+    border-left:0px solid rgb(150, 150, 150);
+    border-right:0px solid rgb(150, 150, 150);
     /*padding: 1px 10px 1px 3px;
     color: #000000;*/
 }</string>
@@ -204,11 +196,10 @@ QComboBox {
       <string notr="true">QDateEdit {
     border-style: outset;
    /* border-width: 1px; */
-    border-top-width: 1px;
-    border-right-width:1px;
-    border-bottom-width:1px;
-    border-left-width:0px;
-    border-color: rgb(150, 150, 150);
+    border-top:1px solid rgb(150, 150, 150);
+    border-bottom:1px solid rgb(150, 150, 150);
+    border-left:0px solid rgb(150, 150, 150);
+    border-right:1px solid rgb(150, 150, 150);
     /*padding: 1px 10px 1px 3px;
     color: #000000;*/
 }</string>

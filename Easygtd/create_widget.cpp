@@ -6,10 +6,6 @@ create_widget::create_widget(QWidget *parent) :
     ui(new Ui::create_widget)
 {
     ui->setupUi(this);
-    //设置下拉项尺寸
-    QStandardItemModel * model = qobject_cast<QStandardItemModel*>(ui->comboBox->model());
-    model->item(0)->setSizeHint({0,40});
-    model->item(1)->setSizeHint({0,40});
     //初始隐藏dateEdit_2
     ui->dateEdit->setMinimumDateTime(QDateTime::currentDateTime());
     ui->dateEdit_2->setVisible(0);
@@ -23,15 +19,16 @@ create_widget::~create_widget()
     delete ui;
 }
 
-void create_widget::on_comboBox_currentIndexChanged(int index)
+void create_widget::on_pushButton_clicked()
 {
-    //根据选择的变化改变dateEdit_2的显示状态以及两个dateEdit的日期限制
-    if(!index){
+    if(ui->pushButton->text()=="长期"){
+        ui->pushButton->setText("单日");
         ui->dateEdit_2->setVisible(0);
         ui->dateEdit->setDate(QDate::currentDate());
         ui->dateEdit->setMaximumDate(QDate(9999,12,31));
     }
     else{
+        ui->pushButton->setText("长期");
         ui->dateEdit_2->setVisible(1);
         ui->dateEdit_2->setMinimumDateTime(ui->dateEdit->dateTime());
         ui->dateEdit_2->setDateTime(ui->dateEdit->dateTime().addDays(7));
@@ -42,15 +39,15 @@ void create_widget::on_comboBox_currentIndexChanged(int index)
 void create_widget::DateChanged()
 {
     //更新dateEdit_2最小日期，以保证编辑内容合法
-    if(ui->comboBox->currentIndex()==1){
+    if(ui->pushButton->text()=="长期"){
         ui->dateEdit_2->setMinimumDateTime(ui->dateEdit->dateTime());
     }
 }
 
 void create_widget::DateChanged2()
 {
-    //只有当currentIndex()==1即正在编辑长期任务时才需要更新更新dateEdit最大日期
-    if(ui->comboBox->currentIndex()==1){
+    //只有当正在编辑长期任务时才需要更新更新dateEdit最大日期
+    if(ui->pushButton->text()=="长期"){
         ui->dateEdit->setMaximumDateTime(ui->dateEdit_2->dateTime());
     }
 }
@@ -62,7 +59,7 @@ void create_widget::keyPressEvent(QKeyEvent *event)
         return;
     }
     SqliteOperator oper;
-    if(ui->comboBox->currentIndex()==0){
+    if(ui->pushButton->text()=="单日"){
         if(ui->dateEdit->dateTime()==QDateTime::currentDateTime()){
             oper.AddToday(ui->lineEdit->text());//添加今日任务
         }

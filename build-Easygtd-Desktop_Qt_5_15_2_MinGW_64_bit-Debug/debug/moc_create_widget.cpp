@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_create_widget_t {
-    QByteArrayData data[6];
-    char stringdata0[78];
+    QByteArrayData data[5];
+    char stringdata0[62];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,15 +33,14 @@ struct qt_meta_stringdata_create_widget_t {
 static const qt_meta_stringdata_create_widget_t qt_meta_stringdata_create_widget = {
     {
 QT_MOC_LITERAL(0, 0, 13), // "create_widget"
-QT_MOC_LITERAL(1, 14, 31), // "on_comboBox_currentIndexChanged"
-QT_MOC_LITERAL(2, 46, 0), // ""
-QT_MOC_LITERAL(3, 47, 5), // "index"
-QT_MOC_LITERAL(4, 53, 11), // "DateChanged"
-QT_MOC_LITERAL(5, 65, 12) // "DateChanged2"
+QT_MOC_LITERAL(1, 14, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(2, 36, 0), // ""
+QT_MOC_LITERAL(3, 37, 11), // "DateChanged"
+QT_MOC_LITERAL(4, 49, 12) // "DateChanged2"
 
     },
-    "create_widget\0on_comboBox_currentIndexChanged\0"
-    "\0index\0DateChanged\0DateChanged2"
+    "create_widget\0on_pushButton_clicked\0"
+    "\0DateChanged\0DateChanged2"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,12 +58,12 @@ static const uint qt_meta_data_create_widget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   29,    2, 0x08 /* Private */,
-       4,    0,   32,    2, 0x08 /* Private */,
-       5,    0,   33,    2, 0x08 /* Private */,
+       1,    0,   29,    2, 0x08 /* Private */,
+       3,    0,   30,    2, 0x08 /* Private */,
+       4,    0,   31,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -77,12 +76,13 @@ void create_widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         auto *_t = static_cast<create_widget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->on_pushButton_clicked(); break;
         case 1: _t->DateChanged(); break;
         case 2: _t->DateChanged2(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject create_widget::staticMetaObject = { {
