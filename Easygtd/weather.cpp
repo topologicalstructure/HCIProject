@@ -6,6 +6,11 @@ Weather::Weather(QWidget *parent) :
     ui(new Ui::Weather)
 {
     ui->setupUi(this);
+    ui->weather->setText(wea);
+    ui->tem->setText("网络");
+    QImage ima;
+    ima.load("./black/"+code+"@2x.png");
+    ui->picture->setPixmap(QPixmap::fromImage(ima));
 }
 
 Weather::~Weather()

@@ -9,13 +9,12 @@ smallwindows::smallwindows(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     screen_width=QGuiApplication::primaryScreen()->geometry().width();
     ui->setupUi(this);
-    //QNetworkRequest request(url);
     request.setUrl(url);
     connect(&manager,&QNetworkAccessManager::finished,this,&smallwindows::GetWeather);
     manager.get(request);
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotCountMessage()));
-    timer->start(60000);
+    timer->start(10000);
 }
 
 smallwindows::~smallwindows()
@@ -104,6 +103,7 @@ void smallwindows::ShowWindow()
 
 void smallwindows::enterEvent(QEvent *event)
 {
+    ui->widget_2->setVisible(1);
     if(win_hide){
         ShowWindow();
     }
@@ -111,6 +111,7 @@ void smallwindows::enterEvent(QEvent *event)
 
 void smallwindows::leaveEvent(QEvent *event)
 {
+    ui->widget_2->setVisible(0);
     if(win_hide){
         HideWindow();
     }
@@ -147,10 +148,10 @@ void smallwindows::GetWeather(QNetworkReply *reply)
      * 更新天气信息
     */
     //QString str=city+":"+text+","+temperature+"℃";
-    ui->widget->code=code;
-    ui->widget->tempe=temperature;
-    ui->widget->wea=text;
-    ui->widget->Update();
+    ui->weawid->code=code;
+    ui->weawid->tempe=temperature;
+    ui->weawid->wea=text;
+    ui->weawid->Update();
     //ui->label->setText(str);
     //qDebug()<<city+":"+text+","+temperature+"℃";
 }

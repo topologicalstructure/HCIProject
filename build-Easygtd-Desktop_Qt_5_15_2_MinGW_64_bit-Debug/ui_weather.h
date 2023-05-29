@@ -55,7 +55,7 @@ public:
         weather->setObjectName(QString::fromUtf8("weather"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
-        font1.setPointSize(16);
+        font1.setPointSize(12);
         weather->setFont(font1);
         weather->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 

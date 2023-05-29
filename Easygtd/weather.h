@@ -15,9 +15,9 @@ class Weather : public QWidget
 public:
     explicit Weather(QWidget *parent = nullptr);
     ~Weather();
-    QString code;
-    QString wea;
-    QString tempe;
+    QString code="99";
+    QString wea="未连接";
+    QString tempe=" ";
     void Update();
 
 private:

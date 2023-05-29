@@ -57,9 +57,15 @@
      </property>
      <property name="styleSheet">
       <string notr="true">QLineEdit {
-    border: 0px; 
-    padding: 1px 10px 1px 3px;
-    color: #000000;
+    border-style: outset;
+   /* border-width: 1px; */
+    border-top-width: 1px;
+    border-right-width:0px;
+    border-bottom-width:1px;
+    border-left-width:1px;
+    border-color: rgb(150, 150, 150);
+    /*padding: 1px 10px 1px 3px;
+    color: rgb(0, 0, 0);*/
 }</string>
      </property>
     </widget>
@@ -67,10 +73,16 @@
    <item>
     <widget class="QComboBox" name="comboBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+      <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>70</width>
+       <height>0</height>
+      </size>
      </property>
      <property name="font">
       <font>
@@ -81,9 +93,15 @@
      <property name="styleSheet">
       <string notr="true">
 QComboBox {
-    border: 0px; 
-    padding: 1px 10px 1px 3px;
-    color: #000000;
+    border-style: outset;
+   /* border-width: 1px; */
+    border-top-width: 1px;
+    border-right-width:0px;
+    border-bottom-width:1px;
+    border-left-width:0px;
+    border-color: rgb(150, 150, 150);
+    /*padding: 1px 10px 1px 3px;
+    color: #000000;*/
 }
 </string>
      </property>
@@ -130,9 +148,15 @@ QComboBox {
      </property>
      <property name="styleSheet">
       <string notr="true">QDateEdit {
-    border: 0px; 
-    padding: 1px 10px 1px 3px;
-    color: #000000;
+    border-style: outset;
+   /* border-width: 1px; */
+    border-top-width: 1px;
+    border-right-width:0px;
+    border-bottom-width:1px;
+    border-left-width:0px;
+    border-color: rgb(150, 150, 150);
+    /*padding: 1px 10px 1px 3px;
+    color: #000000;*/
 }</string>
      </property>
      <property name="frame">
@@ -151,7 +175,7 @@ QComboBox {
        <second>0</second>
        <year>2023</year>
        <month>5</month>
-       <day>20</day>
+       <day>19</day>
       </datetime>
      </property>
      <property name="displayFormat">
@@ -178,9 +202,15 @@ QComboBox {
      </property>
      <property name="styleSheet">
       <string notr="true">QDateEdit {
-    border: 0px; 
-    padding: 1px 10px 1px 3px;
-    color: #000000;
+    border-style: outset;
+   /* border-width: 1px; */
+    border-top-width: 1px;
+    border-right-width:1px;
+    border-bottom-width:1px;
+    border-left-width:0px;
+    border-color: rgb(150, 150, 150);
+    /*padding: 1px 10px 1px 3px;
+    color: #000000;*/
 }</string>
      </property>
      <property name="displayFormat">
