@@ -1,3 +1,4 @@
+release/CalendarWidget.o
 release/create_widget.o
 release/deadlinedistri.o
 release/expectedworks.o

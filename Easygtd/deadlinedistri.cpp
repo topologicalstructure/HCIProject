@@ -4,6 +4,8 @@
 #include <QDate>
 #include <QString>
 
+SqliteOperator* oper1=new SqliteOperator;
+
 deadlinedistri::deadlinedistri(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::deadlinedistri)
@@ -24,6 +26,7 @@ deadlinedistri::deadlinedistri(QWidget *parent) :
     ui->listWidget->setWordWrap(true); //设置自动换行
 
     ui->listWidget->clear(); // 清空 QListWidget
+    onselectionChanged();  //初始化时先显示当日的文本信息
 }
 
 deadlinedistri::~deadlinedistri()
@@ -35,7 +38,7 @@ void deadlinedistri::onselectionChanged()
 {
 
     QDate currentDate = ui->MyCalendar->selectedDate();
-    int taskcount=oper->GetDeadline(currentDate.toString(Qt::ISODate));//存储ddl数量
+    int taskcount=oper1->GetDeadline(currentDate.toString(Qt::ISODate));//存储ddl数量
     ui->textBrowser->setText(QString::number(taskcount)+" 个任务的截止日期是 "+currentDate.toString(Qt::ISODate));
     ui->textBrowser->setAlignment(Qt::AlignCenter); // 设置文本居中对齐
 
@@ -46,11 +49,10 @@ void deadlinedistri::onselectionChanged()
         QString sdate,edate,content;
         int* n = new int;
         int finish;
-        int *list=oper->GetLongtermList_by_edate(n,currentDate);
-        oper->GetLongterm(list[i],sdate,edate,content,finish);
+        int *list=oper1->GetLongtermList_by_edate(n,currentDate);
+        oper1->GetLongterm(list[i],sdate,edate,content,finish);
         ui->listWidget->addItem("任务"+QString::number(i + 1) + "： " + content);
         ui->listWidget->addItem("起始日期： "+sdate+"\n");
         //ui->listWidget->addItem(edate);
     }
 }
-
