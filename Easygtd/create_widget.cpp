@@ -34,6 +34,7 @@ void create_widget::on_pushButton_clicked()
         ui->dateEdit_2->setDateTime(ui->dateEdit->dateTime().addDays(7));
         ui->dateEdit->setMaximumDateTime(ui->dateEdit_2->dateTime());
     }
+
 }
 
 void create_widget::DateChanged()

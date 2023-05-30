@@ -14,7 +14,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "create_widget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -24,7 +23,6 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QWidget *widget_2;
-    create_widget *widget;
 
     void setupUi(QWidget *ExpectedWorks)
     {
@@ -52,14 +50,6 @@ public:
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
 
         verticalLayout->addWidget(widget_2);
-
-        widget = new create_widget(ExpectedWorks);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy);
-        widget->setMinimumSize(QSize(0, 40));
-
-        verticalLayout->addWidget(widget);
 
 
         retranslateUi(ExpectedWorks);

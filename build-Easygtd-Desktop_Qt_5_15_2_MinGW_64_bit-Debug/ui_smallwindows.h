@@ -47,7 +47,7 @@ public:
     {
         if (smallwindows->objectName().isEmpty())
             smallwindows->setObjectName(QString::fromUtf8("smallwindows"));
-        smallwindows->resize(696, 642);
+        smallwindows->resize(549, 642);
         smallwindows->setMinimumSize(QSize(35, 35));
         smallwindows->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255)"));
         centralwidget = new QWidget(smallwindows);
@@ -149,7 +149,7 @@ public:
         smallwindows->setCentralWidget(centralwidget);
         menubar = new QMenuBar(smallwindows);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 696, 17));
+        menubar->setGeometry(QRect(0, 0, 549, 17));
         smallwindows->setMenuBar(menubar);
 
         retranslateUi(smallwindows);

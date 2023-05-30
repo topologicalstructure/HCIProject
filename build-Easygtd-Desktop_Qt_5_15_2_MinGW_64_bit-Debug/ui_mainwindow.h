@@ -20,6 +20,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
+#include "create_widget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -29,6 +30,7 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
     QPushButton *becomesmaller;
+    QSpacerItem *verticalSpacer_4;
     QWidget *sidebar;
     QGridLayout *gridLayout;
     QToolButton *todayButton;
@@ -38,6 +40,13 @@ public:
     QToolButton *longtermButton;
     QSpacerItem *verticalSpacer;
     QToolButton *ddlButton;
+    QSpacerItem *verticalSpacer_7;
+    QSpacerItem *verticalSpacer_5;
+    QSpacerItem *verticalSpacer_2;
+    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *verticalSpacer_6;
+    QSpacerItem *verticalSpacer_8;
+    create_widget *widget;
     QStackedWidget *stackedWidget;
     QMenuBar *menubar;
     QButtonGroup *buttonGroup;
@@ -46,7 +55,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1214, 647);
+        MainWindow->resize(1214, 669);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
@@ -57,6 +66,10 @@ public:
         becomesmaller->setObjectName(QString::fromUtf8("becomesmaller"));
 
         gridLayout_2->addWidget(becomesmaller, 0, 2, 1, 1);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_4, 5, 2, 1, 1);
 
         sidebar = new QWidget(centralwidget);
         sidebar->setObjectName(QString::fromUtf8("sidebar"));
@@ -106,8 +119,12 @@ public:
 "QPushButton:default {\n"
 "    border-color: navy; /* make the default button prominent */\n"
 "}"));
+        todayButton->setIconSize(QSize(24, 24));
         todayButton->setCheckable(true);
         todayButton->setAutoExclusive(true);
+        todayButton->setPopupMode(QToolButton::DelayedPopup);
+        todayButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
+        todayButton->setArrowType(Qt::NoArrow);
 
         gridLayout->addWidget(todayButton, 0, 0, 1, 1);
 
@@ -286,17 +303,52 @@ public:
         gridLayout->addWidget(ddlButton, 10, 0, 1, 1);
 
 
-        gridLayout_2->addWidget(sidebar, 0, 0, 2, 1);
+        gridLayout_2->addWidget(sidebar, 0, 0, 9, 1);
+
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_7, 2, 2, 1, 1);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_5, 4, 2, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_2, 7, 2, 1, 1);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_3, 6, 2, 1, 1);
+
+        verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_6, 3, 2, 1, 1);
+
+        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_8, 1, 2, 1, 1);
+
+        widget = new create_widget(centralwidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy2);
+        widget->setMinimumSize(QSize(0, 40));
+
+        gridLayout_2->addWidget(widget, 8, 1, 1, 2);
 
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
-        stackedWidget->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy3);
 
-        gridLayout_2->addWidget(stackedWidget, 0, 1, 2, 1);
+        gridLayout_2->addWidget(stackedWidget, 0, 1, 8, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
