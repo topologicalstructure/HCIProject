@@ -78,7 +78,7 @@ public:
         pushButton->setMinimumSize(QSize(50, 0));
         pushButton->setMaximumSize(QSize(50, 16777215));
         pushButton->setFont(font);
-        pushButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        pushButton->setStyleSheet(QString::fromUtf8("QPushButton#pushButton {\n"
 "   /* border-width: 1px; */\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    border-top:1px solid rgb(150, 150, 150);\n"
@@ -86,7 +86,7 @@ public:
 "    border-left:0px solid rgb(150, 150, 150);\n"
 "    border-right:0px solid rgb(150, 150, 150);\n"
 "}\n"
-"QPushButton:hover{\n"
+"QPushButton#pushButton:hover{\n"
 "    background-color: rgb(240, 240, 240)\n"
 "}"));
 
@@ -117,7 +117,7 @@ public:
         dateEdit->setFrame(true);
         dateEdit->setReadOnly(false);
         dateEdit->setKeyboardTracking(true);
-        dateEdit->setMinimumDateTime(QDateTime(QDate(2023, 5, 19), QTime(0, 0, 0)));
+        dateEdit->setMinimumDateTime(QDateTime(QDate(2023, 5, 18), QTime(0, 0, 0)));
         dateEdit->setCalendarPopup(true);
 
         horizontalLayout->addWidget(dateEdit);

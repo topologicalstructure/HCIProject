@@ -12,6 +12,8 @@ create_widget::create_widget(QWidget *parent) :
     //绑定信号与槽
     connect(ui->dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(DateChanged()));
     connect(ui->dateEdit_2,SIGNAL(dateChanged(QDate)),this,SLOT(DateChanged2()));
+
+    ui->dateEdit->installEventFilter(this);
 }
 
 create_widget::~create_widget()
@@ -34,7 +36,6 @@ void create_widget::on_pushButton_clicked()
         ui->dateEdit_2->setDateTime(ui->dateEdit->dateTime().addDays(7));
         ui->dateEdit->setMaximumDateTime(ui->dateEdit_2->dateTime());
     }
-
 }
 
 void create_widget::DateChanged()

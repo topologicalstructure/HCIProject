@@ -49,7 +49,9 @@ public:
             smallwindows->setObjectName(QString::fromUtf8("smallwindows"));
         smallwindows->resize(549, 642);
         smallwindows->setMinimumSize(QSize(35, 35));
-        smallwindows->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255)"));
+        smallwindows->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}"));
         centralwidget = new QWidget(smallwindows);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);

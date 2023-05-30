@@ -111,7 +111,7 @@ void smallwindows::enterEvent(QEvent *event)
 
 void smallwindows::leaveEvent(QEvent *event)
 {
-    ui->widget_2->setVisible(0);
+    //ui->widget_2->setVisible(0);
     if(win_hide){
         HideWindow();
     }

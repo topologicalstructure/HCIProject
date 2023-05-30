@@ -96,7 +96,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
+      <string notr="true">QPushButton#pushButton {
    /* border-width: 1px; */
     background-color: rgb(255, 255, 255);
     border-top:1px solid rgb(150, 150, 150);
@@ -104,7 +104,7 @@
     border-left:0px solid rgb(150, 150, 150);
     border-right:0px solid rgb(150, 150, 150);
 }
-QPushButton:hover{
+QPushButton#pushButton:hover{
     background-color: rgb(240, 240, 240)
 }</string>
      </property>
@@ -167,7 +167,7 @@ QPushButton:hover{
        <second>0</second>
        <year>2023</year>
        <month>5</month>
-       <day>19</day>
+       <day>18</day>
       </datetime>
      </property>
      <property name="displayFormat">
