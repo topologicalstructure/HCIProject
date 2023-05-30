@@ -38,6 +38,7 @@ void deadlinedistri::onselectionChanged()
 {
 
     QDate currentDate = ui->MyCalendar->selectedDate();
+    ui->MyCalendar->onPageChanged(currentDate.year(), currentDate.month());//只要选择的日期更换就重绘页面
     int taskcount=oper1->GetDeadline(currentDate.toString(Qt::ISODate));//存储ddl数量
     ui->textBrowser->setText(QString::number(taskcount)+" 个任务的截止日期是 "+currentDate.toString(Qt::ISODate));
     ui->textBrowser->setAlignment(Qt::AlignCenter); // 设置文本居中对齐

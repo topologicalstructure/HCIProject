@@ -1,4 +1,28 @@
 #include"CalendarWidget.h"
+#include <QPushButton>
+#include <QLabel>
+#include<QEvent>
+#include<QHBoxLayout>
+#include <QProxyStyle>
+
+class QCustomStyle : public QProxyStyle
+{
+public:
+    QCustomStyle(QWidget *parent){
+        setParent(parent);
+    };
+
+private:
+    void drawPrimitive(PrimitiveElement element, const QStyleOption *option,
+                       QPainter *painter, const QWidget *widget) const
+    {
+        if (element == PE_FrameFocusRect)
+        {
+            return;
+        }
+        QProxyStyle::drawPrimitive(element, option, painter, widget);
+    }
+};
 
 SqliteOperator* oper=new SqliteOperator;
 
@@ -6,7 +30,7 @@ CalendarWidget::CalendarWidget(QWidget *parent): QCalendarWidget(parent)
 {
     connect(this, &QCalendarWidget::currentPageChanged, this, &CalendarWidget::onPageChanged);//换页动作关联
     oper=new SqliteOperator;
-    //下面使用selectedDate()方法获取当前选中的日期，并使用daysInMonth()方法获取当前月份的天数。接下来，使用一个循环遍历这些日期，并使用qDebug()输出日期信息。
+    //下面使用selectedDate()方法获取当前选中的日期，并使用daysInMonth()方法获取当前月份的天数。
     QDate currentDate = selectedDate();
     int daysInMonth = currentDate.daysInMonth();
 
@@ -18,27 +42,7 @@ CalendarWidget::CalendarWidget(QWidget *parent): QCalendarWidget(parent)
     change_color(currentDate,daysInMonth);
     change_color(nextMonthDate,nextnumDays);
 
-    //设置星期中每天（包括表头）的风格
-    setHorizontalHeaderFormat(QCalendarWidget::LongDayNames);//保留星期几的行表头
-    QTextCharFormat format;
-    format.setForeground(QColor(51, 51, 51));//前景色
-    format.setBackground(QColor(247,247,247));//背景色
-    format.setFontFamily("Times New Roman");//字体
-    format.setFontPointSize(9);//字号
-    format.setFontWeight(QFont::Medium);//字体粗细
-    //setWeekdayTextFormat(Qt::Saturday, format);
-    //setWeekdayTextFormat(Qt::Sunday,   format);
-
-    //修改按钮图片
-    QToolButton *prevBtn = findChild<QToolButton*>(QLatin1String("qt_calendar_prevmonth"));
-    QToolButton *nextBtn = findChild<QToolButton*>(QLatin1String("qt_calendar_nextmonth"));
-    QString currentDir = QDir::currentPath();  // 获取当前工作目录路径
-    //qDebug() << "Current Directory: " << currentDir;
-    QString iconPath1 = currentDir + "/上月.png";  // 图标文件的相对路径
-    prevBtn->setIcon(QIcon(iconPath1));  // 设置按钮的图标
-    QString iconPath2 = currentDir + "/下月.png";  // 图标文件的相对路径
-    nextBtn->setIcon(QIcon(iconPath2));  // 设置按钮的图标
-    //要把按钮图片放置在"HCIProject/build-Easygtd-Desktop_Qt_5_15_2_MinGW_64_bit-Debug"目录下
+    initControl();
 }
 void CalendarWidget::change_color(QDate currentDate,int daysInMonth)//输入参数为当前日期（主要是月份），每月的天数。修改整个月的底色。
 {
@@ -85,7 +89,6 @@ void CalendarWidget::onPageChanged(int year, int month)//这是检测用户日�
 }
 void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate &date) const
 {
-
     if (date == selectedDate())
     {
         painter->save();
@@ -130,7 +133,7 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         QCalendarWidget::paintCell(painter, rect, date);
     }
     if (date == QDate::currentDate()) {
-        // 最后在左上角绘制金黄色三角形
+        // 最后在今日的左上角绘制金黄色三角形
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
         painter->setPen(Qt::NoPen);
@@ -144,3 +147,234 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
     }
 }
 
+void CalendarWidget::initControl()
+{
+    //layout()->setSizeConstraint(QLayout::SetFixedSize); //设置固定大小，效果不好
+    setLocale(QLocale(QLocale::Chinese));
+    setNavigationBarVisible(false);
+    setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);//星期几的表头为单个文字
+    setStyle(new QCustomStyle(this));
+
+
+    //设置星期中每天（包括表头）的风格
+    //下面可以更改字体等
+    QTextCharFormat format;
+    format.setForeground(QColor(160, 160, 160));//前景色
+    format.setBackground(QColor(255, 255, 255));//背景色
+    //format.setFontFamily("Times New Roman");//字体
+    //format.setFontPointSize(9);//字号
+    //format.setFontWeight(QFont::Medium);//字体粗细
+    setHeaderTextFormat(format);
+    //    setWeekdayTextFormat(Qt::Saturday, format);
+    //    setWeekdayTextFormat(Qt::Sunday,   format);
+    //    setWeekdayTextFormat(Qt::Monday,   format);
+    //    setWeekdayTextFormat(Qt::Tuesday,  format);
+    //    setWeekdayTextFormat(Qt::Wednesday,format);
+    //    setWeekdayTextFormat(Qt::Thursday, format);
+    //    setWeekdayTextFormat(Qt::Friday,   format);
+
+    initTopWidget();
+    initBottomWidget();
+    connect(this, &QCalendarWidget::currentPageChanged, [this](int year, int month){
+        setDataLabelTimeText(year, month);
+    });
+}
+void CalendarWidget::initTopWidget()
+{
+    QWidget* topWidget = new QWidget(this);
+    topWidget->setObjectName("CalendarTopWidget");
+    topWidget->setFixedHeight(topWidget_height);
+    topWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+
+//    下面曾经用于颜色修改测试
+//    bottomWidget->setStyleSheet("background-color: red;");
+//    QLinearGradient gradient(0, 0, 0, topWidget->height());
+//    gradient.setColorAt(0, Qt::blue);
+//    gradient.setColorAt(1, Qt::green);
+//    QBrush brush(gradient);
+//    QPalette palette;
+//    palette.setBrush(QPalette::Window, brush);
+//    topWidget->setAutoFillBackground(true);
+//    topWidget->setPalette(palette);
+//    颜色修改完毕
+
+    QHBoxLayout* hboxLayout = new QHBoxLayout;
+    hboxLayout->setContentsMargins(12, 0, 12, 0);
+    hboxLayout->setSpacing(4);
+
+    m_leftYearBtn   = new QPushButton(this);
+    m_leftMonthBtn  = new QPushButton(this);
+    m_rightYearBtn  = new QPushButton(this);
+    m_rightMonthBtn = new QPushButton(this);
+    m_dataLabel     = new QLabel(this);
+
+    //设置每个按钮的名称
+    m_leftYearBtn->setObjectName("CalendarLeftYearBtn");
+    m_leftMonthBtn->setObjectName("CalendarLeftMonthBtn");
+    m_rightYearBtn->setObjectName("CalendarRightYearBtn");
+    m_rightMonthBtn->setObjectName("CalendarRightMonthBtn");
+    m_dataLabel->setObjectName("CalendarDataLabel");
+
+    //设置每个按钮的大小
+    m_leftYearBtn->setFixedSize(BtnSize, BtnSize);
+    m_leftMonthBtn->setFixedSize(BtnSize, BtnSize);
+    m_rightYearBtn->setFixedSize(BtnSize, BtnSize);
+    m_rightMonthBtn->setFixedSize(BtnSize, BtnSize);
+
+    hboxLayout->addWidget(m_leftYearBtn);
+    hboxLayout->addWidget(m_leftMonthBtn);
+    hboxLayout->addStretch();
+    hboxLayout->addWidget(m_dataLabel);
+    hboxLayout->addStretch();
+    hboxLayout->addWidget(m_rightMonthBtn);
+    hboxLayout->addWidget(m_rightYearBtn);
+    topWidget->setLayout(hboxLayout);
+
+    //设置每个按钮的图标
+    m_leftYearBtn->setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
+    m_leftMonthBtn->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
+    m_rightYearBtn->setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
+    m_rightMonthBtn->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+
+    //初始化每个按钮的背景色为透明
+    m_leftYearBtn->setStyleSheet("background-color: transparent;");
+    m_leftMonthBtn->setStyleSheet("background-color: transparent;");
+    m_rightYearBtn->setStyleSheet("background-color: transparent;");
+    m_rightMonthBtn->setStyleSheet("background-color: transparent;");
+
+    //在每个按钮上都安装事件过滤器
+    m_leftYearBtn->installEventFilter(this);
+    m_leftMonthBtn->installEventFilter(this);
+    m_rightYearBtn->installEventFilter(this);
+    m_rightMonthBtn->installEventFilter(this);
+
+    QVBoxLayout *vBodyLayout = qobject_cast<QVBoxLayout *>(layout());
+    vBodyLayout->insertWidget(0, topWidget);
+
+    connect(m_leftYearBtn,   SIGNAL(clicked()),  this, SLOT(onbtnClicked()));
+    connect(m_leftMonthBtn,  SIGNAL(clicked()),  this, SLOT(onbtnClicked()));
+    connect(m_rightYearBtn,  SIGNAL(clicked()),  this, SLOT(onbtnClicked()));
+    connect(m_rightMonthBtn, SIGNAL(clicked()),  this, SLOT(onbtnClicked()));
+
+    setDataLabelTimeText(selectedDate().year(), selectedDate().month());
+}
+void CalendarWidget::initBottomWidget()
+{
+    QWidget* bottomWidget = new QWidget(this);
+    bottomWidget->setObjectName("CalendarBottomWidget");
+    bottomWidget->setFixedHeight(bottomWidget_height);
+    bottomWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+
+//    下面曾经用于颜色修改测试
+//    bottomWidget->setStyleSheet("background-color: red;");
+//    QLinearGradient gradient(0, 0, 0, bottomWidget->height());
+//    gradient.setColorAt(0, Qt::blue);
+//    gradient.setColorAt(1, Qt::green);
+//    QBrush brush(gradient);
+//    QPalette palette;
+//    palette.setBrush(QPalette::Window, brush);
+//    bottomWidget->setAutoFillBackground(true);
+//    bottomWidget->setPalette(palette);
+//    颜色修改完毕
+
+    QHBoxLayout* hboxLayout = new QHBoxLayout;
+    hboxLayout->setContentsMargins(12, 0, 12, 0);
+    hboxLayout->setSpacing(6);
+
+    m_toDayBtn = new QPushButton(this);
+    m_toDayBtn->setObjectName("CalendarTodayBtn");
+    m_toDayBtn->setFixedSize(3*toDayBtn_length, toDayBtn_length);
+    m_toDayBtn->setText(QStringLiteral("回到今日页面"));
+
+    hboxLayout->addStretch();
+    hboxLayout->addWidget(m_toDayBtn);
+    bottomWidget->setLayout(hboxLayout);
+
+    QVBoxLayout *vBodyLayout = qobject_cast<QVBoxLayout *>(layout());
+    vBodyLayout->addWidget(bottomWidget);
+
+    connect(m_toDayBtn, &QPushButton::clicked, [this](){
+
+        showToday();
+    });
+}
+void CalendarWidget::setDataLabelTimeText(int year, int month)
+{
+    QFont font = m_dataLabel->font();
+    font.setPointSize(15);  // 设置字号
+    font.setFamily("Arial");  // 设置字体名称为 Arial
+    font.setBold(true);      // 设置加粗
+    font.setItalic(false);   // 取消斜体
+    m_dataLabel->setFont(font);
+    m_dataLabel->setText(QStringLiteral("%1年%2月").arg(year).arg(month));
+}
+void CalendarWidget::onbtnClicked()
+{
+    //disconnect(SIGNAL(selectionChanged()));
+    QPushButton *senderBtn = qobject_cast<QPushButton *>(sender());
+    if (senderBtn == m_leftYearBtn)
+    {
+        showPreviousYear();
+    }
+    else if (senderBtn == m_leftMonthBtn)
+    {
+        showPreviousMonth();
+    }
+    else if (senderBtn == m_rightYearBtn)
+    {
+        showNextYear();
+    }
+    else if (senderBtn == m_rightMonthBtn)
+    {
+        showNextMonth();
+    }
+}
+bool CalendarWidget::eventFilter(QObject* obj, QEvent* event)
+{
+    if (obj == m_leftYearBtn)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            m_leftYearBtn->setStyleSheet("border: 1px solid black;");
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            m_leftYearBtn->setStyleSheet("background-color: transparent;"); // 清空样式表，恢复默认外观
+        }
+    }
+    else if (obj == m_leftMonthBtn)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            m_leftMonthBtn->setStyleSheet("border: 1px solid black;");
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            m_leftMonthBtn->setStyleSheet("background-color: transparent;"); // 清空样式表，恢复默认外观
+        }
+    }
+    else if (obj == m_rightYearBtn)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            m_rightYearBtn->setStyleSheet("border: 1px solid black;");
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            m_rightYearBtn->setStyleSheet("background-color: transparent;"); // 清空样式表，恢复默认外观
+        }
+    }
+    else if (obj == m_rightMonthBtn)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            m_rightMonthBtn->setStyleSheet("border: 1px solid black;");
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            m_rightMonthBtn->setStyleSheet("background-color: transparent;"); // 清空样式表，恢复默认外观
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
