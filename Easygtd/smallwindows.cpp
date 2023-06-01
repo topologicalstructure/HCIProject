@@ -24,6 +24,7 @@ smallwindows::~smallwindows()
 
 void smallwindows::mousePressEvent(QMouseEvent *event)
 {
+    ui->widget_2->setVisible(1);
     if(event->button() == Qt::LeftButton){
         mouse_is_press=1;
         mouse_posit=event->globalPos()-pos();
@@ -103,7 +104,7 @@ void smallwindows::ShowWindow()
 
 void smallwindows::enterEvent(QEvent *event)
 {
-    ui->widget_2->setVisible(1);
+    //ui->widget_2->setVisible(1);
     if(win_hide){
         ShowWindow();
     }
@@ -111,10 +112,22 @@ void smallwindows::enterEvent(QEvent *event)
 
 void smallwindows::leaveEvent(QEvent *event)
 {
+    /*if(!ui->widget_2->isExpand1&&!ui->widget_2->isExpand2){
+        ui->widget_2->setVisible(0);
+    }*/
     //ui->widget_2->setVisible(0);
     if(win_hide){
         HideWindow();
     }
+}
+
+bool smallwindows::event(QEvent * event)
+{
+    if (QEvent::WindowDeactivate == event->type())
+    {
+        ui->widget_2->setVisible(0);
+    }
+    return QWidget::event(event);
 }
 
 void smallwindows::on_CloseButton_clicked()

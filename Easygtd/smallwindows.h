@@ -35,6 +35,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);  //鼠标释放事件
     virtual void enterEvent(QEvent *event);              //鼠标移入事件
     virtual void leaveEvent(QEvent *event);              //鼠标移出事件
+    bool event(QEvent * event);
     QNetworkAccessManager manager;
     QNetworkRequest request;
     QUrl url = QUrl("https://api.seniverse.com/v3/weather/now.json?key=S9YW3zZRzKHPxy-67&location=ip&language=zh-Hans&unit=c");

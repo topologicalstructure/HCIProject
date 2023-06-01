@@ -12,8 +12,6 @@ create_widget::create_widget(QWidget *parent) :
     //绑定信号与槽
     connect(ui->dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(DateChanged()));
     connect(ui->dateEdit_2,SIGNAL(dateChanged(QDate)),this,SLOT(DateChanged2()));
-
-    ui->dateEdit->installEventFilter(this);
 }
 
 create_widget::~create_widget()
