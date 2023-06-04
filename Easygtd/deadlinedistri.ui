@@ -90,14 +90,6 @@
         </size>
        </property>
       </widget>
-      <widget class="QTextBrowser" name="textBrowser">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
      </widget>
     </widget>
    </item>

@@ -20,7 +20,6 @@ deadlinedistri::deadlinedistri(QWidget *parent) :
     //ui->verticalLayout->addWidget(MyCalendar);
 
     connect(ui->MyCalendar, &QCalendarWidget::selectionChanged, this, &deadlinedistri::onselectionChanged);//用户修改选中的日期动作关联
-    ui->textBrowser->setFontPointSize(20);
     QFont font("Arial", 15);  // 创建字体对象并设置字号
     ui->listWidget->setFont(font);      // 设置项目的字体
     ui->listWidget->setWordWrap(true); //设置自动换行
@@ -40,9 +39,7 @@ void deadlinedistri::onselectionChanged()
     QDate currentDate = ui->MyCalendar->selectedDate();
     ui->MyCalendar->onPageChanged(currentDate.year(), currentDate.month());//只要选择的日期更换就重绘页面
     int taskcount=oper1->GetDeadline(currentDate.toString(Qt::ISODate));//存储ddl数量
-    ui->textBrowser->setText(QString::number(taskcount)+" 个任务的截止日期是 "+currentDate.toString(Qt::ISODate));
-    ui->textBrowser->setAlignment(Qt::AlignCenter); // 设置文本居中对齐
-
+    ui->MyCalendar->setddlLabelText();
     ui->listWidget->clear(); // 清空 QListWidget
 
     for(int i=0;i<taskcount;++i)

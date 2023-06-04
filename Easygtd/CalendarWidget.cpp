@@ -105,9 +105,18 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         painter->fillRect(rect, newcolor);
 
         // 绘制选中日期的文本颜色
-        painter->setPen(Qt::black);
+        QString dayOfWeek = date.toString("dddd");// 获取选中日期的星期几
+        if(dayOfWeek=="星期六"||dayOfWeek=="星期日")
+        {
+            painter->setPen(Qt::red);
+        }
+        else
+        {
+            painter->setPen(Qt::black);
+        }
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
-        //底色和文本设置完毕，下面设置圆圈边框和三角形角标
+        //底色和文本设置完毕
+
 
         painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -133,20 +142,24 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         QCalendarWidget::paintCell(painter, rect, date);
     }
     if (date == QDate::currentDate()) {
-        // 最后在今日的左上角绘制金黄色三角形
+        // 在今日的左上角绘制金黄色三角形
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor::fromHsl(H_triangle, S_triangle, L_triangle));
         QPoint points[3];
         points[0] = rect.topLeft();
-        points[1] = rect.topLeft()+alpha_triangle*(rect.topRight()-rect.topLeft());
+        //points[1] = rect.topLeft()+alpha_triangle*(rect.topRight()-rect.topLeft());
         points[2] = rect.topLeft()+alpha_triangle*(rect.bottomLeft()-rect.topLeft());
+
+        points[1].setY(points[0].y());
+        int deltaX = (points[2] - points[0]).manhattanLength();  // 计算曼哈顿距离
+        points[1].setX(points[0].x() + deltaX);
+
         painter->drawPolygon(points, 3);
         painter->restore();
     }
 }
-
 void CalendarWidget::initControl()
 {
     //layout()->setSizeConstraint(QLayout::SetFixedSize); //设置固定大小，效果不好
@@ -155,7 +168,6 @@ void CalendarWidget::initControl()
     setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
     setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);//星期几的表头为单个文字
     setStyle(new QCustomStyle(this));
-
 
     //设置星期中每天（包括表头）的风格
     //下面可以更改字体等
@@ -187,8 +199,8 @@ void CalendarWidget::initTopWidget()
     topWidget->setFixedHeight(topWidget_height);
     topWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
-//    下面曾经用于颜色修改测试
-//    bottomWidget->setStyleSheet("background-color: red;");
+    //下面曾经用于颜色修改测试
+    //topWidget->setStyleSheet("background-color: red;");
 //    QLinearGradient gradient(0, 0, 0, topWidget->height());
 //    gradient.setColorAt(0, Qt::blue);
 //    gradient.setColorAt(1, Qt::green);
@@ -197,7 +209,7 @@ void CalendarWidget::initTopWidget()
 //    palette.setBrush(QPalette::Window, brush);
 //    topWidget->setAutoFillBackground(true);
 //    topWidget->setPalette(palette);
-//    颜色修改完毕
+    //颜色修改完毕
 
     QHBoxLayout* hboxLayout = new QHBoxLayout;
     hboxLayout->setContentsMargins(12, 0, 12, 0);
@@ -279,14 +291,18 @@ void CalendarWidget::initBottomWidget()
 //    颜色修改完毕
 
     QHBoxLayout* hboxLayout = new QHBoxLayout;
-    hboxLayout->setContentsMargins(12, 0, 12, 0);
+
+    hboxLayout->setContentsMargins(0, 10, 12, 10);
     hboxLayout->setSpacing(6);
 
     m_toDayBtn = new QPushButton(this);
     m_toDayBtn->setObjectName("CalendarTodayBtn");
     m_toDayBtn->setFixedSize(3*toDayBtn_length, toDayBtn_length);
     m_toDayBtn->setText(QStringLiteral("回到今日页面"));
+    m_ddlLabel = new QLabel(this);
+    m_ddlLabel -> setObjectName("CalendarddlLabel");
 
+    hboxLayout->addWidget(m_ddlLabel);
     hboxLayout->addStretch();
     hboxLayout->addWidget(m_toDayBtn);
     bottomWidget->setLayout(hboxLayout);
@@ -298,6 +314,8 @@ void CalendarWidget::initBottomWidget()
 
         showToday();
     });
+
+    setddlLabelText();
 }
 void CalendarWidget::setDataLabelTimeText(int year, int month)
 {
@@ -308,6 +326,46 @@ void CalendarWidget::setDataLabelTimeText(int year, int month)
     font.setItalic(false);   // 取消斜体
     m_dataLabel->setFont(font);
     m_dataLabel->setText(QStringLiteral("%1年%2月").arg(year).arg(month));
+}
+void CalendarWidget::setddlLabelText()
+{
+    QDate date= selectedDate();
+    QTextCharFormat format;// 设置背景色为指定颜色，根据某天任务数量的多少确定
+    int lightness=0;//设定颜色的亮度数值
+    oper=new SqliteOperator;
+    int taskcount=oper->GetDeadline(date.toString(Qt::ISODate));//存储ddl数量
+    if(taskcount>=MAX_DDL)
+    {
+        taskcount=MAX_DDL;
+    }
+    lightness=L_MAX+K*taskcount;
+    QColor newcolor = QColor::fromHsl(H_GREEN, S_GREEN, lightness);
+    //format.setBackground(newcolor);// 应用字符格式到指定的日期
+    //setDateTextFormat(date, format);//修改背景色完毕
+
+    QFont font = m_ddlLabel->font();
+    font.setPointSize(15);  // 设置字号
+    font.setFamily("Arial");  // 设置字体名称为 Arial
+    font.setBold(true);      // 设置加粗
+    font.setItalic(false);   // 取消斜体
+
+    m_ddlLabel->setFont(font);
+    m_ddlLabel->setText("DDL：" + QString::number(taskcount));
+
+    if(taskcount>0)
+    {
+       QPalette palette = m_ddlLabel->palette();  // 获取 m_ddlLabel 的调色板
+       palette.setColor(QPalette::Window, newcolor);  // 设置背景色
+       m_ddlLabel->setPalette(palette);  // 应用修改后的调色板
+       m_ddlLabel->setAutoFillBackground(true);  // 开启自动填充背景
+    }
+    else
+    {
+       QPalette defaultPalette = m_ddlLabel->palette();  // 获取默认的调色板
+       m_ddlLabel->setPalette(defaultPalette);  // 将默认的调色板应用到标签
+       m_ddlLabel->setAutoFillBackground(false);  // 关闭自动填充背景
+    }
+    m_ddlLabel->update();  // 更新 m_ddlLabel 的显示
 }
 void CalendarWidget::onbtnClicked()
 {

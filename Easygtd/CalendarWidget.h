@@ -20,13 +20,13 @@
 
 #define H_triangle 60 //为当前日期添加黄色三角形角标
 #define S_triangle 255
-#define L_triangle 120
-#define alpha_triangle 0.4 //三角形角标占据正方形日期方格宽度和高度的百分比
+#define L_triangle 125
+#define alpha_triangle 0.3 //三角形角标占据正方形日期方格高度的百分比
 
 #define BtnSize 50 //切换年月按钮大小
 #define topWidget_height 60 //顶部表头布局栏高度
 #define bottomWidget_height 60 //底部布局栏高度
-#define toDayBtn_length 50 //回到今日按钮大小
+#define toDayBtn_length 45 //回到今日按钮大小
 
 class QPushButton;
 class QLabel;
@@ -38,6 +38,7 @@ class CalendarWidget : public QCalendarWidget
 public:
     CalendarWidget(QWidget *parent = nullptr);
     void change_color(QDate currentDate,int daysInMonth);//输入参数为当前日期（主要是月份），每月的天数。修改整个月的底色。
+    void setddlLabelText();
 private:
     void initControl();
     void initTopWidget();
@@ -56,10 +57,10 @@ private:
     QPushButton* m_rightYearBtn;
     QPushButton* m_rightMonthBtn;
 
-    QPushButton* m_ensureBtn;
     QPushButton* m_toDayBtn;
 
     QLabel* m_dataLabel;
+    QLabel* m_ddlLabel;
 };
 
 #endif // CALENDARWIDGET_H

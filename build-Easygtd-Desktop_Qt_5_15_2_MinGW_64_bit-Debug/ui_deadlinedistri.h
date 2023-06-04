@@ -14,7 +14,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QSplitter>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "CalendarWidget.h"
@@ -30,7 +29,6 @@ public:
     QListWidget *listWidget;
     QSplitter *splitter;
     CalendarWidget *MyCalendar;
-    QTextBrowser *textBrowser;
 
     void setupUi(QWidget *deadlinedistri)
     {
@@ -81,14 +79,6 @@ public:
         MyCalendar->setSizePolicy(sizePolicy2);
         MyCalendar->setMinimumSize(QSize(400, 380));
         splitter->addWidget(MyCalendar);
-        textBrowser = new QTextBrowser(splitter);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
-        textBrowser->setSizePolicy(sizePolicy3);
-        splitter->addWidget(textBrowser);
         splitter_2->addWidget(splitter);
 
         verticalLayout->addWidget(splitter_2);
