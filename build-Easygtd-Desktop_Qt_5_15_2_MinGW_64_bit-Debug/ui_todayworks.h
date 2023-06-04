@@ -14,6 +14,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <workdisplay.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -22,7 +23,7 @@ class Ui_Todayworks
 public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QWidget *widget_2;
+    workDisplay *workView;
 
     void setupUi(QWidget *Todayworks)
     {
@@ -32,7 +33,7 @@ public:
         verticalLayout = new QVBoxLayout(Todayworks);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, -1, 0, 0);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(Todayworks);
         label->setObjectName(QString::fromUtf8("label"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -40,16 +41,18 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
+        label->setMinimumSize(QSize(0, 60));
+        label->setBaseSize(QSize(0, 0));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
 
         verticalLayout->addWidget(label);
 
-        widget_2 = new QWidget(Todayworks);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        workView = new workDisplay(Todayworks);
+        workView->setObjectName(QString::fromUtf8("workView"));
 
-        verticalLayout->addWidget(widget_2);
+        verticalLayout->addWidget(workView);
 
 
         retranslateUi(Todayworks);
@@ -60,7 +63,7 @@ public:
     void retranslateUi(QWidget *Todayworks)
     {
         Todayworks->setWindowTitle(QCoreApplication::translate("Todayworks", "Form", nullptr));
-        label->setText(QCoreApplication::translate("Todayworks", "\346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
+        label->setText(QCoreApplication::translate("Todayworks", "       \346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
     } // retranslateUi
 
 };

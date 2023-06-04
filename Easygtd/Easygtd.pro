@@ -21,7 +21,8 @@ SOURCES += \
     sqlconn.cpp \
     todayworks.cpp \
     weather.cpp \
-    yesterdayworks.cpp
+    yesterdayworks.cpp \
+    workdisplay.cpp
 
 HEADERS += \
     CalendarWidget.h \
@@ -35,7 +36,8 @@ HEADERS += \
     sqlconn.h \
     todayworks.h \
     weather.h \
-    yesterdayworks.h
+    yesterdayworks.h \
+    workdisplay.h
 
 FORMS += \
     create_widget.ui \

@@ -71,5 +71,6 @@ void create_widget::keyPressEvent(QKeyEvent *event)
         oper.AddLongterm(ui->dateEdit->date().toString("yyyy-MM-dd"),ui->dateEdit_2->date().toString("yyyy-MM-dd"),ui->lineEdit->text());//添加长期任务
     }
     //清空输入框，等待下一次输入
+    ui->lineEdit->clearFocus();
     ui->lineEdit->clear();
 }

@@ -223,6 +223,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../software/QT/5.15.2/mingw81_64/mkspecs/
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/qt_config.prf \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/toolchain.prf \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/default_pre.prf \
@@ -253,7 +254,6 @@ Makefile: ../Easygtd/Easygtd.pro ../../../software/QT/5.15.2/mingw81_64/mkspecs/
 		../../../software/QT/5.15.2/mingw81_64/lib/Qt5Network.prl \
 		../../../software/QT/5.15.2/mingw81_64/lib/Qt5Core.prl \
 		../../../software/QT/5.15.2/mingw81_64/lib/qtmain.prl \
-		.qmake.stash \
 		../../../software/QT/5.15.2/mingw81_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\Easygtd\Easygtd.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/spec_pre.prf:
@@ -409,6 +409,7 @@ Makefile: ../Easygtd/Easygtd.pro ../../../software/QT/5.15.2/mingw81_64/mkspecs/
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/qt_config.prf:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/toolchain.prf:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/default_pre.prf:
@@ -439,7 +440,6 @@ Makefile: ../Easygtd/Easygtd.pro ../../../software/QT/5.15.2/mingw81_64/mkspecs/
 ../../../software/QT/5.15.2/mingw81_64/lib/Qt5Network.prl:
 ../../../software/QT/5.15.2/mingw81_64/lib/Qt5Core.prl:
 ../../../software/QT/5.15.2/mingw81_64/lib/qtmain.prl:
-.qmake.stash:
 ../../../software/QT/5.15.2/mingw81_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Easygtd\Easygtd.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"

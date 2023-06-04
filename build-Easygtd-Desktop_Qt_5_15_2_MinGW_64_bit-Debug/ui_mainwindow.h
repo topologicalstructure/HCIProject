@@ -42,20 +42,14 @@ public:
     QToolButton *yestButton;
     QToolButton *longtermButton;
     QToolButton *ddlButton;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QStackedWidget *stackedWidget;
     QVBoxLayout *verticalLayout;
     QPushButton *becomesmaller;
-    QSpacerItem *verticalSpacer_8;
-    QSpacerItem *verticalSpacer_7;
-    QSpacerItem *verticalSpacer_6;
-    QSpacerItem *verticalSpacer_5;
-    QSpacerItem *verticalSpacer_4;
-    QSpacerItem *verticalSpacer_3;
     QSpacerItem *verticalSpacer_2;
-    create_widget *widget1;
+    create_widget *widget;
     QMenuBar *menubar;
     QButtonGroup *buttonGroup;
 
@@ -309,16 +303,16 @@ public:
         gridLayout->addWidget(ddlButton, 10, 0, 1, 1);
 
         splitter->addWidget(sidebar);
-        widget = new QWidget(splitter);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(splitter);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setSpacing(0);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        stackedWidget = new QStackedWidget(widget);
+        stackedWidget = new QStackedWidget(layoutWidget);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
@@ -333,34 +327,17 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        becomesmaller = new QPushButton(widget);
+        becomesmaller = new QPushButton(layoutWidget);
         becomesmaller->setObjectName(QString::fromUtf8("becomesmaller"));
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(becomesmaller->sizePolicy().hasHeightForWidth());
+        becomesmaller->setSizePolicy(sizePolicy3);
+        becomesmaller->setMinimumSize(QSize(30, 30));
+        becomesmaller->setMaximumSize(QSize(30, 30));
 
         verticalLayout->addWidget(becomesmaller);
-
-        verticalSpacer_8 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_8);
-
-        verticalSpacer_7 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_7);
-
-        verticalSpacer_6 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_6);
-
-        verticalSpacer_5 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_5);
-
-        verticalSpacer_4 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_4);
-
-        verticalSpacer_3 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_3);
 
         verticalSpacer_2 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -372,18 +349,18 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
-        widget1 = new create_widget(widget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(widget1->sizePolicy().hasHeightForWidth());
-        widget1->setSizePolicy(sizePolicy3);
-        widget1->setMinimumSize(QSize(860, 40));
+        widget = new create_widget(layoutWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy4);
+        widget->setMinimumSize(QSize(860, 40));
 
-        verticalLayout_2->addWidget(widget1);
+        verticalLayout_2->addWidget(widget);
 
-        splitter->addWidget(widget);
+        splitter->addWidget(layoutWidget);
 
         gridLayout_2->addWidget(splitter, 0, 0, 1, 1);
 

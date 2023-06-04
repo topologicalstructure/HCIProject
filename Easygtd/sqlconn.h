@@ -1,3 +1,6 @@
+#ifndef SQLCONN_H
+#define SQLCONN_H
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -46,3 +49,4 @@ private:
     void CreatTable();
 };
 
+#endif

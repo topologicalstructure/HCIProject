@@ -11,6 +11,7 @@ debug/sqlconn.o
 debug/todayworks.o
 debug/weather.o
 debug/yesterdayworks.o
+debug/workdisplay.o
 debug/moc_CalendarWidget.o
 debug/moc_create_widget.o
 debug/moc_deadlinedistri.o
@@ -22,3 +23,4 @@ debug/moc_smallwindows.o
 debug/moc_todayworks.o
 debug/moc_weather.o
 debug/moc_yesterdayworks.o
+debug/moc_workdisplay.o

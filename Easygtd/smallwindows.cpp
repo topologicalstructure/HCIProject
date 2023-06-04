@@ -2,7 +2,7 @@
 #include "ui_smallwindows.h"
 #include "mainwindow.h"
 
-smallwindows::smallwindows(QWidget *parent) :
+smallwindows::smallwindows(QWidget *parent, SqliteOperator* Oper, QStandardItemModel* model) :
     QMainWindow(parent),
     ui(new Ui::smallwindows)
 {
@@ -15,6 +15,10 @@ smallwindows::smallwindows(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotCountMessage()));
     timer->start(10000);
+    oper = Oper;
+    todayWorks = model;
+    ui->workView->setModel(todayWorks);
+    qDebug()<<"aaa";
 }
 
 smallwindows::~smallwindows()

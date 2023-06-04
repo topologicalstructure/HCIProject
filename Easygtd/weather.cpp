@@ -20,10 +20,18 @@ Weather::~Weather()
 
 void Weather::Update()
 {
-    ui->weather->setText(wea);
-    ui->tem->setText(tempe+"°C");
-    QImage ima;
-    ima.load("./black/"+code+"@2x.png");
-    //ima.scaled(ui->picture->height(),ui->picture->width(),Qt::KeepAspectRatio);
-    ui->picture->setPixmap(QPixmap::fromImage(ima));
+    if(wea==""){
+        ui->weather->setText("错误");
+        ui->tem->setText("网络");
+        QImage ima;
+        ima.load("./black/99@2x.png");
+        ui->picture->setPixmap(QPixmap::fromImage(ima));
+    }
+    else{
+        ui->weather->setText(wea);
+        ui->tem->setText(tempe+"°C");
+        QImage ima;
+        ima.load("./black/"+code+"@2x.png");
+        ui->picture->setPixmap(QPixmap::fromImage(ima));
+    }
 }

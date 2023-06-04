@@ -8,7 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    today=new Todayworks;
+    oper=new SqliteOperator;
+    oper->UpdateTable();
+    today=new Todayworks(this,oper);
     expects=new ExpectedWorks;
     longterm=new longtermworks;
     yesterday=new yesterdayworks;
@@ -31,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(ui->buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), ui->stackedWidget, &QStackedWidget::setCurrentIndex);
     connect(ui->buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(Change(int)));
     setWindowTitle("EasyGTD");
+    /*smaller=new QPushButton("smaller",this);
+    smaller->setGeometry(50,50,40,40);
+    smaller->show();
+    smaller->raise();*/
 }
 
 MainWindow::~MainWindow()
@@ -42,7 +48,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_becomesmaller_clicked()
 {
-    smallwindows* smwin=new smallwindows();
+    smallwindows* smwin=new smallwindows(nullptr, oper, today->getTodayWorks());
     this->hide();
     smwin->show();
 }

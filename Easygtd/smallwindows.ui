@@ -189,14 +189,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QWidget" name="widget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
+     <widget class="workDisplay" name="workView"/>
     </item>
     <item>
      <widget class="create_widget" name="widget_2" native="true">
@@ -228,6 +221,11 @@
   </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>workDisplay</class>
+   <extends>QListView</extends>
+   <header location="global">workdisplay.h</header>
+  </customwidget>
   <customwidget>
    <class>Weather</class>
    <extends>QWidget</extends>

@@ -16,6 +16,8 @@
 #include <QDebug>
 #include <QtCore>
 #include <QTimer>
+#include "sqlconn.h"
+#include <QStandardItemModel>
 
 namespace Ui {
 class smallwindows;
@@ -26,7 +28,7 @@ class smallwindows : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit smallwindows(QWidget *parent = nullptr);
+    explicit smallwindows(QWidget *parent = nullptr, SqliteOperator* Oper = nullptr, QStandardItemModel* model = nullptr);
     ~smallwindows();
 
 protected:
@@ -50,6 +52,8 @@ private:
     int screen_width;              //屏幕宽度
     void HideWindow();             //隐藏窗口
     void ShowWindow();             //显示窗口
+    SqliteOperator* oper;
+    QStandardItemModel* todayWorks;
 
 private slots:
     void on_CloseButton_clicked();

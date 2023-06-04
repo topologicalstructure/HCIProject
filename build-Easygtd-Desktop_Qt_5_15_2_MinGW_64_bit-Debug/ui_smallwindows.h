@@ -20,6 +20,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <workdisplay.h>
 #include "create_widget.h"
 #include "weather.h"
 
@@ -39,7 +40,7 @@ public:
     QPushButton *becomebig;
     QSpacerItem *verticalSpacer;
     QSpacerItem *horizontalSpacer;
-    QWidget *widget;
+    workDisplay *workView;
     create_widget *widget_2;
     QMenuBar *menubar;
 
@@ -127,23 +128,18 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy2);
+        workView = new workDisplay(centralwidget);
+        workView->setObjectName(QString::fromUtf8("workView"));
 
-        verticalLayout->addWidget(widget);
+        verticalLayout->addWidget(workView);
 
         widget_2 = new create_widget(centralwidget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
-        widget_2->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy2);
         widget_2->setMinimumSize(QSize(0, 40));
 
         verticalLayout->addWidget(widget_2);

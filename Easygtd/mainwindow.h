@@ -3,6 +3,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "todayworks.h"
 #include "expectedworks.h"
 #include "longtermworks.h"
@@ -32,6 +33,8 @@ private:
     extendedworks* extended;
     yesterdayworks* yesterday;
     deadlinedistri* deadline;
+    SqliteOperator* oper;
+    QPushButton* smaller;
 
 
 private slots:
