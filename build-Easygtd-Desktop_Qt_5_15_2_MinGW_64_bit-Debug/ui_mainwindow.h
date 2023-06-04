@@ -99,6 +99,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -142,6 +143,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -176,6 +178,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -210,6 +213,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -244,6 +248,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -278,6 +283,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -356,12 +362,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        todayButton->setText(QCoreApplication::translate("MainWindow", "\344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
-        expectsButton->setText(QCoreApplication::translate("MainWindow", "\351\242\204\345\256\232\344\273\273\345\212\241", nullptr));
-        extendButton->setText(QCoreApplication::translate("MainWindow", "\345\267\262\345\273\266\346\234\237", nullptr));
-        yestButton->setText(QCoreApplication::translate("MainWindow", "\346\230\250\346\227\245\344\273\273\345\212\241", nullptr));
-        longtermButton->setText(QCoreApplication::translate("MainWindow", "\351\225\277\346\234\237\344\273\273\345\212\241", nullptr));
-        ddlButton->setText(QCoreApplication::translate("MainWindow", "\346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
+        todayButton->setText(QCoreApplication::translate("MainWindow", "  \344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
+        expectsButton->setText(QCoreApplication::translate("MainWindow", "  \351\242\204\345\256\232\344\273\273\345\212\241", nullptr));
+        extendButton->setText(QCoreApplication::translate("MainWindow", "  \345\267\262\345\273\266\346\234\237", nullptr));
+        yestButton->setText(QCoreApplication::translate("MainWindow", "  \346\230\250\346\227\245\344\273\273\345\212\241", nullptr));
+        longtermButton->setText(QCoreApplication::translate("MainWindow", "  \351\225\277\346\234\237\344\273\273\345\212\241", nullptr));
+        ddlButton->setText(QCoreApplication::translate("MainWindow", "  \346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
     } // retranslateUi
 
 };

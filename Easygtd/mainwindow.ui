@@ -95,6 +95,7 @@
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -113,7 +114,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>今日任务</string>
+           <string>  今日任务</string>
           </property>
           <property name="iconSize">
            <size>
@@ -174,6 +175,7 @@ QPushButton:default {
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -192,7 +194,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>预定任务</string>
+           <string>  预定任务</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -222,6 +224,7 @@ QPushButton:default {
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -240,7 +243,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>已延期</string>
+           <string>  已延期</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -270,6 +273,7 @@ QPushButton:default {
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -288,7 +292,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>昨日任务</string>
+           <string>  昨日任务</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -318,6 +322,7 @@ QPushButton:default {
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -336,7 +341,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>长期任务</string>
+           <string>  长期任务</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -366,6 +371,7 @@ QPushButton:default {
     min-width: 150px;
     min-height: 40px;
 	background-color: rgb(245, 245, 245);
+    padding-left:35px;
 }
 
 /* 鼠标悬停 */
@@ -384,7 +390,7 @@ QPushButton:default {
 }</string>
           </property>
           <property name="text">
-           <string>截止日期分布</string>
+           <string>  截止日期分布</string>
           </property>
           <property name="checkable">
            <bool>true</bool>

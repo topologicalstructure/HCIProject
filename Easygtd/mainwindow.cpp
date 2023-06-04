@@ -33,6 +33,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->todayButton->setIconSize(QSize(30,30));
     ui->todayButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
+    ui->expectsButton->setIcon(QIcon("icons8-alarm-90.png"));
+    ui->expectsButton->setIconSize(QSize(30,30));
+    ui->expectsButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->longtermButton->setIcon(QIcon("icons8-deadline-96.png"));
+    ui->longtermButton->setIconSize(QSize(30,30));
+    ui->longtermButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->yestButton->setIcon(QIcon("icons8-history-96.png"));
+    ui->yestButton->setIconSize(QSize(30,30));
+    ui->yestButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->extendButton->setIcon(QIcon("icons8-plus-1-day-100.png"));
+    ui->extendButton->setIconSize(QSize(30,30));
+    ui->extendButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->ddlButton->setIcon(QIcon("icons8-schedule-96.png"));
+    ui->ddlButton->setIconSize(QSize(30,30));
+    ui->ddlButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
     ui->buttonGroup->button(0)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(0);
     //connect(ui->buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), ui->stackedWidget, &QStackedWidget::setCurrentIndex);
