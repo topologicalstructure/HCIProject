@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CalendarWidget_t {
-    QByteArrayData data[6];
-    char stringdata0[54];
+    QByteArrayData data[3];
+    char stringdata0[29];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,15 +33,11 @@ struct qt_meta_stringdata_CalendarWidget_t {
 static const qt_meta_stringdata_CalendarWidget_t qt_meta_stringdata_CalendarWidget = {
     {
 QT_MOC_LITERAL(0, 0, 14), // "CalendarWidget"
-QT_MOC_LITERAL(1, 15, 13), // "onPageChanged"
-QT_MOC_LITERAL(2, 29, 0), // ""
-QT_MOC_LITERAL(3, 30, 4), // "year"
-QT_MOC_LITERAL(4, 35, 5), // "month"
-QT_MOC_LITERAL(5, 41, 12) // "onbtnClicked"
+QT_MOC_LITERAL(1, 15, 12), // "onbtnClicked"
+QT_MOC_LITERAL(2, 28, 0) // ""
 
     },
-    "CalendarWidget\0onPageChanged\0\0year\0"
-    "month\0onbtnClicked"
+    "CalendarWidget\0onbtnClicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +47,7 @@ static const uint qt_meta_data_CalendarWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,11 +55,9 @@ static const uint qt_meta_data_CalendarWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x0a /* Public */,
-       5,    0,   29,    2, 0x0a /* Public */,
+       1,    0,   19,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
     QMetaType::Void,
 
        0        // eod
@@ -75,11 +69,11 @@ void CalendarWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<CalendarWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->onPageChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 1: _t->onbtnClicked(); break;
+        case 0: _t->onbtnClicked(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject CalendarWidget::staticMetaObject = { {
@@ -111,13 +105,13 @@ int CalendarWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 1)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 1;
     }
     return _id;
 }
