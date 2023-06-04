@@ -124,7 +124,7 @@
            </font>
           </property>
           <property name="text">
-           <string>关闭</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -132,14 +132,14 @@
          <widget class="QPushButton" name="becomebig">
           <property name="minimumSize">
            <size>
-            <width>45</width>
-            <height>45</height>
+            <width>50</width>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>45</width>
-            <height>45</height>
+            <width>50</width>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
@@ -148,7 +148,7 @@
            </font>
           </property>
           <property name="text">
-           <string>变大</string>
+           <string/>
           </property>
          </widget>
         </item>

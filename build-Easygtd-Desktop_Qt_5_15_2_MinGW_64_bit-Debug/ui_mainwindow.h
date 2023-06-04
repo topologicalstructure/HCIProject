@@ -16,7 +16,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStackedWidget>
@@ -46,9 +45,6 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QStackedWidget *stackedWidget;
-    QVBoxLayout *verticalLayout;
-    QPushButton *becomesmaller;
-    QSpacerItem *verticalSpacer_2;
     create_widget *widget;
     QMenuBar *menubar;
     QButtonGroup *buttonGroup;
@@ -119,8 +115,9 @@ public:
 "QPushButton:default {\n"
 "    border-color: navy; /* make the default button prominent */\n"
 "}"));
-        todayButton->setIconSize(QSize(24, 24));
+        todayButton->setIconSize(QSize(30, 30));
         todayButton->setCheckable(true);
+        todayButton->setChecked(false);
         todayButton->setAutoExclusive(true);
         todayButton->setPopupMode(QToolButton::DelayedPopup);
         todayButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
@@ -324,38 +321,16 @@ public:
 
         horizontalLayout->addWidget(stackedWidget);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(0);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        becomesmaller = new QPushButton(layoutWidget);
-        becomesmaller->setObjectName(QString::fromUtf8("becomesmaller"));
-        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(becomesmaller->sizePolicy().hasHeightForWidth());
-        becomesmaller->setSizePolicy(sizePolicy3);
-        becomesmaller->setMinimumSize(QSize(30, 30));
-        becomesmaller->setMaximumSize(QSize(30, 30));
-
-        verticalLayout->addWidget(becomesmaller);
-
-        verticalSpacer_2 = new QSpacerItem(17, 37, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer_2);
-
-
-        horizontalLayout->addLayout(verticalLayout);
-
 
         verticalLayout_2->addLayout(horizontalLayout);
 
         widget = new create_widget(layoutWidget);
         widget->setObjectName(QString::fromUtf8("widget"));
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy3);
         widget->setMinimumSize(QSize(860, 40));
 
         verticalLayout_2->addWidget(widget);
@@ -387,7 +362,6 @@ public:
         yestButton->setText(QCoreApplication::translate("MainWindow", "\346\230\250\346\227\245\344\273\273\345\212\241", nullptr));
         longtermButton->setText(QCoreApplication::translate("MainWindow", "\351\225\277\346\234\237\344\273\273\345\212\241", nullptr));
         ddlButton->setText(QCoreApplication::translate("MainWindow", "\346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
-        becomesmaller->setText(QCoreApplication::translate("MainWindow", "\345\217\230\345\260\217", nullptr));
     } // retranslateUi
 
 };

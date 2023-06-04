@@ -63,7 +63,7 @@ public:
     void retranslateUi(QWidget *Todayworks)
     {
         Todayworks->setWindowTitle(QCoreApplication::translate("Todayworks", "Form", nullptr));
-        label->setText(QCoreApplication::translate("Todayworks", "       \346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
+        label->setText(QCoreApplication::translate("Todayworks", "  \346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
     } // retranslateUi
 
 };

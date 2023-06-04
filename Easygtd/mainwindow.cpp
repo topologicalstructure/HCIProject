@@ -28,15 +28,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->buttonGroup->addButton(ui->yestButton,3);
     ui->buttonGroup->addButton(ui->extendButton,4);
     ui->buttonGroup->addButton(ui->ddlButton,5);
+
+    ui->todayButton->setIcon(QIcon("icons8-note-96.png"));
+    ui->todayButton->setIconSize(QSize(30,30));
+    ui->todayButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
     ui->buttonGroup->button(0)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(0);
     //connect(ui->buttonGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), ui->stackedWidget, &QStackedWidget::setCurrentIndex);
     connect(ui->buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(Change(int)));
     setWindowTitle("EasyGTD");
-    /*smaller=new QPushButton("smaller",this);
-    smaller->setGeometry(50,50,40,40);
-    smaller->show();
-    smaller->raise();*/
+    becomesmaller=new QPushButton("smaller",this);
+    becomesmaller->setGeometry(this->geometry().width()-50,0,50,50);
+    becomesmaller->show();
+    becomesmaller->raise();
+    becomesmaller->setText("");
+    connect(becomesmaller,SIGNAL(clicked(bool)),this,SLOT(becomesmaller_clicked()));
+    QIcon icon;
+    icon.addFile(tr("icons8-small-screen-100.png"));
+    becomesmaller->setIcon(icon);
+    becomesmaller->setIconSize(QSize(50,50));
 }
 
 MainWindow::~MainWindow()
@@ -46,7 +57,7 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::on_becomesmaller_clicked()
+void MainWindow::becomesmaller_clicked()
 {
     smallwindows* smwin=new smallwindows(nullptr, oper, today->getTodayWorks());
     this->hide();
@@ -61,4 +72,9 @@ void MainWindow::Change(int id)
         ui->stackedWidget->insertWidget(5, deadline);
     }
     ui->stackedWidget->setCurrentIndex(id);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    becomesmaller->setGeometry(this->geometry().width()-50,0,50,50);
 }

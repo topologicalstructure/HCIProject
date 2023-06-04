@@ -34,11 +34,11 @@ private:
     yesterdayworks* yesterday;
     deadlinedistri* deadline;
     SqliteOperator* oper;
-    QPushButton* smaller;
-
+    QPushButton* becomesmaller;
+    virtual void resizeEvent(QResizeEvent *event) override;
 
 private slots:
-    void on_becomesmaller_clicked();
+    void becomesmaller_clicked();
     void Change(int id);
 };
 

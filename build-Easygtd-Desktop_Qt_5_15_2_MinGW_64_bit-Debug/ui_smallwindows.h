@@ -106,8 +106,8 @@ public:
 
         becomebig = new QPushButton(centralwidget);
         becomebig->setObjectName(QString::fromUtf8("becomebig"));
-        becomebig->setMinimumSize(QSize(45, 45));
-        becomebig->setMaximumSize(QSize(45, 45));
+        becomebig->setMinimumSize(QSize(50, 50));
+        becomebig->setMaximumSize(QSize(50, 50));
         QFont font2;
         font2.setPointSize(12);
         becomebig->setFont(font2);
@@ -159,8 +159,8 @@ public:
     {
         smallwindows->setWindowTitle(QCoreApplication::translate("smallwindows", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("smallwindows", "\346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
-        CloseButton->setText(QCoreApplication::translate("smallwindows", "\345\205\263\351\227\255", nullptr));
-        becomebig->setText(QCoreApplication::translate("smallwindows", "\345\217\230\345\244\247", nullptr));
+        CloseButton->setText(QString());
+        becomebig->setText(QString());
     } // retranslateUi
 
 };

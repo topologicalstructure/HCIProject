@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[5];
-    char stringdata0[47];
+    char stringdata0[44];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,14 +33,14 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 24), // "on_becomesmaller_clicked"
-QT_MOC_LITERAL(2, 36, 0), // ""
-QT_MOC_LITERAL(3, 37, 6), // "Change"
-QT_MOC_LITERAL(4, 44, 2) // "id"
+QT_MOC_LITERAL(1, 11, 21), // "becomesmaller_clicked"
+QT_MOC_LITERAL(2, 33, 0), // ""
+QT_MOC_LITERAL(3, 34, 6), // "Change"
+QT_MOC_LITERAL(4, 41, 2) // "id"
 
     },
-    "MainWindow\0on_becomesmaller_clicked\0"
-    "\0Change\0id"
+    "MainWindow\0becomesmaller_clicked\0\0"
+    "Change\0id"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +74,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_becomesmaller_clicked(); break;
+        case 0: _t->becomesmaller_clicked(); break;
         case 1: _t->Change((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }

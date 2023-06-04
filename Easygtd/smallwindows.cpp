@@ -17,8 +17,16 @@ smallwindows::smallwindows(QWidget *parent, SqliteOperator* Oper, QStandardItemM
     timer->start(10000);
     oper = Oper;
     todayWorks = model;
+    //设置按钮图标
+    QIcon icon1,icon2;
     ui->workView->setModel(todayWorks);
-    qDebug()<<"aaa";
+    icon1.addFile(tr("icons8-full-screen-100.png"));
+    icon2.addFile(tr("icons8-close-100.png"));
+    ui->becomebig->setIcon(icon1);
+    ui->becomebig->setIconSize(QSize(50,50));
+    ui->CloseButton->setIcon(icon2);
+    ui->CloseButton->setIconSize(QSize(30,30));
+    ui->CloseButton->setStyleSheet("background-color:rgba(0,0,0,0)");
 }
 
 smallwindows::~smallwindows()
