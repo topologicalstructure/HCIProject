@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
@@ -54,13 +57,24 @@
        <pointsize>18</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel#label{
+    background-color:rgb(229,240,255);
+}</string>
+     </property>
      <property name="text">
       <string>  我的一天</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="workDisplay" name="workView"/>
+    <widget class="workDisplay" name="workView">
+     <property name="styleSheet">
+      <string notr="true">workDisplay#workView{
+    background-color:rgb(229,240,255);
+}</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

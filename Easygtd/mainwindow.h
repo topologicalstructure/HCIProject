@@ -40,6 +40,7 @@ private:
 private slots:
     void becomesmaller_clicked();
     void Change(int id);
+    void GetCreat();
 };
 
 

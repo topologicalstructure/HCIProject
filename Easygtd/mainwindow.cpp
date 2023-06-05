@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
     icon.addFile(tr("icons8-small-screen-100.png"));
     becomesmaller->setIcon(icon);
     becomesmaller->setIconSize(QSize(50,50));
+    connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
 }
 
 MainWindow::~MainWindow()
@@ -97,4 +98,33 @@ void MainWindow::Change(int id)
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     becomesmaller->setGeometry(this->geometry().width()-50,0,50,50);
+}
+
+void MainWindow::GetCreat()
+{
+    int page=ui->stackedWidget->currentIndex();
+    for(int i= ui->stackedWidget->count(); i >= 0; i--){
+        QWidget* widget = ui->stackedWidget->widget(i);
+        ui->stackedWidget->removeWidget(widget);
+        widget->deleteLater();
+    }
+    delete today;
+    delete expects;
+    delete longterm;
+    delete yesterday;
+    delete extended;
+    delete deadline;
+    today=new Todayworks(this,oper);
+    expects=new ExpectedWorks;
+    longterm=new longtermworks;
+    yesterday=new yesterdayworks;
+    extended=new extendedworks;
+    deadline=new deadlinedistri;
+    ui->stackedWidget->addWidget(today);
+    ui->stackedWidget->addWidget(expects);
+    ui->stackedWidget->addWidget(longterm);
+    ui->stackedWidget->addWidget(yesterday);
+    ui->stackedWidget->addWidget(extended);
+    ui->stackedWidget->addWidget(deadline);
+    ui->stackedWidget->setCurrentIndex(page);
 }

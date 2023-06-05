@@ -30,6 +30,7 @@ public:
         if (Todayworks->objectName().isEmpty())
             Todayworks->setObjectName(QString::fromUtf8("Todayworks"));
         Todayworks->resize(962, 597);
+        Todayworks->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(Todayworks);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -46,11 +47,17 @@ public:
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        label->setStyleSheet(QString::fromUtf8("QLabel#label{\n"
+"    background-color:rgb(229,240,255);\n"
+"}"));
 
         verticalLayout->addWidget(label);
 
         workView = new workDisplay(Todayworks);
         workView->setObjectName(QString::fromUtf8("workView"));
+        workView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
+"    background-color:rgb(229,240,255);\n"
+"}"));
 
         verticalLayout->addWidget(workView);
 

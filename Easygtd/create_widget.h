@@ -28,6 +28,10 @@ private slots:
     void on_pushButton_clicked();
     void DateChanged();
     void DateChanged2();
+
+signals:
+    void CreateSuccess();
+
 };
 
 #endif // CREATE_WIDGET_H
