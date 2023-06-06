@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->buttonGroup->addButton(ui->extendButton,4);
     ui->buttonGroup->addButton(ui->ddlButton,5);
 
+    //为6个标签按钮设置图标
     ui->todayButton->setIcon(QIcon("icons8-note-96.png"));
     ui->todayButton->setIconSize(QSize(30,30));
     ui->todayButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);

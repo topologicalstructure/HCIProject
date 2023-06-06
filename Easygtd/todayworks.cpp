@@ -42,7 +42,6 @@ void Todayworks::sort(QStandardItemModel* model)
     for(int i = 0; i < model->rowCount(); i++)
         list.append(model->item(i,0)->clone());
     std::sort(list.begin(),list.end(),finishCmp);
-
     delete todayWorks;
     todayWorks = new QStandardItemModel(this);
     qDebug()<<"奶奶的我排序了啊！！";

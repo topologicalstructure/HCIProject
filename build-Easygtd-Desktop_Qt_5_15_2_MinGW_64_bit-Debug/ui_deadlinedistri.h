@@ -46,9 +46,13 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
+        label->setMinimumSize(QSize(0, 60));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        label->setStyleSheet(QString::fromUtf8("QLabel#label{\n"
+"    background-color:rgb(250,224,227);\n"
+"}"));
 
         verticalLayout->addWidget(label);
 
@@ -64,6 +68,9 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
         listWidget->setSizePolicy(sizePolicy1);
+        listWidget->setStyleSheet(QString::fromUtf8("QListWidget#listWidget{\n"
+"    background-color:rgb(250,224,227);\n"
+"}"));
         splitter_2->addWidget(listWidget);
         splitter = new QSplitter(splitter_2);
         splitter->setObjectName(QString::fromUtf8("splitter"));
@@ -78,6 +85,9 @@ public:
         sizePolicy2.setHeightForWidth(MyCalendar->sizePolicy().hasHeightForWidth());
         MyCalendar->setSizePolicy(sizePolicy2);
         MyCalendar->setMinimumSize(QSize(400, 380));
+        MyCalendar->setStyleSheet(QString::fromUtf8("CalendarWidget#MyCalendar{\n"
+"    background-color:rgb(250,224,227);\n"
+"}"));
         splitter->addWidget(MyCalendar);
         splitter_2->addWidget(splitter);
 
@@ -92,7 +102,7 @@ public:
     void retranslateUi(QWidget *deadlinedistri)
     {
         deadlinedistri->setWindowTitle(QCoreApplication::translate("deadlinedistri", "Form", nullptr));
-        label->setText(QCoreApplication::translate("deadlinedistri", "\346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
+        label->setText(QCoreApplication::translate("deadlinedistri", "  \346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
     } // retranslateUi
 
 };

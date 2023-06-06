@@ -105,7 +105,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(0, 108, 255); 
 	background-color: rgb(235, 235, 235);	
 }
 
@@ -185,7 +185,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(0, 255, 128);
 	background-color: rgb(235, 235, 235);	
 }
 
@@ -234,7 +234,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(255, 150, 0);
 	background-color: rgb(235, 235, 235);	
 }
 
@@ -283,7 +283,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(200, 225, 30); 
 	background-color: rgb(235, 235, 235);	
 }
 
@@ -332,7 +332,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(58, 58, 255);
 	background-color: rgb(235, 235, 235);	
 }
 
@@ -381,7 +381,7 @@ QToolButton:hover{
 
 /* 点击和按下 */
 QToolButton:pressed,QToolButton:checked{
-	border-left: 5px outset rgb(23, 117, 217);  /* 左边框宽度3像素、突出显示 */
+	border-left: 10px outset rgb(229, 93, 108);
 	background-color: rgb(235, 235, 235);	
 }
 
