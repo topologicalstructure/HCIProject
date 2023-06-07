@@ -34,6 +34,9 @@ private slots:
     void deleteWork(int id);
     void finishWork(int id);
     void ModelUpdate();         //更新任务Model
+
+signals:
+    void SortSuccess();
 };
 
 #endif // TODAYWORKS_H

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //如有修改，则必须同步修改GetCreat()槽函数
     ui->setupUi(this);
     oper=new SqliteOperator;
     oper->UpdateTable();
@@ -70,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     becomesmaller->setIcon(icon);
     becomesmaller->setIconSize(QSize(50,50));
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
+    //connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
 }
 
 MainWindow::~MainWindow()
@@ -104,17 +106,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::GetCreat()
 {
     int page=ui->stackedWidget->currentIndex();
-    for(int i= ui->stackedWidget->count(); i >= 0; i--){
-        QWidget* widget = ui->stackedWidget->widget(i);
-        ui->stackedWidget->removeWidget(widget);
-        widget->deleteLater();
-    }
-    delete today;
-    delete expects;
-    delete longterm;
-    delete yesterday;
-    delete extended;
-    delete deadline;
+    ui->setupUi(this);
+    oper=new SqliteOperator;
+    oper->UpdateTable();
     today=new Todayworks(this,oper);
     expects=new ExpectedWorks;
     longterm=new longtermworks;
@@ -127,5 +121,53 @@ void MainWindow::GetCreat()
     ui->stackedWidget->addWidget(yesterday);
     ui->stackedWidget->addWidget(extended);
     ui->stackedWidget->addWidget(deadline);
+    ui->buttonGroup->addButton(ui->todayButton,0);
+    ui->buttonGroup->addButton(ui->expectsButton,1);
+    ui->buttonGroup->addButton(ui->longtermButton,2);
+    ui->buttonGroup->addButton(ui->yestButton,3);
+    ui->buttonGroup->addButton(ui->extendButton,4);
+    ui->buttonGroup->addButton(ui->ddlButton,5);
+
+    //为6个标签按钮设置图标
+    ui->todayButton->setIcon(QIcon("icons8-note-96.png"));
+    ui->todayButton->setIconSize(QSize(30,30));
+    ui->todayButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->expectsButton->setIcon(QIcon("icons8-alarm-90.png"));
+    ui->expectsButton->setIconSize(QSize(30,30));
+    ui->expectsButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->longtermButton->setIcon(QIcon("icons8-deadline-96.png"));
+    ui->longtermButton->setIconSize(QSize(30,30));
+    ui->longtermButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->yestButton->setIcon(QIcon("icons8-history-96.png"));
+    ui->yestButton->setIconSize(QSize(30,30));
+    ui->yestButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->extendButton->setIcon(QIcon("icons8-plus-1-day-100.png"));
+    ui->extendButton->setIconSize(QSize(30,30));
+    ui->extendButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->ddlButton->setIcon(QIcon("icons8-schedule-96.png"));
+    ui->ddlButton->setIconSize(QSize(30,30));
+    ui->ddlButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    ui->buttonGroup->button(0)->setChecked(true);
+    connect(ui->buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(Change(int)));
+    setWindowTitle("EasyGTD");
+    becomesmaller=new QPushButton("smaller",this);
+    becomesmaller->setGeometry(this->geometry().width()-50,0,50,50);
+    becomesmaller->show();
+    becomesmaller->raise();
+    becomesmaller->setText("");
+    connect(becomesmaller,SIGNAL(clicked(bool)),this,SLOT(becomesmaller_clicked()));
+    QIcon icon;
+    icon.addFile(tr("icons8-small-screen-100.png"));
+    becomesmaller->setIcon(icon);
+    becomesmaller->setIconSize(QSize(50,50));
+    connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
+    //connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
+    ui->buttonGroup->button(page)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(page);
 }

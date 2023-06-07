@@ -19,7 +19,6 @@ Todayworks::Todayworks(QWidget *parent, SqliteOperator* Oper) :
 //    myProxyModel->setSortRole(Qt::UserRole + 2);
 
     ui->workView->setModel(todayWorks);
-
     //connect(ui->widget,SIGNAL(worksChange()),this,SLOT(ModelUpdate()));     //用户输入新任务，更新Model
     connect(ui->workView,SIGNAL(DdeleteWork(int)),this,SLOT(deleteWork(int)));
     connect(ui->workView,SIGNAL(DfinishWork(int)),this,SLOT(finishWork(int)));
@@ -38,6 +37,7 @@ bool finishCmp(const QStandardItem *left, const QStandardItem *right)   //未完
 
 void Todayworks::sort(QStandardItemModel* model)
 {
+
     QList<QStandardItem*> list;
     for(int i = 0; i < model->rowCount(); i++)
         list.append(model->item(i,0)->clone());
@@ -87,7 +87,9 @@ void Todayworks::finishWork(int id)
 {
     qDebug()<<"id为 "<<id<<" 的任务完成了";
     oper->FinishToday(id, 1);
+
     sort(todayWorks);
+
 }
 
 void Todayworks::setButton()
