@@ -71,7 +71,6 @@ MainWindow::MainWindow(QWidget *parent)
     becomesmaller->setIcon(icon);
     becomesmaller->setIconSize(QSize(50,50));
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
-    //connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
 }
 
 MainWindow::~MainWindow()
@@ -171,7 +170,6 @@ void MainWindow::GetCreat()
     becomesmaller->setIcon(icon);
     becomesmaller->setIconSize(QSize(50,50));
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
-    connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
     ui->buttonGroup->button(page)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(page);
 

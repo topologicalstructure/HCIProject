@@ -39,6 +39,7 @@ public:
     int* GetLongtermList(int* );//获取长期任务列表
     int* GetLongtermList_by_edate(int* n, const QDate& edate);
     void GetLongterm(int id,QString& sdate,QString& edate,QString& content,int& finish);//获取长期任务
+    void ChangeExtended(int id,QString sdate,QString edate,QString content);//修改延迟任务
     void FinishExtended(int id,int finish);//完成或取消完成该id的延期任务
     void DeleteExtended(int id);//删除延期任务
     int* GetExtendedList(int* n);//获取延期任务列表

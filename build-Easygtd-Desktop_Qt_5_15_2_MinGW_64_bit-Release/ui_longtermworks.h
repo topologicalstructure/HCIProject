@@ -12,9 +12,9 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <workdisplay.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -23,7 +23,7 @@ class Ui_longtermworks
 public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QListView *listView;
+    workDisplay *workView;
 
     void setupUi(QWidget *longtermworks)
     {
@@ -51,13 +51,13 @@ public:
 
         verticalLayout->addWidget(label);
 
-        listView = new QListView(longtermworks);
-        listView->setObjectName(QString::fromUtf8("listView"));
-        listView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
+        workView = new workDisplay(longtermworks);
+        workView->setObjectName(QString::fromUtf8("workView"));
+        workView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
 "    background-color:rgb(240,240,255);\n"
 "}"));
 
-        verticalLayout->addWidget(listView);
+        verticalLayout->addWidget(workView);
 
 
         retranslateUi(longtermworks);

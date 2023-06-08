@@ -394,7 +394,15 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     uint stime = start.toTime_t();
     uint etime = end.toTime_t();
     uint ctime = current.toTime_t();
-    double proportion = (ctime - stime) / (etime - stime);
+    double proportion=0;
+    if(etime != stime){
+        proportion = (ctime - stime) / (etime - stime);
+    }
+    else{
+        if(ctime - stime>0){
+            proportion = 1;
+        }
+    }
     if(proportion > 0)
     {
         int r,g,b;

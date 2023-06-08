@@ -210,7 +210,7 @@ void SqliteOperator::FinishYester(int id,int finish)
 void SqliteOperator::ChangeYester(int id,QString content)
 {
     QSqlQuery sqlQuery;
-    sqlQuery.prepare("update testerdaywork set content=? where id=?");
+    sqlQuery.prepare("update yesterdaywork set content=? where id=?");
     sqlQuery.addBindValue(content);
     sqlQuery.addBindValue(id);
     if(!sqlQuery.exec())
@@ -349,6 +349,24 @@ void SqliteOperator::DeleteLongterm(int id)
     else
     {
         qDebug() << "delete data success!";
+    }
+}
+
+void SqliteOperator::ChangeExtended(int id,QString sdate,QString edate,QString content)
+{
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("update extendedwork set startdate=?,enddate=?,content=? where id=?");
+    sqlQuery.addBindValue(sdate);
+    sqlQuery.addBindValue(edate);
+    sqlQuery.addBindValue(content);
+    sqlQuery.addBindValue(id);
+    if(!sqlQuery.exec())
+    {
+        qDebug() << sqlQuery.lastError();
+    }
+    else
+    {
+        qDebug() << "change data success!";
     }
 }
 

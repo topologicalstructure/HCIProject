@@ -131,6 +131,248 @@ void workDelegate::finishTodayWork(int _t1)
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
+struct qt_meta_stringdata_workDelegateForLTW_t {
+    QByteArrayData data[7];
+    char stringdata0[66];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_workDelegateForLTW_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_workDelegateForLTW_t qt_meta_stringdata_workDelegateForLTW = {
+    {
+QT_MOC_LITERAL(0, 0, 18), // "workDelegateForLTW"
+QT_MOC_LITERAL(1, 19, 11), // "updateWorks"
+QT_MOC_LITERAL(2, 31, 0), // ""
+QT_MOC_LITERAL(3, 32, 2), // "id"
+QT_MOC_LITERAL(4, 35, 8), // "nContent"
+QT_MOC_LITERAL(5, 44, 18), // "finishLongtermWork"
+QT_MOC_LITERAL(6, 63, 2) // "ID"
+
+    },
+    "workDelegateForLTW\0updateWorks\0\0id\0"
+    "nContent\0finishLongtermWork\0ID"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_workDelegateForLTW[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       2,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    2,   24,    2, 0x06 /* Public */,
+       5,    1,   29,    2, 0x06 /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    3,    4,
+    QMetaType::Void, QMetaType::Int,    6,
+
+       0        // eod
+};
+
+void workDelegateForLTW::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<workDelegateForLTW *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->updateWorks((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 1: _t->finishLongtermWork((*reinterpret_cast< int(*)>(_a[1]))); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (workDelegateForLTW::*)(int , QString ) const;
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&workDelegateForLTW::updateWorks)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (workDelegateForLTW::*)(int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&workDelegateForLTW::finishLongtermWork)) {
+                *result = 1;
+                return;
+            }
+        }
+    }
+}
+
+QT_INIT_METAOBJECT const QMetaObject workDelegateForLTW::staticMetaObject = { {
+    QMetaObject::SuperData::link<QStyledItemDelegate::staticMetaObject>(),
+    qt_meta_stringdata_workDelegateForLTW.data,
+    qt_meta_data_workDelegateForLTW,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *workDelegateForLTW::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *workDelegateForLTW::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_workDelegateForLTW.stringdata0))
+        return static_cast<void*>(this);
+    return QStyledItemDelegate::qt_metacast(_clname);
+}
+
+int workDelegateForLTW::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QStyledItemDelegate::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 2;
+    }
+    return _id;
+}
+
+// SIGNAL 0
+void workDelegateForLTW::updateWorks(int _t1, QString _t2)const
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(const_cast< workDelegateForLTW *>(this), &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void workDelegateForLTW::finishLongtermWork(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+struct qt_meta_stringdata_workDelegateForFW_t {
+    QByteArrayData data[4];
+    char stringdata0[41];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_workDelegateForFW_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_workDelegateForFW_t qt_meta_stringdata_workDelegateForFW = {
+    {
+QT_MOC_LITERAL(0, 0, 17), // "workDelegateForFW"
+QT_MOC_LITERAL(1, 18, 18), // "finishExpectedWork"
+QT_MOC_LITERAL(2, 37, 0), // ""
+QT_MOC_LITERAL(3, 38, 2) // "ID"
+
+    },
+    "workDelegateForFW\0finishExpectedWork\0"
+    "\0ID"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_workDelegateForFW[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       1,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   19,    2, 0x06 /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int,    3,
+
+       0        // eod
+};
+
+void workDelegateForFW::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<workDelegateForFW *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->finishExpectedWork((*reinterpret_cast< int(*)>(_a[1]))); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (workDelegateForFW::*)(int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&workDelegateForFW::finishExpectedWork)) {
+                *result = 0;
+                return;
+            }
+        }
+    }
+}
+
+QT_INIT_METAOBJECT const QMetaObject workDelegateForFW::staticMetaObject = { {
+    QMetaObject::SuperData::link<QStyledItemDelegate::staticMetaObject>(),
+    qt_meta_stringdata_workDelegateForFW.data,
+    qt_meta_data_workDelegateForFW,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *workDelegateForFW::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *workDelegateForFW::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_workDelegateForFW.stringdata0))
+        return static_cast<void*>(this);
+    return QStyledItemDelegate::qt_metacast(_clname);
+}
+
+int workDelegateForFW::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QStyledItemDelegate::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 1;
+    }
+    return _id;
+}
+
+// SIGNAL 0
+void workDelegateForFW::finishExpectedWork(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
 struct qt_meta_stringdata_workDisplay_t {
     QByteArrayData data[8];
     char stringdata0[79];
