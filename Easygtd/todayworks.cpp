@@ -18,7 +18,11 @@ Todayworks::Todayworks(QWidget *parent, SqliteOperator* Oper) :
 //    myProxyModel->setSourceModel(todayWorks);
 //    myProxyModel->setSortRole(Qt::UserRole + 2);
 
+    workDelegate* myDelegate = new workDelegate(ui->workView);
+    ui->workView->setItemDelegate(myDelegate);
     ui->workView->setModel(todayWorks);
+    connect(myDelegate,SIGNAL(finishTodayWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
+
     //connect(ui->widget,SIGNAL(worksChange()),this,SLOT(ModelUpdate()));     //用户输入新任务，更新Model
     connect(ui->workView,SIGNAL(DdeleteWork(int)),this,SLOT(deleteWork(int)));
     connect(ui->workView,SIGNAL(DfinishWork(int)),this,SLOT(finishWork(int)));
@@ -52,7 +56,7 @@ void Todayworks::sort(QStandardItemModel* model)
     std::sort(list.begin(),list.end(),finishCmp);
     //delete todayWorks;
     todayWorks = new QStandardItemModel(this);
-    qDebug()<<"奶奶的我排序了啊！！";
+    qDebug()<<"排序了！！";
     for(int i = 0; i < list.size(); i++)
         todayWorks->setItem(i,list.at(i));
     ui->workView->setModel(todayWorks);

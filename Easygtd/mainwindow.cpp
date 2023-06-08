@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     oper=new SqliteOperator;
     oper->UpdateTable();
     today=new Todayworks(this,oper);
-    expects=new ExpectedWorks;
-    longterm=new longtermworks;
+    expects=new ExpectedWorks(this,oper);
+    longterm=new longtermworks(this,oper);
     yesterday=new yesterdayworks;
     extended=new extendedworks;
     deadline=new deadlinedistri;
@@ -106,14 +106,16 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::GetCreat()
 {
     int page=ui->stackedWidget->currentIndex();
+    int x = this->x(), y = this->y();
+    qDebug()<<"page = "<<page;
     int width=this->width(),height=this->height();
     bool isFull=isFullScreen();
     ui->setupUi(this);
     oper=new SqliteOperator;
     oper->UpdateTable();
     today=new Todayworks(this,oper);
-    expects=new ExpectedWorks;
-    longterm=new longtermworks;
+    expects=new ExpectedWorks(this,oper);
+    longterm=new longtermworks(this,oper);
     yesterday=new yesterdayworks;
     extended=new extendedworks;
     deadline=new deadlinedistri;
@@ -172,9 +174,11 @@ void MainWindow::GetCreat()
     connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
     ui->buttonGroup->button(page)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(page);
+
     if(isFull){
-        //setWindowFlags(Qt::Window);
+        setWindowFlags(Qt::Window);
         showFullScreen();
     }
-    this->resize(width,height);    
+    this->resize(width,height);
+    this->move(x,y);
 }

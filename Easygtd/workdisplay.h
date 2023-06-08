@@ -36,6 +36,70 @@ signals:
     void finishTodayWork(int ID);
 };
 
+class workDelegateForLTW : public QStyledItemDelegate            //长期任务渲染
+{
+    Q_OBJECT
+public:
+    workDelegateForLTW(QWidget* parent);
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);
+
+private:
+    bool isFinish;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+//    创建委托控件
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+//    设置控件数据
+    void setEditorData(QWidget *editor,const QModelIndex &index) const override;
+//    设置模型数据
+    void setModelData(QWidget *editor,QAbstractItemModel *model,const QModelIndex &index) const override;
+//    设置控件位置
+    void updateEditorGeometry(QWidget *editor,const QStyleOption &option,const QModelIndex &index);
+
+    QString normal, hover, press;   //按钮对应图片路径
+
+    signals:
+        void updateWorks(int id, QString nContent) const;
+    signals:
+        void finishLongtermWork(int ID);
+};
+
+
+class workDelegateForFW : public QStyledItemDelegate            //预定任务渲染
+{
+    Q_OBJECT
+public:
+    workDelegateForFW(QWidget* parent);
+//    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index);
+
+private:
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    //创建委托控件
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    //设置控件数据
+    void setEditorData(QWidget *editor,const QModelIndex &index) const override;
+    //设置模型数据
+    void setModelData(QWidget *editor,QAbstractItemModel *model,const QModelIndex &index) const override;
+    //设置控件位置
+    void updateEditorGeometry(QWidget *editor,const QStyleOption &option,const QModelIndex &index);
+
+    QString normal, hover, press;   //按钮对应图片路径
+
+    //signals:
+    //    void updateWorks(int id, QString nContent) const;
+    signals:
+        void finishExpectedWork(int ID);
+};
+
+
+
+
+
+
+
+
+
 class workDisplay : public QListView
 {
     Q_OBJECT
@@ -65,10 +129,6 @@ private slots:
 //protected:
 //    bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const;
 //};
-
-
-
-
 
 
 class workDoneButton : public QPushButton

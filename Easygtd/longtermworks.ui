@@ -59,7 +59,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QListView" name="listView">
+    <widget class="workDisplay" name="workView">
      <property name="styleSheet">
       <string notr="true">workDisplay#workView{
     background-color:rgb(240,240,255);
@@ -69,6 +69,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>workDisplay</class>
+   <extends>QListView</extends>
+   <header location="global">workdisplay.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

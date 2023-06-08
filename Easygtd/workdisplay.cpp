@@ -10,16 +10,16 @@
 #include <QRect>
 #include <QCursor>
 #include <QPoint>
+#include <QDateTime>
+#include <QTime>
 const int workDelegateHeight = 40;
 const int buttonSize = 30;
 
 workDisplay::workDisplay(QWidget* parent) : QListView(parent)
 {
-    workDelegate* myDelegate = new workDelegate(this);
     this->setEditTriggers(QAbstractItemView::DoubleClicked);    //设置控件编辑：双击
     this->setDragEnabled(false);                                 //设置拖动
     //this->setDragDropMode(QAbstractItemView::InternalMove);     //设置移动
-    this->setItemDelegate(myDelegate);                    //设置自定义控件外观
     this->setMouseTracking(true);                               //设置鼠标追踪
     this->setSelectionMode(QAbstractItemView::SingleSelection); //设置单击选中
 
@@ -28,7 +28,7 @@ workDisplay::workDisplay(QWidget* parent) : QListView(parent)
     menu->addAction(workDelete);
     connect(workDelete,SIGNAL(triggered(bool)),this,SLOT(deleteWorkinModel()));
     //链接任务完成信号再发送新信号
-    connect(myDelegate,SIGNAL(finishTodayWork(int)),this,SIGNAL(DfinishWork(int)));
+//    connect(myDelegate,SIGNAL(finishTodayWork(int)),this,SIGNAL(DfinishWork(int)));
 
 }
 
@@ -152,7 +152,9 @@ void workDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         painter->setPen(QPen(Qt::green));
         painter->setBrush(QBrush(QColor(0,0,0,15)));
         painter->drawRect(option.rect);
-        painter->setFont(QFont("Microsoft Yahei", 10));
+        QFont font("Microsoft Yahei", 10);
+        font.setStrikeOut(true);
+        painter->setFont(font);
         painter->drawText(textRect, Qt::AlignVCenter,index.data(Qt::UserRole + 1).toString());
         painter->restore();
         return;
@@ -243,6 +245,351 @@ void workDelegate::updateEditorGeometry(QWidget *editor, const QStyleOption &opt
     Q_UNUSED(index);
     editor->setGeometry(0,0,option.rect.width(),option.rect.height());
 }
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+workDelegateForLTW::workDelegateForLTW(QWidget *parent) : QStyledItemDelegate(parent)
+{
+    normal = "./normal.png";
+    press= "./press.png";
+    hover = "./hover.png";
+    isFinish = 0;
+}
+
+bool workDelegateForLTW::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
+{
+    if(event->type()==QEvent::MouseButtonPress)
+    {
+        QRectF butRect;
+        butRect.setX(option.rect.width() - buttonSize);
+        butRect.setY(option.rect.y() + (option.rect.height() - buttonSize)/2);
+        butRect.setWidth(buttonSize);
+        butRect.setHeight(buttonSize);
+        QMouseEvent *mevent = static_cast<QMouseEvent*>(event);
+        if(butRect.contains(mevent->pos()))
+        {
+            qDebug()<<"按钮被按下";
+            isFinish = 1;
+        }
+        else
+            isFinish = 0;
+    }
+    else if(event->type()==QEvent::MouseButtonRelease)
+    {
+        qDebug()<<"鼠标松开了";
+        QRectF butRect;
+        butRect.setX(option.rect.width()-buttonSize);
+        butRect.setY(option.rect.y() + (option.rect.height() - buttonSize)/2);
+        butRect.setWidth(buttonSize);
+        butRect.setHeight(buttonSize);
+        QMouseEvent *mevent = static_cast<QMouseEvent*>(event);
+        if(butRect.contains(mevent->pos()) && isFinish)
+        {
+            qDebug()<<"任务完成了";
+            model->setData(index, 1, Qt::UserRole + 2);                     //完成任务
+            emit finishLongtermWork(index.data(Qt::UserRole + 3).toInt());     //发送任务完成信号
+        }
+    }
+
+
+    return QStyledItemDelegate::editorEvent(event, model, option, index);
+}
+QWidget* workDelegateForLTW::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if(index.data(Qt::UserRole + 2).toInt())        //已完成的任务无需编辑
+        return NULL;
+    qDebug()<<"编辑器被创建了！";
+    QLineEdit* workEdit = new QLineEdit(index.data(Qt::UserRole + 1).toString(), parent);
+    workEdit->setStyleSheet("background: rgb(200,200,200); border-width:0; border-style:outset");
+    QFont font;
+    font.setPointSize(10); //字号大小
+    font.setFamily("Microsoft Yahei"); //字体样式
+    font.setBold(false);
+    workEdit->setFont(font);
+    workEdit->deselect();
+    return workEdit;
+}
+
+void workDelegateForLTW::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    static_cast<QLineEdit*>(editor)->setText(index.data(Qt::UserRole + 1).toString());
+
+}
+
+void workDelegateForLTW::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    if(!static_cast<QLineEdit*>(editor)->text().isEmpty())      //文本框不为空即进行更新
+    {
+        qDebug()<<"数据被更新拉！";
+        model->setData(index, static_cast<QLineEdit*>(editor)->text(),Qt::UserRole + 1);
+        workDisplay* view = qobject_cast<workDisplay*>(this->parent());
+        view->isChanged = 1;
+        view->nContent = static_cast<QLineEdit*>(editor)->text();
+        view->changedItem = index;
+        emit view->DupdateWork(index.data(Qt::UserRole + 3).toInt(),view->nContent);
+    }
+
+}
+
+void workDelegateForLTW::updateEditorGeometry(QWidget *editor, const QStyleOption &option, const QModelIndex &index)
+{
+    Q_UNUSED(index);
+    editor->setGeometry(0,0,option.rect.width(),option.rect.height());
+}
+
+
+void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const       //长期任务渲染函数
+{
+    if(!index.isValid())
+        return;
+
+    painter->save();
+    int realWidth = option.rect.width() - buttonSize;
+    QRectF textRect, butRect, pgBarRect, sDateRect, eDateRect;
+    textRect.setX(option.rect.x());
+    textRect.setY(option.rect.y());
+    textRect.setWidth(realWidth / 3);
+    textRect.setHeight(option.rect.height());
+
+    sDateRect.setX(textRect.right());
+    sDateRect.setY(option.rect.y());
+    sDateRect.setWidth(realWidth * 2 / 9);
+    sDateRect.setHeight(option.rect.height());
+
+    pgBarRect.setX(sDateRect.right());
+    pgBarRect.setY(option.rect.y());
+    pgBarRect.setWidth(realWidth * 2 / 9);
+    pgBarRect.setHeight(option.rect.height());
+
+    eDateRect.setX(pgBarRect.right());
+    eDateRect.setY(option.rect.y());
+    eDateRect.setWidth(realWidth * 2 / 9);
+    eDateRect.setHeight(option.rect.height());
+
+    butRect.setX(eDateRect.right());
+    butRect.setY(option.rect.y() + (option.rect.height() - buttonSize)/2);
+    butRect.setWidth(buttonSize);
+    butRect.setHeight(buttonSize);
+
+    //绘制任务
+    if(index.data(Qt::UserRole + 2).toInt())        //已完成的任务
+    {
+        painter->setPen(QPen(Qt::green));
+        painter->setBrush(QBrush(QColor(0,0,0,15)));
+        painter->drawRect(option.rect);
+        painter->setFont(QFont("Microsoft Yahei", 10));
+        painter->drawText(textRect, Qt::AlignVCenter,index.data(Qt::UserRole + 1).toString());
+        painter->restore();
+        return;
+    }
+
+    //绘制进度条
+    QString startTime = index.data(Qt::UserRole + 4).toString() + QString(" 00:00:00");
+    QString endTime = index.data(Qt::UserRole + 5).toString() + QString(" 00:00:00");
+
+    QDateTime current= QDateTime::currentDateTime();//获取系统当前的时间
+    QDateTime start = QDateTime::fromString(startTime, "yyyy-MM-dd hh:mm:ss");
+    QDateTime end = QDateTime::fromString(endTime, "yyyy-MM-dd hh:mm:ss");
+
+    uint stime = start.toTime_t();
+    uint etime = end.toTime_t();
+    uint ctime = current.toTime_t();
+    double proportion = (ctime - stime) / (etime - stime);
+    if(proportion > 0)
+    {
+        int r,g,b;
+        if(proportion < 0.33)               //绿色
+            r=0,g=50,b=15;
+        else if(proportion < 0.66)           //黄色
+            r=0,g=50,b=55;
+        else                                 //红色
+            r=50,g=0,b=0;
+        painter->setBrush(QBrush(QColor(r,g,b)));
+        painter->drawRoundRect(pgBarRect);
+    }
+
+
+    if(option.state.testFlag(QStyle::State_MouseOver))  //鼠标悬浮
+    {
+        painter->setPen(QPen(QColor(255,0,0,100)));
+        painter->setBrush(QBrush(QColor(0,0,0,60)));
+        painter->drawRect(option.rect);
+        painter->setPen(QPen(Qt::white));
+    }
+    //    else if(option.state.testFlag(QStyle::State_Selected))       //被选中时
+    //    {
+
+    //    }
+    else
+    {
+        painter->setPen(QPen(Qt::darkBlue));
+        painter->setBrush(QBrush(QColor(0,0,0,15)));
+        painter->drawRect(option.rect);
+    }
+
+    //绘制按钮
+    QPoint pos = qobject_cast<QWidget*>(this->parent())->mapFromGlobal(QCursor().pos());
+    if(option.state.testFlag(QStyle::State_Active) && butRect.contains(pos))
+    {
+        QPixmap pic;
+        pic.load(press);
+        pic = pic.scaled(buttonSize,buttonSize);
+        painter->drawPixmap(butRect.topLeft(), pic);
+    }
+    else
+    {
+        QPixmap pic;
+        pic.load(hover);
+        pic = pic.scaled(buttonSize,buttonSize);
+        painter->drawPixmap(butRect.topLeft(), pic);
+    }
+
+
+    painter->setFont(QFont("Microsoft Yahei", 10));
+    painter->drawText(textRect, Qt::AlignVCenter,index.data(Qt::UserRole + 1).toString());
+    painter->drawText(sDateRect, Qt::AlignVCenter,index.data(Qt::UserRole + 4).toString());
+    painter->drawText(eDateRect, Qt::AlignVCenter,index.data(Qt::UserRole + 5).toString());
+
+    painter->restore();
+}
+
+QSize workDelegateForLTW::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    return QSize(option.rect.width(),workDelegateHeight);
+}
+
+
+/*-------------------------------------------------------------------------------------------------------------------------*/
+
+
+workDelegateForFW::workDelegateForFW(QWidget *parent) : QStyledItemDelegate(parent){}
+
+void workDelegateForFW::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if(!index.isValid())
+        return;
+
+    painter->save();
+    QRectF textRect,/* butRect, */timeRect;
+    textRect.setX(option.rect.x());
+    textRect.setY(option.rect.y());
+    textRect.setWidth(option.rect.width() / 2);
+    textRect.setHeight(option.rect.height());
+
+    timeRect.setX(textRect.right());
+    timeRect.setY(option.rect.y());
+    timeRect.setWidth(option.rect.width() / 2/* - buttonSize*/);
+    timeRect.setHeight(option.rect.height());
+
+//    butRect.setX(timeRect.right());
+//    butRect.setY(option.rect.y() + (option.rect.height() - buttonSize)/2);
+//    butRect.setWidth(buttonSize);
+//    butRect.setHeight(buttonSize);
+
+//    if(index.data(Qt::UserRole + 2).toInt())        //已完成的任务
+//    {
+//        painter->setPen(QPen(Qt::green));
+//        painter->setBrush(QBrush(QColor(0,0,0,15)));
+//        painter->drawRect(option.rect);
+//        painter->setFont(QFont("Microsoft Yahei", 10));
+//        painter->drawText(textRect, Qt::AlignVCenter,index.data(Qt::UserRole + 1).toString());
+//        painter->restore();
+//        return;
+//    }
+
+    if(option.state.testFlag(QStyle::State_MouseOver))
+    {
+        painter->setPen(QPen(QColor(255,0,0,100)));
+        painter->setBrush(QBrush(QColor(0,0,0,60)));
+        painter->drawRect(option.rect);
+        painter->setPen(QPen(Qt::white));
+    }
+    else
+    {
+        painter->setPen(QPen(Qt::darkBlue));
+        painter->setBrush(QBrush(QColor(0,0,0,15)));
+        painter->drawRect(option.rect);
+    }
+
+//    //绘制按钮
+//    QPoint pos = qobject_cast<QWidget*>(this->parent())->mapFromGlobal(QCursor().pos());
+//    if(option.state.testFlag(QStyle::State_Active) && butRect.contains(pos))
+//    {
+//        QPixmap pic;
+//        pic.load(press);
+//        pic = pic.scaled(buttonSize,buttonSize);
+//        painter->drawPixmap(butRect.topLeft(), pic);
+//    }
+//    else
+//    {
+//        QPixmap pic;
+//        pic.load(hover);
+//        pic = pic.scaled(buttonSize,buttonSize);
+//        painter->drawPixmap(butRect.topLeft(), pic);
+//    }
+
+    painter->setFont(QFont("Microsoft Yahei", 10));
+    painter->drawText(textRect, Qt::AlignVCenter, index.data(Qt::UserRole + 1).toString());
+    painter->drawText(timeRect, Qt::AlignVCenter, QString("预定日期:") + index.data(Qt::UserRole + 4).toString());  //绘制日期
+
+    painter->restore();
+}
+
+QSize workDelegateForFW::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    return QSize(option.rect.width(),workDelegateHeight);
+}
+
+
+QWidget* workDelegateForFW::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if(index.data(Qt::UserRole + 2).toInt())        //已完成的任务无需编辑
+        return NULL;
+    qDebug()<<"编辑器被创建了！";
+    QLineEdit* workEdit = new QLineEdit(index.data(Qt::UserRole + 1).toString(), parent);
+    workEdit->setStyleSheet("background: rgb(200,200,200); border-width:0; border-style:outset");
+    QFont font;
+    font.setPointSize(10); //字号大小
+    font.setFamily("Microsoft Yahei"); //字体样式
+    font.setBold(false);
+    workEdit->setFont(font);
+    workEdit->deselect();
+    return workEdit;
+}
+
+void workDelegateForFW::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    static_cast<QLineEdit*>(editor)->setText(index.data(Qt::UserRole + 1).toString());
+
+}
+
+void workDelegateForFW::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    if(!static_cast<QLineEdit*>(editor)->text().isEmpty())      //文本框不为空即进行更新
+    {
+        qDebug()<<"数据被更新拉！";
+        model->setData(index, static_cast<QLineEdit*>(editor)->text(),Qt::UserRole + 1);
+        workDisplay* view = qobject_cast<workDisplay*>(this->parent());
+        view->isChanged = 1;
+        view->nContent = static_cast<QLineEdit*>(editor)->text();
+        view->changedItem = index;
+        emit view->DupdateWork(index.data(Qt::UserRole + 3).toInt(),view->nContent);
+    }
+
+}
+
+void workDelegateForFW::updateEditorGeometry(QWidget *editor, const QStyleOption &option, const QModelIndex &index)
+{
+    Q_UNUSED(index);
+    editor->setGeometry(0,0,option.rect.width()/2, option.rect.height());
+}
+
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
 
 workDoneButton::workDoneButton(QWidget* parent, QString normal, QString hover, QString press, int ID) : QPushButton(parent)
 {
