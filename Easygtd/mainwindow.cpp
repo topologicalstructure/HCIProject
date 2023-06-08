@@ -106,6 +106,8 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::GetCreat()
 {
     int page=ui->stackedWidget->currentIndex();
+    int width=this->width();
+    int height=this->height();
     ui->setupUi(this);
     oper=new SqliteOperator;
     oper->UpdateTable();
@@ -167,7 +169,12 @@ void MainWindow::GetCreat()
     becomesmaller->setIcon(icon);
     becomesmaller->setIconSize(QSize(50,50));
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
-    //connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
+    connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
     ui->buttonGroup->button(page)->setChecked(true);
-    ui->stackedWidget->setCurrentIndex(page);
+    //ui->stackedWidget->setCurrentIndex(page);
+    if(page){
+        setWindowFlags(Qt::Window);
+        showFullScreen();
+    }
+    this->resize(width,height);
 }

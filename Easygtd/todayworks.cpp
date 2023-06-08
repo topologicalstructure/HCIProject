@@ -37,18 +37,29 @@ bool finishCmp(const QStandardItem *left, const QStandardItem *right)   //未完
 
 void Todayworks::sort(QStandardItemModel* model)
 {
-
+    oper=new SqliteOperator;
     QList<QStandardItem*> list;
     for(int i = 0; i < model->rowCount(); i++)
         list.append(model->item(i,0)->clone());
     std::sort(list.begin(),list.end(),finishCmp);
-    delete todayWorks;
+    //delete todayWorks;
     todayWorks = new QStandardItemModel(this);
     qDebug()<<"奶奶的我排序了啊！！";
     for(int i = 0; i < list.size(); i++)
         todayWorks->setItem(i,list.at(i));
     ui->workView->setModel(todayWorks);
     qDebug()<<"寄了吗？";
+    /*QStandardItemModel *model1 = new QStandardItemModel(this);
+    for (int i = 0 ; i < model->rowCount() ; i++){
+        model1->appendRow(model->item(i,0)->clone());
+    }
+    model1->sort(Qt::UserRole +2,Qt::AscendingOrder);
+    delete todayWorks;
+    todayWorks = new QStandardItemModel(this);
+    todayWorks=model1;
+    ui->workView->setModel(todayWorks);
+    emit SortSuccess();
+    qDebug()<<"排序完成";*/
 }
 
 void Todayworks::ModelUpdate()

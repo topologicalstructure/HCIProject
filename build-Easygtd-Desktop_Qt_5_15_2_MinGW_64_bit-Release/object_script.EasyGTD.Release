@@ -11,6 +11,7 @@ release/sqlconn.o
 release/todayworks.o
 release/weather.o
 release/yesterdayworks.o
+release/workdisplay.o
 release/moc_CalendarWidget.o
 release/moc_create_widget.o
 release/moc_deadlinedistri.o
@@ -22,3 +23,4 @@ release/moc_smallwindows.o
 release/moc_todayworks.o
 release/moc_weather.o
 release/moc_yesterdayworks.o
+release/moc_workdisplay.o

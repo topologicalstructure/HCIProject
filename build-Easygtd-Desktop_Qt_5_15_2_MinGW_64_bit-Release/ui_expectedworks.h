@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -22,7 +23,7 @@ class Ui_ExpectedWorks
 public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QWidget *widget_2;
+    QListView *workView;
 
     void setupUi(QWidget *ExpectedWorks)
     {
@@ -32,7 +33,7 @@ public:
         verticalLayout = new QVBoxLayout(ExpectedWorks);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, -1, 0, 0);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(ExpectedWorks);
         label->setObjectName(QString::fromUtf8("label"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -40,16 +41,23 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
+        label->setMinimumSize(QSize(0, 60));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        label->setStyleSheet(QString::fromUtf8("QLabel#label{\n"
+"    background-color:rgb(235,255,245);\n"
+"}"));
 
         verticalLayout->addWidget(label);
 
-        widget_2 = new QWidget(ExpectedWorks);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        workView = new QListView(ExpectedWorks);
+        workView->setObjectName(QString::fromUtf8("workView"));
+        workView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
+"    background-color:rgb(235,255,245);\n"
+"}"));
 
-        verticalLayout->addWidget(widget_2);
+        verticalLayout->addWidget(workView);
 
 
         retranslateUi(ExpectedWorks);
@@ -60,7 +68,7 @@ public:
     void retranslateUi(QWidget *ExpectedWorks)
     {
         ExpectedWorks->setWindowTitle(QCoreApplication::translate("ExpectedWorks", "Form", nullptr));
-        label->setText(QCoreApplication::translate("ExpectedWorks", "\346\234\252\346\235\245\344\273\273\345\212\241", nullptr));
+        label->setText(QCoreApplication::translate("ExpectedWorks", "  \346\234\252\346\235\245\344\273\273\345\212\241", nullptr));
     } // retranslateUi
 
 };

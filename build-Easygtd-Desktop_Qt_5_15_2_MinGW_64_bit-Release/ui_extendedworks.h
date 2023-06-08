@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -22,7 +23,7 @@ class Ui_extendedworks
 public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QWidget *widget_2;
+    QListView *workView;
 
     void setupUi(QWidget *extendedworks)
     {
@@ -32,7 +33,7 @@ public:
         verticalLayout = new QVBoxLayout(extendedworks);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, -1, 0, 0);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(extendedworks);
         label->setObjectName(QString::fromUtf8("label"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -40,16 +41,20 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
+        label->setMinimumSize(QSize(0, 60));
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        label->setStyleSheet(QString::fromUtf8("QLabel#label{\n"
+"    background-color:rgb(255,234,204);\n"
+"}"));
 
         verticalLayout->addWidget(label);
 
-        widget_2 = new QWidget(extendedworks);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        workView = new QListView(extendedworks);
+        workView->setObjectName(QString::fromUtf8("workView"));
 
-        verticalLayout->addWidget(widget_2);
+        verticalLayout->addWidget(workView);
 
 
         retranslateUi(extendedworks);
@@ -60,7 +65,7 @@ public:
     void retranslateUi(QWidget *extendedworks)
     {
         extendedworks->setWindowTitle(QCoreApplication::translate("extendedworks", "Form", nullptr));
-        label->setText(QCoreApplication::translate("extendedworks", "\345\267\262\345\273\266\346\234\237\344\273\273\345\212\241", nullptr));
+        label->setText(QCoreApplication::translate("extendedworks", "  \345\267\262\345\273\266\346\234\237\344\273\273\345\212\241", nullptr));
     } // retranslateUi
 
 };

@@ -20,6 +20,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <workdisplay.h>
 #include "create_widget.h"
 #include "weather.h"
 
@@ -39,7 +40,7 @@ public:
     QPushButton *becomebig;
     QSpacerItem *verticalSpacer;
     QSpacerItem *horizontalSpacer;
-    QWidget *widget;
+    workDisplay *workView;
     create_widget *widget_2;
     QMenuBar *menubar;
 
@@ -49,7 +50,9 @@ public:
             smallwindows->setObjectName(QString::fromUtf8("smallwindows"));
         smallwindows->resize(549, 642);
         smallwindows->setMinimumSize(QSize(35, 35));
-        smallwindows->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255)"));
+        smallwindows->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
+"    background-color: rgb(255, 255, 255);\n"
+"}"));
         centralwidget = new QWidget(smallwindows);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -103,8 +106,8 @@ public:
 
         becomebig = new QPushButton(centralwidget);
         becomebig->setObjectName(QString::fromUtf8("becomebig"));
-        becomebig->setMinimumSize(QSize(45, 45));
-        becomebig->setMaximumSize(QSize(45, 45));
+        becomebig->setMinimumSize(QSize(50, 50));
+        becomebig->setMaximumSize(QSize(50, 50));
         QFont font2;
         font2.setPointSize(12);
         becomebig->setFont(font2);
@@ -125,23 +128,18 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy2);
+        workView = new workDisplay(centralwidget);
+        workView->setObjectName(QString::fromUtf8("workView"));
 
-        verticalLayout->addWidget(widget);
+        verticalLayout->addWidget(workView);
 
         widget_2 = new create_widget(centralwidget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
-        widget_2->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy2);
         widget_2->setMinimumSize(QSize(0, 40));
 
         verticalLayout->addWidget(widget_2);
@@ -161,8 +159,8 @@ public:
     {
         smallwindows->setWindowTitle(QCoreApplication::translate("smallwindows", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("smallwindows", "\346\210\221\347\232\204\344\270\200\345\244\251", nullptr));
-        CloseButton->setText(QCoreApplication::translate("smallwindows", "\345\205\263\351\227\255", nullptr));
-        becomebig->setText(QCoreApplication::translate("smallwindows", "\345\217\230\345\244\247", nullptr));
+        CloseButton->setText(QString());
+        becomebig->setText(QString());
     } // retranslateUi
 
 };

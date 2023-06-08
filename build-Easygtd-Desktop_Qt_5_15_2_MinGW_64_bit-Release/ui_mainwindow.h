@@ -13,12 +13,14 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QToolButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "create_widget.h"
 
@@ -29,25 +31,21 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
-    QPushButton *becomesmaller;
-    QSpacerItem *verticalSpacer_4;
+    QSplitter *splitter;
     QWidget *sidebar;
     QGridLayout *gridLayout;
     QToolButton *todayButton;
+    QSpacerItem *verticalSpacer;
     QToolButton *expectsButton;
     QToolButton *extendButton;
     QToolButton *yestButton;
     QToolButton *longtermButton;
-    QSpacerItem *verticalSpacer;
     QToolButton *ddlButton;
-    QSpacerItem *verticalSpacer_7;
-    QSpacerItem *verticalSpacer_5;
-    QSpacerItem *verticalSpacer_2;
-    QSpacerItem *verticalSpacer_3;
-    QSpacerItem *verticalSpacer_6;
-    QSpacerItem *verticalSpacer_8;
-    create_widget *widget;
+    QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout;
     QStackedWidget *stackedWidget;
+    create_widget *widget;
     QMenuBar *menubar;
     QButtonGroup *buttonGroup;
 
@@ -62,22 +60,20 @@ public:
         gridLayout_2->setSpacing(0);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        becomesmaller = new QPushButton(centralwidget);
-        becomesmaller->setObjectName(QString::fromUtf8("becomesmaller"));
-
-        gridLayout_2->addWidget(becomesmaller, 0, 2, 1, 1);
-
-        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_4, 5, 2, 1, 1);
-
-        sidebar = new QWidget(centralwidget);
+        splitter = new QSplitter(centralwidget);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setLineWidth(0);
+        splitter->setOrientation(Qt::Horizontal);
+        splitter->setHandleWidth(3);
+        splitter->setChildrenCollapsible(true);
+        sidebar = new QWidget(splitter);
         sidebar->setObjectName(QString::fromUtf8("sidebar"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(sidebar->sizePolicy().hasHeightForWidth());
         sidebar->setSizePolicy(sizePolicy);
+        sidebar->setMaximumSize(QSize(800, 16777215));
         sidebar->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "	background-color: rgb(245, 245, 245);  /* \350\256\276\347\275\256\350\203\214\346\231\257\350\211\262\344\270\272\347\201\260\350\211\262 */\n"
 "}"));
@@ -103,6 +99,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -112,21 +109,26 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(0, 108, 255); \n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
 "QPushButton:default {\n"
 "    border-color: navy; /* make the default button prominent */\n"
 "}"));
-        todayButton->setIconSize(QSize(24, 24));
+        todayButton->setIconSize(QSize(30, 30));
         todayButton->setCheckable(true);
+        todayButton->setChecked(false);
         todayButton->setAutoExclusive(true);
         todayButton->setPopupMode(QToolButton::DelayedPopup);
         todayButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
         todayButton->setArrowType(Qt::NoArrow);
 
         gridLayout->addWidget(todayButton, 0, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 294, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 9, 0, 1, 1);
 
         expectsButton = new QToolButton(sidebar);
         buttonGroup->addButton(expectsButton);
@@ -141,6 +143,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -150,7 +153,7 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(0, 255, 128);\n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
@@ -175,6 +178,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -184,7 +188,7 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(255, 150, 0);\n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
@@ -209,6 +213,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -218,7 +223,7 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(200, 225, 30); \n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
@@ -243,6 +248,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -252,7 +258,7 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(58, 58, 255);\n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
@@ -263,10 +269,6 @@ public:
         longtermButton->setAutoExclusive(true);
 
         gridLayout->addWidget(longtermButton, 5, 0, 1, 1);
-
-        verticalSpacer = new QSpacerItem(20, 294, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer, 9, 0, 1, 1);
 
         ddlButton = new QToolButton(sidebar);
         buttonGroup->addButton(ddlButton);
@@ -281,6 +283,7 @@ public:
 "    min-width: 150px;\n"
 "    min-height: 40px;\n"
 "	background-color: rgb(245, 245, 245);\n"
+"    padding-left:35px;\n"
 "}\n"
 "\n"
 "/* \351\274\240\346\240\207\346\202\254\345\201\234 */\n"
@@ -290,7 +293,7 @@ public:
 "\n"
 "/* \347\202\271\345\207\273\345\222\214\346\214\211\344\270\213 */\n"
 "QToolButton:pressed,QToolButton:checked{\n"
-"	border-left: 5px outset rgb(23, 117, 217);  /* \345\267\246\350\276\271\346\241\206\345\256\275\345\272\2463\345\203\217\347\264\240\343\200\201\347\252\201\345\207\272\346\230\276\347\244\272 */\n"
+"	border-left: 10px outset rgb(229, 93, 108);\n"
 "	background-color: rgb(235, 235, 235);	\n"
 "}\n"
 "\n"
@@ -302,53 +305,45 @@ public:
 
         gridLayout->addWidget(ddlButton, 10, 0, 1, 1);
 
-
-        gridLayout_2->addWidget(sidebar, 0, 0, 9, 1);
-
-        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_7, 2, 2, 1, 1);
-
-        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_5, 4, 2, 1, 1);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_2, 7, 2, 1, 1);
-
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_3, 6, 2, 1, 1);
-
-        verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_6, 3, 2, 1, 1);
-
-        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_8, 1, 2, 1, 1);
-
-        widget = new create_widget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        splitter->addWidget(sidebar);
+        layoutWidget = new QWidget(splitter);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        stackedWidget = new QStackedWidget(layoutWidget);
+        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy2);
-        widget->setMinimumSize(QSize(0, 40));
+        sizePolicy2.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy2);
+        stackedWidget->setMinimumSize(QSize(860, 0));
+        stackedWidget->setBaseSize(QSize(0, 0));
 
-        gridLayout_2->addWidget(widget, 8, 1, 1, 2);
+        horizontalLayout->addWidget(stackedWidget);
 
-        stackedWidget = new QStackedWidget(centralwidget);
-        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        verticalLayout_2->addLayout(horizontalLayout);
+
+        widget = new create_widget(layoutWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
-        stackedWidget->setSizePolicy(sizePolicy3);
+        sizePolicy3.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy3);
+        widget->setMinimumSize(QSize(860, 40));
 
-        gridLayout_2->addWidget(stackedWidget, 0, 1, 8, 1);
+        verticalLayout_2->addWidget(widget);
+
+        splitter->addWidget(layoutWidget);
+
+        gridLayout_2->addWidget(splitter, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -367,13 +362,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        becomesmaller->setText(QCoreApplication::translate("MainWindow", "\345\217\230\345\260\217", nullptr));
-        todayButton->setText(QCoreApplication::translate("MainWindow", "\344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
-        expectsButton->setText(QCoreApplication::translate("MainWindow", "\351\242\204\345\256\232\344\273\273\345\212\241", nullptr));
-        extendButton->setText(QCoreApplication::translate("MainWindow", "\345\267\262\345\273\266\346\234\237", nullptr));
-        yestButton->setText(QCoreApplication::translate("MainWindow", "\346\230\250\346\227\245\344\273\273\345\212\241", nullptr));
-        longtermButton->setText(QCoreApplication::translate("MainWindow", "\351\225\277\346\234\237\344\273\273\345\212\241", nullptr));
-        ddlButton->setText(QCoreApplication::translate("MainWindow", "\346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
+        todayButton->setText(QCoreApplication::translate("MainWindow", "  \344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
+        expectsButton->setText(QCoreApplication::translate("MainWindow", "  \351\242\204\345\256\232\344\273\273\345\212\241", nullptr));
+        extendButton->setText(QCoreApplication::translate("MainWindow", "  \345\267\262\345\273\266\346\234\237", nullptr));
+        yestButton->setText(QCoreApplication::translate("MainWindow", "  \346\230\250\346\227\245\344\273\273\345\212\241", nullptr));
+        longtermButton->setText(QCoreApplication::translate("MainWindow", "  \351\225\277\346\234\237\344\273\273\345\212\241", nullptr));
+        ddlButton->setText(QCoreApplication::translate("MainWindow", "  \346\210\252\346\255\242\346\227\245\346\234\237\345\210\206\345\270\203", nullptr));
     } // retranslateUi
 
 };
