@@ -107,6 +107,7 @@ void MainWindow::GetCreat()
 {
     int page=ui->stackedWidget->currentIndex();
     int width=this->width(),height=this->height();
+    bool isFull=isFullScreen();
     ui->setupUi(this);
     oper=new SqliteOperator;
     oper->UpdateTable();
@@ -170,9 +171,9 @@ void MainWindow::GetCreat()
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
     connect(today,SIGNAL(SortSuccess()),this, SLOT(GetCreat()));
     ui->buttonGroup->button(page)->setChecked(true);
-    //ui->stackedWidget->setCurrentIndex(page);
-    if(page){
-        setWindowFlags(Qt::Window);
+    ui->stackedWidget->setCurrentIndex(page);
+    if(isFull){
+        //setWindowFlags(Qt::Window);
         showFullScreen();
     }
     this->resize(width,height);    
