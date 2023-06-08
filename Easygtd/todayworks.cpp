@@ -32,7 +32,15 @@ QStandardItemModel* Todayworks::getTodayWorks()
 
 bool finishCmp(const QStandardItem *left, const QStandardItem *right)   //未完成的在前面，完成的在后面
 {
-    return left->data(Qt::UserRole + 2).toInt() <= right->data(Qt::UserRole + 2).toInt();
+    if(left->data(Qt::UserRole + 2).toInt() < right->data(Qt::UserRole + 2).toInt()){
+        return 1;
+    }
+    else if(left->data(Qt::UserRole + 2).toInt() > right->data(Qt::UserRole + 2).toInt()){
+        return 0;
+    }
+    else{
+        return left->data(Qt::UserRole + 3).toInt() < right->data(Qt::UserRole + 3).toInt();
+    }
 }
 
 void Todayworks::sort(QStandardItemModel* model)
