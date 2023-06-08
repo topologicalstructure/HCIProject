@@ -12,9 +12,9 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <workdisplay.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -23,7 +23,7 @@ class Ui_yesterdayworks
 public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QListView *workView;
+    workDisplay *workView;
 
     void setupUi(QWidget *yesterdayworks)
     {
@@ -51,7 +51,7 @@ public:
 
         verticalLayout->addWidget(label);
 
-        workView = new QListView(yesterdayworks);
+        workView = new workDisplay(yesterdayworks);
         workView->setObjectName(QString::fromUtf8("workView"));
         workView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
 "    background-color:rgb(244,249,210);\n"

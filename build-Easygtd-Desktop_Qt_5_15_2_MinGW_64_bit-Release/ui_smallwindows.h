@@ -50,8 +50,8 @@ public:
             smallwindows->setObjectName(QString::fromUtf8("smallwindows"));
         smallwindows->resize(549, 642);
         smallwindows->setMinimumSize(QSize(35, 35));
-        smallwindows->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
-"    background-color: rgb(255, 255, 255);\n"
+        smallwindows->setStyleSheet(QString::fromUtf8("QMainWindow#smallwindows{\n"
+"    background-color:rgb(229,240,255);\n"
 "}"));
         centralwidget = new QWidget(smallwindows);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
@@ -73,6 +73,9 @@ public:
         QFont font;
         font.setPointSize(18);
         label->setFont(font);
+        label->setStyleSheet(QString::fromUtf8("QLabel#label{\n"
+"    background-color:rgb(229,240,255);\n"
+"}"));
 
         horizontalLayout->addWidget(label);
 
@@ -111,6 +114,7 @@ public:
         QFont font2;
         font2.setPointSize(12);
         becomebig->setFont(font2);
+        becomebig->setStyleSheet(QString::fromUtf8(""));
 
         gridLayout->addWidget(becomebig, 0, 0, 2, 1);
 
@@ -130,6 +134,9 @@ public:
 
         workView = new workDisplay(centralwidget);
         workView->setObjectName(QString::fromUtf8("workView"));
+        workView->setStyleSheet(QString::fromUtf8("workDisplay#workView{\n"
+"    background-color:rgb(229,240,255);\n"
+"}"));
 
         verticalLayout->addWidget(workView);
 
