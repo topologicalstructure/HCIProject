@@ -106,8 +106,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::GetCreat()
 {
     int page=ui->stackedWidget->currentIndex();
-    int width=this->width();
-    int height=this->height();
+    int width=this->width(),height=this->height();
     ui->setupUi(this);
     oper=new SqliteOperator;
     oper->UpdateTable();
@@ -176,5 +175,5 @@ void MainWindow::GetCreat()
         setWindowFlags(Qt::Window);
         showFullScreen();
     }
-    this->resize(width,height);
+    this->resize(width,height);    
 }
