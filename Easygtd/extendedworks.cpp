@@ -16,7 +16,7 @@ extendedworks::extendedworks(QWidget *parent, SqliteOperator* Oper) :
     workDelegateForLTW* myDelegate = new workDelegateForLTW(ui->workView);
     ui->workView->setItemDelegate(myDelegate);
     ui->workView->setModel(extendedWorks);
-    connect(myDelegate,SIGNAL(finishTodayWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
+    connect(myDelegate,SIGNAL(finishLongtermWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
 
     //connect(ui->widget,SIGNAL(worksChange()),this,SLOT(ModelUpdate()));     //用户输入新任务，更新Model
     connect(ui->workView,SIGNAL(DdeleteWork(int)),this,SLOT(deleteWork(int)));

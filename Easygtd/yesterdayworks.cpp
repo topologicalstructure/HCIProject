@@ -34,7 +34,7 @@ QStandardItemModel* yesterdayworks::getYesterdayWorks()
     return yesterdayWorks;
 }
 
-bool finishCmp1(const QStandardItem *left, const QStandardItem *right)   //未完成的在前面，完成的在后面
+bool finishCmp2(const QStandardItem *left, const QStandardItem *right)   //未完成的在前面，完成的在后面
 {
     if(left->data(Qt::UserRole + 2).toInt() < right->data(Qt::UserRole + 2).toInt()){
         return 1;
@@ -53,7 +53,7 @@ void yesterdayworks::sort(QStandardItemModel* model)
     QList<QStandardItem*> list;
     for(int i = 0; i < model->rowCount(); i++)
         list.append(model->item(i,0)->clone());
-    std::sort(list.begin(),list.end(),finishCmp1);
+    std::sort(list.begin(),list.end(),finishCmp2);
     //delete todayWorks;
     yesterdayWorks = new QStandardItemModel(this);
     qDebug()<<"排序了！！";

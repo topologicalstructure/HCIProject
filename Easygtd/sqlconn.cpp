@@ -373,7 +373,7 @@ void SqliteOperator::ChangeExtended(int id,QString sdate,QString edate,QString c
 void SqliteOperator::FinishExtended(int id,int finish)
 {
     QSqlQuery sqlQuery;
-    sqlQuery.prepare("update extendedmwork set complete=? where id=?");
+    sqlQuery.prepare("update extendedwork set complete=? where id=?");
     sqlQuery.addBindValue(finish);
     sqlQuery.addBindValue(id);
     if(!sqlQuery.exec())

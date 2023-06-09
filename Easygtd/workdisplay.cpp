@@ -382,6 +382,9 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     if(etime != stime){
         uint currentLong = ctime - stime, totalLong = etime - stime;
         proportion = (double)currentLong / totalLong;
+        if(proportion>1.0){
+            proportion=1.0;
+        }
         qDebug()<<"计算拉！"<<currentLong<<" / "<<totalLong<<" = "<<(double)currentLong / totalLong;
     }
     else{
