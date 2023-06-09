@@ -179,16 +179,10 @@ void smallwindows::GetWeather(QNetworkReply *reply)
     QString temperature =obj["results"].toArray()[0].toObject()["now"].toObject()["temperature"].toString();
     QString city =obj["results"].toArray()[0].toObject()["location"].toObject()["name"].toString();
     QString text =obj["results"].toArray()[0].toObject()["now"].toObject()["text"].toString();
-    /*
-     * 更新天气信息
-    */
-    //QString str=city+":"+text+","+temperature+"℃";
     ui->weawid->code=code;
     ui->weawid->tempe=temperature;
     ui->weawid->wea=text;
     ui->weawid->Update();
-    //ui->label->setText(str);
-    //qDebug()<<city+":"+text+","+temperature+"℃";
 }
 
 void smallwindows::slotCountMessage()
@@ -299,5 +293,31 @@ void smallwindows::setButton()
 
 void smallwindows::GetCreat()
 {
-
+    ui->setupUi(this);
+    oper=new SqliteOperator;
+    todayWorks = new QStandardItemModel();
+    ModelUpdate();
+    //设置按钮图标
+    QIcon icon1,icon2;
+    ui->workView->setModel(todayWorks);
+    icon1.addFile(tr("icons8-full-screen-100.png"));
+    icon2.addFile(tr("icons8-close-100.png"));
+    ui->becomebig->setIcon(icon1);
+    ui->becomebig->setIconSize(QSize(50,50));
+    ui->CloseButton->setIcon(icon2);
+    ui->CloseButton->setIconSize(QSize(30,30));
+    ui->CloseButton->setStyleSheet("background-color:rgba(0,0,0,0)");
+    workDelegate* myDelegate = new workDelegate(ui->workView);
+    ui->workView->setItemDelegate(myDelegate);
+    ui->workView->setModel(todayWorks);
+    connect(myDelegate,SIGNAL(finishTodayWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
+    //connect(ui->widget,SIGNAL(worksChange()),this,SLOT(ModelUpdate()));     //用户输入新任务，更新Model
+    connect(ui->workView,SIGNAL(DdeleteWork(int)),this,SLOT(deleteWork(int)));
+    connect(ui->workView,SIGNAL(DfinishWork(int)),this,SLOT(finishWork(int)));
+    connect(ui->becomebig,SIGNAL(clicked(bool)),this,SLOT(on_becomebig_clicked()));
+    connect(ui->CloseButton,SIGNAL(clicked(bool)),this,SLOT(on_CloseButton_clicked()));
+    connect(ui->workView,SIGNAL(DfinishWork(int)),this,SLOT(finishWork(int)));
+    connect(ui->workView,SIGNAL(DupdateWork(int,QString)),this,SLOT(updateWork(int,QString)));  //用户编辑任务，更新数据库
+    connect(ui->widget_2,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
+    manager.get(request);
 }
