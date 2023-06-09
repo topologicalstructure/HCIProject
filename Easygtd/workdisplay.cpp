@@ -50,33 +50,6 @@ void workDisplay::deleteWorkinModel()
     this->model()->removeRow(this->currentIndex().row());   //删除当前任务
 }
 
-//void workDisplay::mouseMoveEvent(QMouseEvent *event)
-//{
-//    //qDebug()<<"???";
-//    if(event->pos().x() + buttonSize >= this->width())
-//    {
-//        qDebug()<<"???我按钮呢";
-//        this->repaint();
-//    }
-//}
-
-//void workDisplay::setButton()
-//{
-//    QString normal, press, hover;
-//    normal = "./normal.png";
-//    press= "./press.png";
-//    hover = "./hover.png";
-//    //qDebug()<<"这里还没问题？";
-//    for(int i = 0; i < this->model()->rowCount(); i++)
-//    {
-//        workDoneButton* button = new workDoneButton(0,normal,hover,press,this->model()->index(i,0).data(Qt::UserRole + 3).toInt());
-//        button->setFixedSize(buttonSize, buttonSize);
-//        this->setIndexWidget(this->model()->index(i,0), button);
-//        QRect rect = this->visualRect(this->model()->index(i,0));
-//        button->move(rect.right() - buttonSize,rect.top());
-//    }
-//}
-
 
 workDelegate::workDelegate(QWidget *parent) : QStyledItemDelegate(parent)
 {
@@ -285,7 +258,7 @@ bool workDelegateForLTW::editorEvent(QEvent *event, QAbstractItemModel *model, c
         QMouseEvent *mevent = static_cast<QMouseEvent*>(event);
         if(butRect.contains(mevent->pos()) && isFinish)
         {
-            qDebug()<<"任务完成了";
+            qDebug()<<"长期任务完成了";
             model->setData(index, 1, Qt::UserRole + 2);                     //完成任务
             emit finishLongtermWork(index.data(Qt::UserRole + 3).toInt());     //发送任务完成信号
         }
@@ -357,9 +330,20 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     sDateRect.setHeight(option.rect.height());
 
     pgBarRect.setX(sDateRect.right());
-    pgBarRect.setY(option.rect.y());
+    pgBarRect.setY(option.rect.y() + option.rect.height()/3);
     pgBarRect.setWidth(realWidth * 2 / 9);
-    pgBarRect.setHeight(option.rect.height());
+    pgBarRect.setHeight(option.rect.height() / 3);
+    //进度条框
+    QPainterPath path;
+    path.moveTo(pgBarRect.topRight());
+    path.lineTo(pgBarRect.topLeft());
+    path.quadTo(pgBarRect.topLeft(), pgBarRect.topLeft());
+    path.lineTo(pgBarRect.bottomLeft());
+    path.quadTo(pgBarRect.bottomLeft(), pgBarRect.bottomLeft());
+    path.lineTo(pgBarRect.bottomRight());
+    path.quadTo(pgBarRect.bottomRight(), pgBarRect.bottomRight());
+    path.lineTo(pgBarRect.topRight());
+    path.quadTo(pgBarRect.topRight(), pgBarRect.topRight());
 
     eDateRect.setX(pgBarRect.right());
     eDateRect.setY(option.rect.y());
@@ -394,28 +378,34 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     uint stime = start.toTime_t();
     uint etime = end.toTime_t();
     uint ctime = current.toTime_t();
-    double proportion=0;
+    double proportion = 0;
     if(etime != stime){
-        proportion = (ctime - stime) / (etime - stime);
+        uint currentLong = ctime - stime, totalLong = etime - stime;
+        proportion = (double)currentLong / totalLong;
+        qDebug()<<"计算拉！"<<currentLong<<" / "<<totalLong<<" = "<<(double)currentLong / totalLong;
     }
     else{
-        if(ctime - stime>0){
+        if(ctime - stime > 0){
             proportion = 1;
+        qDebug()<<"什么鬼？";
         }
     }
     if(proportion > 0)
     {
-        int r,g,b;
-        if(proportion < 0.33)               //绿色
-            r=0,g=50,b=15;
-        else if(proportion < 0.66)           //黄色
-            r=0,g=50,b=55;
-        else                                 //红色
-            r=50,g=0,b=0;
-        painter->setBrush(QBrush(QColor(r,g,b)));
-        painter->drawRoundRect(pgBarRect);
-    }
+        painter->setPen(QPen(Qt::black));
+        painter->drawPath(path);
+//        int r,g,b;
+        if(proportion < 0.33)                       //绿色
+            painter->setBrush(QBrush(Qt::green));
+        else if(proportion < 0.66)                  //黄色
+            painter->setBrush(QBrush(Qt::yellow));
+        else                                        //红色
+            painter->setBrush(QBrush(Qt::red));
 
+        pgBarRect.setWidth(pgBarRect.width() * proportion);
+        painter->drawRect(pgBarRect);
+    }
+    qDebug()<<"stime = "<<stime<<" etime = "<<etime<<" ctime = "<<ctime<<"The proportion is "<<proportion;
 
     if(option.state.testFlag(QStyle::State_MouseOver))  //鼠标悬浮
     {
@@ -455,8 +445,8 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     painter->setFont(QFont("Microsoft Yahei", 10));
     painter->drawText(textRect, Qt::AlignVCenter,index.data(Qt::UserRole + 1).toString());
-    painter->drawText(sDateRect, Qt::AlignVCenter,index.data(Qt::UserRole + 4).toString());
-    painter->drawText(eDateRect, Qt::AlignVCenter,index.data(Qt::UserRole + 5).toString());
+    painter->drawText(sDateRect, Qt::AlignVCenter|Qt::AlignHCenter,index.data(Qt::UserRole + 4).toString());
+    painter->drawText(eDateRect, Qt::AlignVCenter|Qt::AlignHCenter,index.data(Qt::UserRole + 5).toString());
 
     painter->restore();
 }

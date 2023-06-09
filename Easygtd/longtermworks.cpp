@@ -17,7 +17,7 @@ longtermworks::longtermworks(QWidget *parent, SqliteOperator* Oper) :
     workDelegateForLTW* myDelegate = new workDelegateForLTW(ui->workView);
     ui->workView->setItemDelegate(myDelegate);
     ui->workView->setModel(longtermWorks);
-    connect(myDelegate,SIGNAL(finishTodayWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
+    connect(myDelegate,SIGNAL(finishLongtermWork(int)),ui->workView,SIGNAL(DfinishWork(int)));
 
     //connect(ui->widget,SIGNAL(worksChange()),this,SLOT(ModelUpdate()));     //用户输入新任务，更新Model
     connect(ui->workView,SIGNAL(DdeleteWork(int)),this,SLOT(deleteWork(int)));
@@ -25,18 +25,18 @@ longtermworks::longtermworks(QWidget *parent, SqliteOperator* Oper) :
     connect(ui->workView,SIGNAL(DupdateWork(int,QString)),this,SLOT(updateWork(int,QString)));  //用户编辑任务，更新数据库
 
 }
-bool finishCmp(const QStandardItem *left, const QStandardItem *right);   //未完成的在前面，完成的在后面
-//{
-//    if(left->data(Qt::UserRole + 2).toInt() < right->data(Qt::UserRole + 2).toInt()){
-//        return 1;
-//    }
-//    else if(left->data(Qt::UserRole + 2).toInt() > right->data(Qt::UserRole + 2).toInt()){
-//        return 0;
-//    }
-//    else{
-//        return left->data(Qt::UserRole + 3).toInt() < right->data(Qt::UserRole + 3).toInt();
-//    }
-//}
+bool finishCmp1(const QStandardItem *left, const QStandardItem *right)   //未完成的在前面，完成的在后面
+{
+    if(left->data(Qt::UserRole + 2).toInt() < right->data(Qt::UserRole + 2).toInt()){
+        return 1;
+    }
+    else if(left->data(Qt::UserRole + 2).toInt() > right->data(Qt::UserRole + 2).toInt()){
+        return 0;
+    }
+    else{
+        return left->data(Qt::UserRole + 3).toInt() < right->data(Qt::UserRole + 3).toInt();
+    }
+}
 
 void longtermworks::sort(QStandardItemModel* model)
 {
@@ -44,7 +44,7 @@ void longtermworks::sort(QStandardItemModel* model)
     QList<QStandardItem*> list;
     for(int i = 0; i < model->rowCount(); i++)
         list.append(model->item(i,0)->clone());
-    std::sort(list.begin(),list.end(),finishCmp);
+    std::sort(list.begin(),list.end(),finishCmp1);
     //delete todayWorks;
     longtermWorks = new QStandardItemModel(this);
     qDebug()<<"排序了！！";
