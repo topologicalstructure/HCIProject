@@ -60,7 +60,7 @@ void create_widget::keyPressEvent(QKeyEvent *event)
     }
     SqliteOperator oper;
     if(ui->pushButton->text()=="单日"){
-        if(ui->dateEdit->dateTime()==QDateTime::currentDateTime()){
+        if(ui->dateEdit->date()==ui->dateEdit->minimumDate()){
             oper.AddToday(ui->lineEdit->text());//添加今日任务
         }
         else{

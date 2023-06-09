@@ -172,7 +172,6 @@ void MainWindow::GetCreat()
     connect(ui->widget,SIGNAL(CreateSuccess()),this, SLOT(GetCreat()));
     ui->buttonGroup->button(page)->setChecked(true);
     ui->stackedWidget->setCurrentIndex(page);
-
     if(isFull){
         setWindowFlags(Qt::Window);
         showFullScreen();

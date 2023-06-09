@@ -30,6 +30,9 @@ class smallwindows : public QMainWindow
 public:
     explicit smallwindows(QWidget *parent = nullptr, SqliteOperator* Oper = nullptr, QStandardItemModel* model = nullptr);
     ~smallwindows();
+    void sort(QStandardItemModel* model);
+    //    bool finishCmp(const QStandardItem* left, const QStandardItem* right);
+    QStandardItemModel* getTodayWorks();
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event);    //鼠标点击事件
@@ -54,10 +57,16 @@ private:
     void ShowWindow();             //显示窗口
     SqliteOperator* oper;
     QStandardItemModel* todayWorks;
+    void setButton();
 
 private slots:
     void on_CloseButton_clicked();
     void on_becomebig_clicked();
+    void updateWork(int id, QString nContent);
+    void deleteWork(int id);
+    void finishWork(int id);
+    void ModelUpdate();         //更新任务Model
+    void GetCreat();
 
 public slots:
     void slotCountMessage();       //定时触发的槽函数
