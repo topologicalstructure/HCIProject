@@ -381,7 +381,12 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     double proportion = 0;
     if(etime != stime){
         uint currentLong = ctime - stime, totalLong = etime - stime;
-        proportion = (double)currentLong / totalLong;
+        if(ctime<stime){
+            proportion=0;
+        }
+        else{
+            proportion = (double)currentLong / totalLong;
+        }
         if(proportion>1.0){
             proportion=1.0;
         }
@@ -390,10 +395,13 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
     else{
         if(ctime - stime > 0){
             proportion = 1;
-        qDebug()<<"什么鬼？";
+            qDebug()<<"什么鬼？";
+        }
+        if(ctime<stime){
+            proportion=0;
         }
     }
-    if(proportion > 0)
+    if(proportion >= 0)
     {
         painter->setPen(QPen(Qt::black));
         painter->drawPath(path);
