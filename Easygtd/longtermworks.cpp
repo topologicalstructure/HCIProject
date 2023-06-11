@@ -27,6 +27,52 @@ longtermworks::longtermworks(QWidget *parent, SqliteOperator* Oper) :
 }
 bool finishCmp1(const QStandardItem *left, const QStandardItem *right)   //未完成的在前面，完成的在后面
 {
+    uint stime1 = QDateTime::fromString((left->data(Qt::UserRole + 4).toString()+ QString(" 00:00:00")), "yyyy-MM-dd hh:mm:ss").toTime_t();
+    uint etime1 = QDateTime::fromString((left->data(Qt::UserRole + 5).toString()+ QString(" 23:59:59")), "yyyy-MM-dd hh:mm:ss").toTime_t();
+    uint stime2 = QDateTime::fromString((right->data(Qt::UserRole + 4).toString()+ QString(" 00:00:00")), "yyyy-MM-dd hh:mm:ss").toTime_t();
+    uint etime2 = QDateTime::fromString((right->data(Qt::UserRole + 5).toString()+ QString(" 23:59:59")), "yyyy-MM-dd hh:mm:ss").toTime_t();
+    uint ctime = QDateTime::currentDateTime().toTime_t();
+    double proportion1 = 0,proportion2 = 0;
+    if(etime1 != stime1){
+        uint currentLong = ctime - stime1, totalLong = etime1 - stime1;
+        if(ctime<stime1){
+            proportion1=0;
+        }
+        else{
+            proportion1 = (double)currentLong / totalLong;
+        }
+        if(proportion1>1.0){
+            proportion1=1.0;
+        }
+    }
+    else{
+        if(ctime - stime1 > 0){
+            proportion1 = 1;
+        }
+        if(ctime<stime1){
+            proportion1=0;
+        }
+    }
+    if(etime2 != stime2){
+        uint currentLong = ctime - stime2, totalLong = etime2 - stime2;
+        if(ctime<stime2){
+            proportion2=0;
+        }
+        else{
+            proportion2 = (double)currentLong / totalLong;
+        }
+        if(proportion2>1.0){
+            proportion2=1.0;
+        }
+    }
+    else{
+        if(ctime - stime2 > 0){
+            proportion2 = 1;
+        }
+        if(ctime<stime2){
+            proportion2=0;
+        }
+    }
     if(left->data(Qt::UserRole + 2).toInt() < right->data(Qt::UserRole + 2).toInt()){
         return 1;
     }
@@ -34,7 +80,7 @@ bool finishCmp1(const QStandardItem *left, const QStandardItem *right)   //未�
         return 0;
     }
     else{
-        return left->data(Qt::UserRole + 3).toInt() < right->data(Qt::UserRole + 3).toInt();
+        return proportion1 > proportion2;
     }
 }
 

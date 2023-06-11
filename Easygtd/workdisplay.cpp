@@ -369,7 +369,7 @@ void workDelegateForLTW::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     //绘制进度条
     QString startTime = index.data(Qt::UserRole + 4).toString() + QString(" 00:00:00");
-    QString endTime = index.data(Qt::UserRole + 5).toString() + QString(" 00:00:00");
+    QString endTime = index.data(Qt::UserRole + 5).toString() + QString(" 23:59:59");
 
     QDateTime current= QDateTime::currentDateTime();//获取系统当前的时间
     QDateTime start = QDateTime::fromString(startTime, "yyyy-MM-dd hh:mm:ss");
